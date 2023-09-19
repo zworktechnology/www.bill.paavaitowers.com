@@ -36,23 +36,11 @@
                                             height="100" class="logo-light" />
                                     </div>
                                     <div class="col-10" style="text-align: center;">
-                                        <h1 style="color: #ea5c0b; font-family: 'Cinzel Decorative', cursive; font-weight: bold;">Sri Maruti Inn</h1>
-                                        @if ($data->branch_id == 1)
+                                        <h1 style="color: #ea5c0b; font-family: 'Cinzel Decorative', cursive; font-weight: bold;">Paavai Towers</h1>
                                             <p style="color: #1e2739; margin-bottom: 0rem;">No. 122, South Chitra Street,
                                                 Near Second Entrance, Srirangam, Tiruchirappalli - 620006.</p>
                                             <p style="color: #1e2739">Ph: 0431-2435749 | Cell: 96594 64543 | GSTIN:
                                                 33AEFPR0922K1ZK</p>
-                                        @elseif ($data->branch_id == 2)
-                                            <p style="color: #1e2739; margin-bottom: 0rem;">No. 1, Sakthi Avenue, Koil
-                                                Marriage Hall Opp, Samayapuram, Tiruchirappalli - 621112.</p>
-                                            <p style="color: #1e2739">Ph: 0431-2670060 | Cell: 96594 64249 | GSTIN:
-                                                33AEFPR0922K1ZK</p>
-                                        @else
-                                            <p style="color: #1e2739; margin-bottom: 0rem;">No. 4, Mass Garden, Salem Main
-                                                Road, Gunaseelam, Tiruchirappalli - 621204.</p>
-                                            <p style="color: #1e2739">Ph: 0431-6275275 | Cell: 90253 43955 | GSTIN:
-                                                33AEFPR0922K1ZK</p>
-                                        @endif
                                     </div>
                                 </div>
 
@@ -166,7 +154,7 @@
                                         </div>
                                         <div class="col-sm-6 col-6" style="text-align: end;">
                                             <br><br><br>
-                                            <h6 class="m-0">For <span style="font-family: 'Cinzel Decorative', cursive; font-weight: bold;">Sri Maruti Inn</span></h6>
+                                            <h6 class="m-0">For <span style="font-family: 'Cinzel Decorative', cursive; font-weight: bold;">Paavai Towers</span></h6>
                                         </div>
                                     </div>
 

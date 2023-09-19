@@ -38,7 +38,13 @@
                         <span>{{ __('messages.dashboard_title') }}</span>
                     </a>
                 </li>
-                <li class="{{ Route::is('booking.index','booking.create','booking.edit','booking.view','booking.today','booking.upcoming','booking.missingout') ? 'mm-active' : '' }}">
+                <li class="{{ Route::is('booking.index','booking.today','booking.upcoming','booking.missingout','booking.create', 'booking.datefilter') && request()->route('user_branch_id') == 1 ? 'mm-active' : '' }}">
+                    <a href="{{ route('booking.index', ['user_branch_id' => '1']) }}" class="waves-effect">
+                        <i class="uil-store"></i>
+                        <span>{{ __('messages.booking_title') }}</span>
+                    </a>
+                </li>
+                {{-- <li class="{{ Route::is('booking.index','booking.create','booking.edit','booking.view','booking.today','booking.upcoming','booking.missingout') ? 'mm-active' : '' }}">
                     <a href="javascript: void(0);" class="waves-effect {{ Route::is('booking.index','booking.create','booking.edit', 'booking.view') ? 'mm-active' : '' }}">
                         <i class="uil-store"></i>
                         <span>{{ __('messages.booking_title') }}</span>
@@ -48,14 +54,26 @@
                         <li class="{{ Route::is('booking.index','booking.today','booking.upcoming','booking.missingout','booking.create', 'booking.datefilter') && request()->route('user_branch_id') == 2 ? 'mm-active' : '' }}"><a href="{{ route('booking.index', ['user_branch_id' => '2']) }}">{{ __('messages.samayapuram_title') }}</a></li>
                         <li class="{{ Route::is('booking.index','booking.today','booking.upcoming','booking.missingout','booking.create', 'booking.datefilter') && request()->route('user_branch_id') == 3 ? 'mm-active' : '' }}"><a href="{{ route('booking.index', ['user_branch_id' => '3']) }}">{{ __('messages.gunaseelam_title') }}</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="{{ Route::is('namelist.index','namelist.create','namelist.edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('namelist.index') }}" class="waves-effect">
                         <i class="uil-users-alt"></i>
                         <span>I/E Master</span>
                     </a>
                 </li>
-                <li class="{{ Route::is('income.index','income.create','income.edit', 'income.datefilter') ? 'mm-active' : '' }}">
+                <li class="{{ Route::is('income.index', 'income.datefilter') && request()->route('user_branch_id') == 1 ? 'mm-active' : '' }}">
+                    <a href="{{ route('income.index', ['user_branch_id' => '1']) }}" class="waves-effect">
+                        <i class="uil-money-withdraw"></i>
+                        <span>{{ __('messages.otherincome_title') }}</span>
+                    </a>
+                </li>
+                <li class="{{ Route::is('expense.index', 'expense.datefilter') && request()->route('user_branch_id') == 1 ? 'mm-active' : '' }}">
+                    <a href="{{ route('expense.index', ['user_branch_id' => '1']) }}" class="waves-effect">
+                        <i class="uil-money-withdraw"></i>
+                        <span>{{ __('messages.expense_title') }}</span>
+                    </a>
+                </li>
+                {{-- <li class="{{ Route::is('income.index','income.create','income.edit', 'income.datefilter') ? 'mm-active' : '' }}">
                     <a href="javascript: void(0);" class="waves-effect {{ Route::is('income.index','income.create','income.edit') ? 'mm-active' : '' }}">
                         <i class="uil-money-withdraw"></i>
                         <span>{{ __('messages.otherincome_title') }}</span>
@@ -76,7 +94,7 @@
                         <li class="{{ Route::is('expense.index', 'expense.datefilter') && request()->route('user_branch_id') == 2 ? 'mm-active' : '' }}"><a href="{{ route('expense.index', ['user_branch_id' => '2']) }}">{{ __('messages.samayapuram_title') }}</a></li>
                         <li class="{{ Route::is('expense.index', 'expense.datefilter') && request()->route('user_branch_id') == 3 ? 'mm-active' : '' }}"><a href="{{ route('expense.index', ['user_branch_id' => '3']) }}">{{ __('messages.gunaseelam_title') }}</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="{{ Route::is('openaccount.index','openaccount.create','openaccount.edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('openaccount.index') }}" class="waves-effect">
                         <i class="uil-lock-open-alt"></i>

@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>Sri Maruti Inn - Zwork Technology | Custom Software</title>
+<title>Paavai Towers - Room Booking Software</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- App favicon -->
