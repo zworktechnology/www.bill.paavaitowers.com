@@ -108,12 +108,12 @@
                     </a>
                 </li>
 
-                <li class="{{ Route::is('branch.index','branch.create','branch.edit','branch.view') ? 'mm-active' : '' }}">
+                {{-- <li class="{{ Route::is('branch.index','branch.create','branch.edit','branch.view') ? 'mm-active' : '' }}">
                     <a href="{{ route('branch.index') }}" class="waves-effect">
                         <i class="uil-map-pin-alt"></i>
                         <span>{{ __('messages.branch_title') }}</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="{{ Route::is('room.index','room.create','room.edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('room.index') }}" class="waves-effect">
                         <i class="uil-key-skeleton-alt"></i>
