@@ -34,18 +34,6 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
-                                                {{ __('messages.branch_title') }} <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-4">
-                                                    <select class="form-control branch_id"
-                                                        name="branch_id" id="branch_id" required>
-                                                        <option value="" selected hiddden>Select One</option>
-                                                        @foreach ($branch as $branchs)
-                                                            <option value="{{ $branchs->id }}">{{ $branchs->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
                                             </div>
 
                                             <div class="row mb-4">

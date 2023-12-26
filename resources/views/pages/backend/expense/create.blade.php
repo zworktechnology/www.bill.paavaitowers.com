@@ -17,19 +17,6 @@
                 </div>
                 <div class="row mb-4">
                     <label for="horizontal-firstname-input" class="col-sm-3 col-form-label" hidden>
-                        Branch </label>
-                    <div class="col-sm-12">
-                        <select class="form-control js-example-basic-single" name="branch_id" required>
-                            <option value="" disabled selected hidden class="text-muted">
-                                Select branch *</option>
-                            @foreach ($branch as $branchs)
-                            <option value="{{ $branchs->id }}" @if ($branchs->id == $user_branch_id) selected='selected' @endif>{{ $branchs->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="row mb-4">
-                    <label for="horizontal-firstname-input" class="col-sm-3 col-form-label" hidden>
                         Expence to </label>
                     <div class="col-sm-12">
                         <select class="form-control js-example-basic-single" name="namelist_id" required>

@@ -21,7 +21,7 @@ return new class extends Migration
             // Request columns
             $table->string('date');
             $table->string('amount');
-            $table->unsignedBigInteger('branch_id');
+            $table->unsignedBigInteger('branch_id')->nullable();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->boolean('soft_delete')->default(0);
 

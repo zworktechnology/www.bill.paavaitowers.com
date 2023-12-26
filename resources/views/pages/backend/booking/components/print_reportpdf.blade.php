@@ -22,16 +22,6 @@
                             <div class="card-body">
                                 <hr>
                                 <div class="row" style="display: flex;">
-                                    <div class="col-sm-8 col-8">
-                                        <div class="text-muted">
-                                            
-                                            <div class="mt-4">
-                                                <h5 class="font-size-16 mb-1">
-                                                    Branch : <span style="color: #acafb7;">{{ $branch->name }}</span>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="col-sm-4 col-4" style="text-align: end;">
                                         <div class="text-muted text-sm-end">
                                             <div>
@@ -69,7 +59,7 @@
                                             <thead>
                                                 <tr>
                                                    <th>Sl.No</th>
-                                                    <th>Name</th>
+                                                    <th>Customer</th>
                                                     <th>Contact Number</th>
                                                     <th>Proof Image</th>
                                                     <th>CheckIn Date</th>

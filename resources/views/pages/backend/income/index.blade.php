@@ -11,7 +11,7 @@
                         <div class="page-title-right">
 
                             <ol class="breadcrumb m-0">
-                            <form autocomplete="off" method="POST" action="{{ route('income.datefilter', ['user_branch_id' => $user_branch_id]) }}" style="display: flex;">
+                            <form autocomplete="off" method="POST" action="{{ route('income.datefilter') }}" style="display: flex;">
                             @method('PUT')
                             @csrf
 
@@ -73,7 +73,6 @@
                                     <tr>
                                         <th>{{ __('messages.sno_title') }}</th>
                                         <th>{{ __('messages.date') }}</th>
-                                        <th>{{ __('messages.branch_title') }}</th>
                                         <th>{{ __('messages.expense_title') }} to</th>
                                         <th>{{ __('messages.manager_title') }}</th>
                                         <th>{{ __('messages.amount_title') }}</th>
@@ -86,7 +85,6 @@
                                     <tr>
                                         <td>{{ ++$keydata }}</td>
                                         <td>{{ date('d M, Y', strtotime($datas->date)) }}</td>
-                                        <td>{{ $datas->branch->name }}</td>
                                         <td>{{ $datas->namelist->name }}</td>
                                         <td>{{ $datas->staff->name }}</td>
                                         <td>₹ {{ $datas->amount }}</td>

@@ -11,7 +11,7 @@
                         <div class="page-title-right">
 
                             <ol class="breadcrumb m-0">
-                            <form autocomplete="off" method="POST" action="{{ route('expense.datefilter', ['user_branch_id' => $user_branch_id]) }}" style="display: flex;">
+                            <form autocomplete="off" method="POST" action="{{ route('expense.datefilter') }}" style="display: flex;">
                             @method('PUT')
                             @csrf
 
@@ -19,7 +19,7 @@
                                 <li style="margin-left: 10px;"><button type="submit" class="btn btn-primary home_search">Search</button></li>
                                 </form>
                                 <li style="margin-left: 10px;">
-                                    <a href="{{ route('expense.index', ['user_branch_id' => $user_branch_id]) }}">
+                                    <a href="{{ route('expense.index') }}">
                                         <button type="button" class="btn btn-primary waves-effect waves-light">
                                             Back
                                         </button>
@@ -68,7 +68,6 @@
                                     <tr>
                                         <th>Sl. No</th>
                                         <th>Date</th>
-                                        <th>Branch</th>
                                         <th>Expence to</th>
                                         <th>Manager</th>
                                         <th>Amount</th>
@@ -81,7 +80,6 @@
                                     <tr>
                                     <td>{{ ++$keydata }}</td>
                                         <td>{{ $expense_array['date'] }}</td>
-                                        <td>{{ $expense_array['branch'] }}</td>
                                         <td>{{ $expense_array['namelist'] }}</td>
                                         <td>{{ $expense_array['staff'] }}</td>
                                         <td>₹ {{ $expense_array['amount'] }}</td>

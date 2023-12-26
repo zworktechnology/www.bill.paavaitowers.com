@@ -13,9 +13,8 @@ class OpenAccountController extends Controller
     {
         $today = Carbon::now()->format('Y-m-d');
         $data = OpenAccount::where('soft_delete', '!=', 1)->orderBy('created_at', 'desc')->get();
-        $branch = Branch::where('soft_delete', '!=', 1)->get();
 
-        return view('pages.backend.openaccount.index', compact('today', 'data', 'branch'));
+        return view('pages.backend.openaccount.index', compact('today', 'data'));
     }
 
     public function store(Request $request)
@@ -34,9 +33,8 @@ class OpenAccountController extends Controller
     public function edit($id)
     {
         $data = OpenAccount::findOrFail($id);
-        $branch = Branch::where('soft_delete', '!=', 1)->get();
 
-        return view('pages.backend.openaccount.edit', compact('data', 'branch'));
+        return view('pages.backend.openaccount.edit', compact('data'));
     }
 
     public function update(Request $request, $id)

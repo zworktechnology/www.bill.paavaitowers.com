@@ -13,8 +13,11 @@ class BookingPayment extends Model
         'booking_id',
         'term',
         'payable_amount',
+        'check_in_staff',
+        'check_out_staff',
         'paid_date',
         'payment_method',
+        'webstatus',
         'soft_delete'
     ];
 

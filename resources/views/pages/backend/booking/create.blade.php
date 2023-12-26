@@ -15,590 +15,784 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form autocomplete="off" method="POST" action="{{ route('booking.store') }}"
-                                    enctype="multipart/form-data">
-                                    @csrf
+                                
                                     <div class="modal-body">
-                                        <div class="modal-body">
-                                            <h4 class="card-title mb-4" style="color: #5b73e8">Profile</h4>
-                                            <div class="row mb-4">
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    Customer Name <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-9">
-                                                    <input type="name" class="form-control booking_customer_name"
-                                                        name="booking_customer_name" placeholder="Enter here " required>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-4">
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    Contact Number <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-4">
-                                                    <input type="number" class="form-control phone_number"
-                                                        name="phone_number" id="phone_number" placeholder="Enter here "
-                                                        required>
-                                                    <div class="phonenumber_list" style="display:none"></div>
-                                                    <div class="form-check mt-2">
-                                                        <input type="checkbox" class="form-check-input whatsapp_check"
-                                                            id="formrow-customCheck">
-                                                        <label class="form-check-label" for="formrow-customCheck">Same as
-                                                            Whatsapp number</label>
-                                                    </div>
-                                                </div>
-                                                {{ csrf_field() }}
-                                                <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
-                                                    Whatsapp <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-4">
-                                                    <input type="number" class="form-control whats_app_number"
-                                                        name="whats_app_number" placeholder="Enter here " required>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-4">
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    Email ID </label>
-                                                <div class="col-sm-4">
-                                                    <input type="email" class="form-control email_id" name="email_id"
-                                                        placeholder="Enter here ">
-                                                </div>
-                                                <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
-                                                    Address </label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control address" name="address"
-                                                        placeholder="Enter here ">
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-4">
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    GST Number </label>
-                                                <div class="col-sm-9">
-                                                    <input type="name" class="form-control" name="gst_number"
-                                                        placeholder="Enter here ">
-                                                </div>
-                                            </div>
-
-                                            <hr>
-                                            <h4 class="card-title mb-4" style="color: #5b73e8">Head Rooms</h4>
-
-                                            <div class="row mb-4">
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    Count <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="male_count"
-                                                        placeholder="Male Count - Enter here " required>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="female_count"
-                                                        placeholder="Female Count- Enter here " required>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="child_count"
-                                                        placeholder="Child Count - Enter here " required>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    Check In Date <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-4">
-                                                    <input type="date" class="form-control check_in_date"
-                                                        name="check_in_date" placeholder="Enter here "
-                                                        value="{{ $today }}" required>
-                                                </div>
-                                                <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
-                                                    Time <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-4">
-                                                    <input type="time" class="form-control" name="check_in_time"
-                                                        placeholder="Enter here " value="{{ $timenow }}" required>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    No of Days - Stay <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" class="form-control days" id="days"
-                                                        name="days" placeholder="Enter here " required>
-                                                </div>
-                                                <label for="horizontal-firstname-input" class="col-sm-2 col-form-label">
-                                                    Couple Friendly <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-1" style="margin-top: 10px;">
-                                                    <input type="radio" class="form-check-input"
-                                                            name="couple" value="1">
-                                                        <label class="form-check-label">Yes</label>
-                                                </div>
-                                                <div class="col-sm-2" style="margin-top: 10px;">
-                                                    <input type="radio" class="form-check-input"
-                                                            name="couple" checked value="0">
-                                                        <label class="form-check-label">No</label>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4">
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    Check Out Date </label>
-                                                <div class="col-sm-4">
-                                                    <input type="date" class="form-control check_out_date"
-                                                        name="check_out_date" placeholder="Enter here " value="">
-                                                </div>
-                                                <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
-                                                    Time </label>
-                                                <div class="col-sm-4">
-                                                    <input type="time" class="form-control" name="check_out_time"
-                                                        placeholder="Enter here " value="{{ $timenow }}">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4" hidden>
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    Branch <span style="color: red;">*</span> </label>
-                                                <div class="col-sm-9">
-                                                    <select class="form-control branch_id" name="branch_id"
-                                                        id="branch_id" required>
-
-                                                        @foreach ($branch as $branchs)
-                                                            <option value="{{ $branchs->id }}">{{ $branchs->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
-
-                                            <div data-repeater-list="group-a">
-                                                <div data-repeater-item class="row">
-                                                    <div class="inner-repeater mb-4">
-                                                        <div data-repeater-list="inner-group" class="inner form-group">
-                                                            <div data-repeater-item class="inner mb-3 row">
-                                                                <div class="col-sm-3">
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-form-label">
-                                                                        Room Details <span style="color: red;">*</span>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="dynamic_field col-sm-9">
-                                                                    <table class="table-fixed col-12 " id="">
-                                                                        <tbody id="roomfields" class="responsive_cls">
-                                                                            <tr>
-                                                                                <td
-                                                                                    class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">
-                                                                                    <input type="hidden"
-                                                                                        id="room_auto_id"
-                                                                                        name="room_auto_id[]" />
-                                                                                    <select class="form-control room_id"
-                                                                                        name="room_id[]" id="room_id1"
-                                                                                        required>
-                                                                                        <option value="" selected
-                                                                                            hidden class="text-muted">
-                                                                                            Select Room</option>
-                                                                                        @foreach ($roomsarr as $rooms_arr)
-                                                                                            @if ($rooms_arr->booking_status != 1)
-                                                                                                <option
-                                                                                                    value="{{ $rooms_arr->id }}">
-                                                                                                    Room No
-                                                                                                    {{ $rooms_arr->room_number }}
-                                                                                                    -
-                                                                                                    {{ $rooms_arr->room_floor }}
-                                                                                                    Floor
-                                                                                                </option>
-                                                                                            @endif
-                                                                                        @endforeach
-                                                                                    </select>
-                                                                                </td>
-                                                                                <td class="col-12 col-md-3">
-                                                                                    <select class="form-control room_type"
-                                                                                        name="room_type[]" required>
-                                                                                        <option value="" selected
-                                                                                            hidden class="text-muted">
-                                                                                            Select Room Type</option>
-                                                                                        <option value="A/C"
-                                                                                            class="text-muted">A/C</option>
-                                                                                        <option value="Non - A/C"
-                                                                                            class="text-muted">Non - A/C
-                                                                                        </option>
-                                                                                    </select>
-                                                                                </td>
-                                                                                <td class="col-12 col-md-2"><input
-                                                                                        type="text"
-                                                                                        class="form-control"
-                                                                                        id="room_price1"
-                                                                                        name="room_price[]"
-                                                                                        placeholder="Price Per Day"
-                                                                                        value="" required /></td>
-                                                                                <td class="col-12 col-md-2"><input
-                                                                                        type="text"
-                                                                                        class="form-control room_cal_price"
-                                                                                        id="room_cal_price1"
-                                                                                        name="room_cal_price[]"
-                                                                                        placeholder="Price" value=""
-                                                                                        required /></td>
-                                                                                <td class="col-12 col-md-1"><button
-                                                                                        style="width: 100px;"
-                                                                                        class="py-2 mr-5 text-white font-medium rounded-lg text-sm  text-center btn btn-success"
-                                                                                        type="button" id="addroomfields"
-                                                                                        value="Add">Add</button>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <h4 class="card-title mb-4" style="color: #5b73e8">Pricing Calculation</h4>
-
-                                            <div data-repeater-list="group-a">
-                                                <div data-repeater-item class="row">
-                                                    <div class="inner-repeater mb-4">
-                                                        <div data-repeater-list="inner-group" class="inner form-group">
-                                                            <div data-repeater-item class="inner mb-3 row">
-                                                                <div class="col-md-3 col-12">
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-form-label">
-                                                                        Total - Room Price <span
-                                                                            style="color: red;">*</span> </label>
-                                                                </div>
-                                                                <div class="col-md-9 col-12">
-                                                                    <input type="text"
-                                                                        class="form-control total_calc_price"
-                                                                        style="background-color:#babcc5ad" readonly
-                                                                        name="total_calc_price" id="total_calc_price"
-                                                                        placeholder="Enter here " required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-4">
-                                                                <label for="horizontal-firstname-input"
-                                                                    class="col-sm-3 col-form-label">
-                                                                    GST Amount <span style="color: red;">*</span> </label>
-                                                                <div class="col-sm-4">
-                                                                    <input type="text" class="form-control gst_amount"
-                                                                        name="gst_amount"
-                                                                        placeholder="GST Amount - Enter here " required>
-                                                                </div>
-                                                                <label for="horizontal-firstname-input"
-                                                                    class="col-sm-1 col-form-label">
-                                                                    GST % <span style="color: red;">*</span> </label>
-                                                                <div class="col-sm-4">
-                                                                    <input type="text"
-                                                                        class="form-control gst_percentage"
-                                                                        name="gst_percentage"
-                                                                        placeholder="Gst % - Enter here " required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-4" hidden>
-                                                                <label for="horizontal-firstname-input"
-                                                                    class="col-sm-3 col-form-label">
-                                                                    Discount Amount <span style="color: red;">*</span>
-                                                                </label>
-                                                                <div class="col-sm-4">
-                                                                    <input type="text"
-                                                                        class="form-control discount_amount"
-                                                                        name="discount_amount"
-                                                                        placeholder="Discount Amount - Enter here "
-                                                                        required>
-                                                                </div>
-                                                                <label for="horizontal-firstname-input"
-                                                                    class="col-sm-1 col-form-label">
-                                                                    Dis % <span style="color: red;">*</span> </label>
-                                                                <div class="col-sm-4">
-                                                                    <input type="text" value="0"
-                                                                        class="form-control discount_percentage"
-                                                                        name="discount_percentage"
-                                                                        placeholder="Discount % - Enter here " required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-4" hidden>
-                                                                <label for="horizontal-firstname-input"
-                                                                    class="col-sm-3 col-form-label">
-                                                                    Additional Charge <span style="color: red;">*</span>
-                                                                </label>
-                                                                <div class="col-sm-9">
-                                                                    <input type="text"
-                                                                        class="form-control additional_charge"
-                                                                        name="additional_charge" value="0"
-                                                                        placeholder="Additional Amount - Enter here "
-                                                                        required>
-                                                                </div>
-                                                                <label for="horizontal-firstname-input"
-                                                                    class="col-sm-1 col-form-label">
-                                                                    Note <span style="color: red;">*</span> </label>
-                                                                <div class="col-sm-4">
-                                                                    <input type="text"
-                                                                        class="form-control additional_charge_notes"
-                                                                        name="additional_charge_notes"
-                                                                        placeholder="Note - Enter here " required
-                                                                        value="CC">
-                                                                </div>
-                                                            </div>
-                                                            <div data-repeater-item class="inner mb-3 row">
-                                                                <div class="col-md-3 col-12">
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-form-label">
-                                                                        Grand Total - To Pay <span
-                                                                            style="color: red;">*</span> </label>
-                                                                </div>
-                                                                <div class="col-md-9 col-12">
-                                                                    <input type="text" class="form-control grand_total"
-                                                                        style="background-color:#babcc5ad" readonly
-                                                                        name="grand_total" placeholder="Enter here "
-                                                                        required>
-                                                                </div>
-                                                            </div>
-                                                            <div data-repeater-item class="inner mb-3 row" hidden>
-                                                                <div class="col-md-3 col-12">
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-form-label">
-                                                                        Term <span style="color: red;">*</span> </label>
-                                                                </div>
-                                                                <div class="col-md-9 col-12">
-                                                                    <select class="form-control" name="payment_term"
-                                                                        required>
-                                                                        <option value="" class="text-muted">Select
-                                                                        </option>
-                                                                        <option value="Term I" class="text-muted"
-                                                                            selected>Term I</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-
-                                                            <div data-repeater-item class="inner mb-3 row">
-                                                                <div class="col-md-3 col-12">
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-form-label">
-                                                                        Payable Amount <span style="color: red;">*</span>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="col-md-9 col-12">
-                                                                    <input type="text"
-                                                                        class="form-control payable_amount"
-                                                                        name="payable_amount" placeholder="Enter here "
-                                                                        required>
-                                                                </div>
-                                                            </div>
-                                                            <div data-repeater-item class="inner mb-3 row">
-                                                                <div class="col-md-3 col-12">
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-form-label">
-                                                                        Payment Method <span style="color: red;">*</span>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="col-md-9 col-12">
-                                                                    <select class="form-control js-example-basic-single"
-                                                                        name="payment_method" required>
-                                                                        <option value="" selected hidden
-                                                                            class="text-muted">Select Payment Via</option>
-                                                                        <option value="Cash" class="text-muted">Cash
-                                                                        </option>
-                                                                        <option value="Online Payment" class="text-muted">
-                                                                            Online Payment</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div data-repeater-item class="inner mb-3 row">
-                                                                <div class="col-md-3 col-12">
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-form-label">
-                                                                        Balance Amount <span style="color: red;">*</span>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="col-md-9 col-12">
-                                                                    <input type="text"
-                                                                        class="form-control balance_amount"
-                                                                        style="background-color:#c7c21dad" value="0" readonly
-                                                                        name="balance_amount" placeholder="Enter here "
-                                                                        required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-4">
-                                                                <label for="horizontal-firstname-input"
-                                                                    class="col-sm-3 col-form-label">
-                                                                    Check In Staff <span style="color: red;">*</span>
-                                                                </label>
-                                                                <div class="col-sm-9">
-                                                                    <select class="form-control" name="check_in_staff"
-                                                                        required>
-                                                                        <option value="" disabled selected hiddden>
-                                                                            Select One</option>
-                                                                        @foreach ($staff as $staffs)
-                                                                            <option value="{{ $staffs->id }}">
-                                                                                {{ $staffs->name }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <hr>
-
-                                            <div class="row mb-4">
-                                                <div class="col-sm-3">
-                                                    <h4 class="card-title mb-4" style="color: #5b73e8">Proof</h4>
-                                                </div>
-                                                <div class="col-sm-2" hidden>
-                                                    <input id="default-radio-1" type="radio" checked value="1"
-                                                        name="proofs"
-                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                    <label for="default-radio-1" class="ml-2"
-                                                        style="font-weight:900">Single Proof</label>
-                                                </div>
-                                                <div class="col-sm-2" hidden>
-                                                    <input id="default-radio-1" type="radio" value="2"
-                                                        name="proofs"
-                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                    <label for="default-radio-1" class="ml-2"
-                                                        style="font-weight:900">Double Proof</label>
-                                                </div>
-                                            </div>
-
-
-                                            <div id="singleproof">
+                                            <form autocomplete="off" method="POST" action="{{ route('booking.noncash_gpaystore') }}" enctype="multipart/form-data">
+                                            @csrf
                                                 <div class="row mb-4">
-                                                    <label for="horizontal-firstname-input"
-                                                        class="col-sm-3 col-form-label">
-                                                        Proof <span style="color: red;">*</span> </label>
-                                                    <div class="col-sm-9">
-                                                        <select class="form-control prooftype_one" name="prooftype_one"
-                                                            style="width: 100%;" required>
-                                                            <option value="" disabled selected hidden
-                                                                class="text-muted">Select Type</option>
-                                                            <option value="Aadhaar Card" class="text-muted">Aadhaar Card
-                                                            </option>
-                                                            <option value="Pan Card" class="text-muted">Pan Card</option>
-                                                            <option value="Voter ID" class="text-muted">Voter ID</option>
-                                                            <option value="Driving Licence" class="text-muted">Driving
-                                                                Licence</option>
+                                                    <div class="col-md-5 col-12">
+                                                        <label for="horizontal-firstname-input" class="col-sm-4 col-form-label">
+                                                            Booking Type <span style="color: red;">*</span> </label>
+                                                        <select class="form-control booking_type" name="booking_type" required>
+                                                            <option value="" selected hidden class="text-muted">Select Payment Via</option>
+                                                            <option value="Cash" class="text-muted">Cash</option>
+                                                            <option value="Google Pay" class="text-muted">Google Pay</option>
+                                                            <option value="Make My Trip" class="text-muted"> Make My Trip</option>
+                                                            <option value="Goibibo" class="text-muted"> Goibibo</option>
+                                                            <option value="Agoda" class="text-muted"> Agoda</option>
+                                                            <option value="Booking.com" class="text-muted">Booking.com</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row mb-4" hidden>
-                                                <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                    Proof View </label>
-                                                <div class="col-sm-4">
-                                                    <a target="_blank" class="proofone"><span style="color: black;">
-                                                        </span></a>
-                                                </div>
-                                                <div class="col-sm-1">|</div>
-                                                <div class="col-sm-4">
-                                                    <a target="_blank" class="prooftwo"><span style="color: black;">
-                                                        </span></a>
-                                                </div>
-                                            </div>
-
-
-
-
-
-
-
-                                            <div class="row mb-4" id="proof1" hidden>
-                                                <label for="horizontal-firstname-input"
-                                                    class="col-sm-3 col-form-label">Proof Front<span
-                                                        style="color: red;">*</span> </label>
-                                                <div class="col-sm-9">
-                                                <input type="file" class="form-control"
-                                                        name="proofimage_one">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4" id="proof2"hidden >
-                                                <label for="horizontal-firstname-input"
-                                                    class="col-sm-3 col-form-label">Proof Back<span
-                                                        style="color: red;">*</span> </label>
-                                                <div class="col-sm-9">
-                                                <input type="file" class="form-control"
-                                                        name="proofimage_two">
-                                                </div>
-                                            </div>
-                                            <div class="row mb-4" id="proof_photo"hidden >
-                                                <label for="horizontal-firstname-input"
-                                                    class="col-sm-3 col-form-label">Photo<span
-                                                        style="color: red;">*</span> </label>
-                                                <div class="col-sm-9">
-                                                <input type="file" class="form-control"
-                                                        name="customer_photo">
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="row mb-4" id="proof1" >
-                                                <label for="horizontal-firstname-input"
-                                                    class="col-sm-3 col-form-label">Proof Front<span
-                                                        style="color: red;">*</span> </label>
-                                                <div class="col-sm-7">
-                                                    <div style="display: flex">
-                                                        <div id="my_camera_front"></div>
-                                                        <div id="captured_image_front"></div>
+                                                <div class="row mb-4 websitediv" style="display:none">
+                                                    <div class="col-md-4 col-12">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Booking ID <span style="color: red;">*</span> </label>
+                                                        <input type="text" class="form-control webbooking_id"
+                                                                name="webbooking_id" placeholder="Enter here " required>
                                                     </div>
-                                                    <input type=button
-                                                        class=" btn btn-sm btn-soft-primary"value="Take a Snap - Front Proof"
-                                                        onClick="take_snapshot_front()">
-                                                    <input type="hidden" class="form-control image-tagfront"
-                                                        name="proofimage_one">
-                                                </div>
-                                                <div class="col-sm-2">
-                                                <div id="prooffront"></div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row mb-4" id="proof2" >
-                                                <label for="horizontal-firstname-input"
-                                                    class="col-sm-3 col-form-label">Proof Back<span
-                                                        style="color: red;">*</span> </label>
-                                                <div class="col-sm-7">
-                                                    <div style="display: flex">
-                                                        <div id="my_camera_back"></div>
-                                                        <div id="captured_image_back"></div>
+                                                    <div class="col-md-4 col-12">
+                                                        <label for="horizontal-firstname-input" class="col-sm-4 col-form-label">
+                                                            Customer Name <span style="color: red;">*</span> </label>
+                                                        <input type="text" class="form-control webcustomername"
+                                                                name="webcustomername" placeholder="Enter here " required>
                                                     </div>
-                                                    <input type=button
-                                                        class=" btn btn-sm btn-soft-primary"value="Take a Snap - Back Proof"
-                                                        onClick="take_snapshot_back()">
-                                                    <input type="hidden" class="form-control image-tagback"
-                                                        name="proofimage_two">
-                                                </div>
-                                                <div class="col-sm-2">
-                                                <div id="proofback"></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row mb-4" id="proof_photo" >
-                                                <label for="horizontal-firstname-input"
-                                                    class="col-sm-3 col-form-label">Photo <span
-                                                        style="color: red;">*</span> </label>
-                                                <div class="col-sm-7">
-                                                    <div style="display: flex">
-                                                        <div id="my_camera"></div>
-                                                        <div id="captured_cameraimage"></div>
+                                                    <div class="col-md-4 col-12">
+                                                        <label for="horizontal-firstname-input" class="col-sm-4 col-form-label">
+                                                        Contact Number <span style="color: red;">*</span> </label>
+                                                        <input type="number" class="form-control contactnumber"
+                                                            name="contactnumber" id="contactnumber" placeholder="Enter here "
+                                                            required>
                                                     </div>
-                                                    <div id="my_camera"></div><br />
-                                                    <input type=button class=" btn btn-sm btn-soft-primary"value="Take a Snap - Photo"
-                                                        onClick="takesnapshot()">
-                                                    <input type="hidden" class="form-control image-tagcamera"
-                                                        name="customer_photo">
                                                 </div>
-                                                <div class="col-sm-2">
-                                                <div id="proofcustomerphoto"></div>
+                                                <hr>
+                                                <div class="websitediv" style="display:none">
+                                                    <h4 class="card-title mb-4" style="color: #5b73e8">Head Rooms</h4>
+
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Count <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-3">
+                                                            <select class="form-control " name="web_male_count" required>
+                                                                <option value="" selected hidden class="text-muted">Select Male Count</option>
+                                                                <option value="0" class="text-muted">0</option>
+                                                                <option value="1" class="text-muted">1</option>
+                                                                <option value="2" class="text-muted">2</option>
+                                                                <option value="3" class="text-muted">3</option>
+                                                                <option value="4" class="text-muted">4</option>
+                                                                <option value="5" class="text-muted">5</option>
+                                                                <option value="6" class="text-muted">6</option>
+                                                                <option value="7" class="text-muted">7</option>
+                                                                <option value="8" class="text-muted">8</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <select class="form-control " name="web_female_count" required>
+                                                                <option value="" selected hidden class="text-muted">Select Female Count</option>
+                                                                <option value="0" class="text-muted">0</option>
+                                                                <option value="1" class="text-muted">1</option>
+                                                                <option value="2" class="text-muted">2</option>
+                                                                <option value="3" class="text-muted">3</option>
+                                                                <option value="4" class="text-muted">4</option>
+                                                                <option value="5" class="text-muted">5</option>
+                                                                <option value="6" class="text-muted">6</option>
+                                                                <option value="7" class="text-muted">7</option>
+                                                                <option value="8" class="text-muted">8</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <select class="form-control " name="web_child_count" required>
+                                                                <option value="" selected hidden class="text-muted">Select Child Count</option>
+                                                                <option value="0" class="text-muted">0</option>
+                                                                <option value="1" class="text-muted">1</option>
+                                                                <option value="2" class="text-muted">2</option>
+                                                                <option value="3" class="text-muted">3</option>
+                                                                <option value="4" class="text-muted">4</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Check In Date <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="date" class="form-control webcheck_in_date"
+                                                                name="webcheck_in_date" placeholder="Enter here "
+                                                                value="{{ $today }}" required>
+                                                        </div>
+                                                        <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
+                                                            Time <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="time" class="form-control" name="webcheck_in_time"
+                                                                placeholder="Enter here " value="{{ $timenow }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            No of Days - Stay <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control web_noofdays" id="web_noofdays"
+                                                                name="web_noofdays" placeholder="Enter here " required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Check Out Date </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="date" class="form-control webcheck_out_date"
+                                                                name="webcheck_out_date" placeholder="Enter here " value="">
+                                                        </div>
+                                                        <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
+                                                            Time </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="time" class="form-control" name="webcheck_out_time"
+                                                                placeholder="Enter here " value="{{ $timenow }}">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div data-repeater-list="group-a">
+                                                        <div data-repeater-item class="row">
+                                                            <div class="inner-repeater mb-4">
+                                                                <div data-repeater-list="inner-group" class="inner form-group">
+                                                                    <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-sm-3">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Room Details <span style="color: red;">*</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="dynamic_field col-sm-9">
+                                                                            <table class="table-fixed col-12 " id="">
+                                                                                <tbody id="webroomfields" class="responsive_cls">
+                                                                                    <tr>
+                                                                                        <td
+                                                                                            class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">
+                                                                                            <input type="hidden" id="webroom_auto_id" name="webroom_auto_id[]" />
+                                                                                            <select class="form-control webroom_id" name="webroom_id[]" id="webroom_id1" required>
+                                                                                                <option value="" selected hidden class="text-muted"> Select Room</option>
+                                                                                                @foreach ($roomsarr as $rooms_arr)
+                                                                                                    @if ($rooms_arr->booking_status != 1)
+                                                                                                        <option value="{{ $rooms_arr->id }}">
+                                                                                                            Room No{{ $rooms_arr->room_number }}-{{ $rooms_arr->room_floor }} Floor
+                                                                                                        </option>
+                                                                                                    @endif
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td class="col-12 col-md-3">
+                                                                                            <select class="form-control webroom_type"
+                                                                                                name="webroom_type[]" required>
+                                                                                                <option value="" selected
+                                                                                                    hidden class="text-muted">
+                                                                                                    Select Room Type</option>
+                                                                                                <option value="A/C"
+                                                                                                    class="text-muted">A/C</option>
+                                                                                                <option value="Non - A/C"
+                                                                                                    class="text-muted">Non - A/C
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td class="col-12 col-md-1"><button
+                                                                                                style="width: 100px;"
+                                                                                                class="py-2 mr-5 text-white font-medium rounded-lg text-sm  text-center btn btn-success"
+                                                                                                type="button" id="addwebroomfields"
+                                                                                                value="Add">Add</button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-4">
+                                                                        <label for="horizontal-firstname-input"
+                                                                            class="col-sm-3 col-form-label">
+                                                                            Check In Staff <span style="color: red;">*</span>
+                                                                        </label>
+                                                                        <div class="col-sm-9">
+                                                                            <select class="form-control" name="webcheck_in_staff"
+                                                                                required>
+                                                                                <option value="" disabled selected hiddden>
+                                                                                    Select One</option>
+                                                                                @foreach ($staff as $staffs)
+                                                                                    <option value="{{ $staffs->id }}">
+                                                                                        {{ $staffs->name }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                    <hr>
+
+                                                    <div class="modal-footer">
+                                                        <input type="submit" class="btn btn-primary" name="checkin_website" value="Submit" 
+                                                            style="margin-right: 10%;" />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
+
+                                            </form>  
+                                               
+
+
+                                                <br/>
+
+
+
+
+
+
+
+
+
+
+
+                                            <form autocomplete="off" method="POST" action="{{ route('booking.cash_gpaystore') }}" enctype="multipart/form-data">
+                                            @csrf
+
+
+                                            <input type="hidden" class="form-control cash_booking_type"
+                                                                name="cash_booking_type" id="cash_booking_type" value="" required>
+
+                                                <div class="gpaydiv" style="display:none">
+                                                    <h4 class="card-title mb-4" style="color: #5b73e8">Profile</h4>
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Customer Name <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="name" class="form-control booking_customer_name"
+                                                                name="booking_customer_name" placeholder="Enter here " required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Contact Number <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="number" class="form-control phone_number"
+                                                                name="phone_number" id="phone_number" placeholder="Enter here "
+                                                                required>
+                                                            <div class="phonenumber_list" style="display:none"></div>
+                                                            <div class="form-check mt-2">
+                                                                <input type="checkbox" class="form-check-input whatsapp_check"
+                                                                    id="formrow-customCheck">
+                                                                <label class="form-check-label" for="formrow-customCheck">Same as
+                                                                    Whatsapp number</label>
+                                                            </div>
+                                                        </div>
+                                                        {{ csrf_field() }}
+                                                        <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
+                                                            Whatsapp <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="number" class="form-control whats_app_number"
+                                                                name="whats_app_number" placeholder="Enter here " required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Email ID </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="email" class="form-control email_id" name="email_id"
+                                                                placeholder="Enter here ">
+                                                        </div>
+                                                        <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
+                                                            Address </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="text" class="form-control address" name="address"
+                                                                placeholder="Enter here ">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            GST Number </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="name" class="form-control" name="gst_number"
+                                                                placeholder="Enter here ">
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+                                                    <h4 class="card-title mb-4" style="color: #5b73e8">Head Rooms</h4>
+
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Count <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-3">
+                                                            <select class="form-control " name="male_count" required>
+                                                                <option value="" selected hidden class="text-muted">Select Male Count</option>
+                                                                <option value="0" class="text-muted">0</option>
+                                                                <option value="1" class="text-muted">1</option>
+                                                                <option value="2" class="text-muted">2</option>
+                                                                <option value="3" class="text-muted">3</option>
+                                                                <option value="4" class="text-muted">4</option>
+                                                                <option value="5" class="text-muted">5</option>
+                                                                <option value="6" class="text-muted">6</option>
+                                                                <option value="7" class="text-muted">7</option>
+                                                                <option value="8" class="text-muted">8</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <select class="form-control " name="female_count" required>
+                                                                <option value="" selected hidden class="text-muted">Select Female Count</option>
+                                                                <option value="0" class="text-muted">0</option>
+                                                                <option value="1" class="text-muted">1</option>
+                                                                <option value="2" class="text-muted">2</option>
+                                                                <option value="3" class="text-muted">3</option>
+                                                                <option value="4" class="text-muted">4</option>
+                                                                <option value="5" class="text-muted">5</option>
+                                                                <option value="6" class="text-muted">6</option>
+                                                                <option value="7" class="text-muted">7</option>
+                                                                <option value="8" class="text-muted">8</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <select class="form-control " name="child_count" required>
+                                                                <option value="" selected hidden class="text-muted">Select Child Count</option>
+                                                                <option value="0" class="text-muted">0</option>
+                                                                <option value="1" class="text-muted">1</option>
+                                                                <option value="2" class="text-muted">2</option>
+                                                                <option value="3" class="text-muted">3</option>
+                                                                <option value="4" class="text-muted">4</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Check In Date <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="date" class="form-control check_in_date"
+                                                                name="check_in_date" placeholder="Enter here "
+                                                                value="{{ $today }}" required>
+                                                        </div>
+                                                        <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
+                                                            Time <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="time" class="form-control" name="check_in_time"
+                                                                placeholder="Enter here " value="{{ $timenow }}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            No of Days - Stay <span style="color: red;">*</span> </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" class="form-control days" id="days"
+                                                                name="days" placeholder="Enter here " required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                            Check Out Date </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="date" class="form-control check_out_date"
+                                                                name="check_out_date" placeholder="Enter here " value="">
+                                                        </div>
+                                                        <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
+                                                            Time </label>
+                                                        <div class="col-sm-4">
+                                                            <input type="time" class="form-control" name="check_out_time"
+                                                                placeholder="Enter here " value="{{ $timenow }}">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div data-repeater-list="group-a">
+                                                        <div data-repeater-item class="row">
+                                                            <div class="inner-repeater mb-4">
+                                                                <div data-repeater-list="inner-group" class="inner form-group">
+                                                                    <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-sm-3">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Room Details <span style="color: red;">*</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="dynamic_field col-sm-9">
+                                                                            <table class="table-fixed col-12 " id="">
+                                                                                <tbody id="roomfields" class="responsive_cls">
+                                                                                    <tr>
+                                                                                        <td
+                                                                                            class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">
+                                                                                            <input type="hidden" id="room_auto_id" name="room_auto_id[]" />
+                                                                                            <select class="form-control room_id" name="room_id[]" id="room_id1" required>
+                                                                                                <option value="" selected hidden class="text-muted"> Select Room</option>
+                                                                                                @foreach ($roomsarr as $rooms_arr)
+                                                                                                    @if ($rooms_arr->booking_status != 1)
+                                                                                                        <option value="{{ $rooms_arr->id }}">
+                                                                                                            Room No{{ $rooms_arr->room_number }}-{{ $rooms_arr->room_floor }} Floor
+                                                                                                        </option>
+                                                                                                    @endif
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td class="col-12 col-md-3">
+                                                                                            <select class="form-control room_type"
+                                                                                                name="room_type[]" required>
+                                                                                                <option value="" selected
+                                                                                                    hidden class="text-muted">
+                                                                                                    Select Room Type</option>
+                                                                                                <option value="A/C"
+                                                                                                    class="text-muted">A/C</option>
+                                                                                                <option value="Non - A/C"
+                                                                                                    class="text-muted">Non - A/C
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </td>
+                                                                                        <td class="col-12 col-md-2"><input
+                                                                                                type="text"
+                                                                                                class="form-control"
+                                                                                                id="room_price1"
+                                                                                                name="room_price[]"
+                                                                                                placeholder="Price Per Day"
+                                                                                                value="" required /></td>
+                                                                                        <td class="col-12 col-md-2"><input
+                                                                                                type="text"
+                                                                                                class="form-control room_cal_price"
+                                                                                                id="room_cal_price1"
+                                                                                                name="room_cal_price[]"
+                                                                                                placeholder="Price" value=""
+                                                                                                required /></td>
+                                                                                        <td class="col-12 col-md-1"><button
+                                                                                                style="width: 100px;"
+                                                                                                class="py-2 mr-5 text-white font-medium rounded-lg text-sm  text-center btn btn-success"
+                                                                                                type="button" id="addroomfields"
+                                                                                                value="Add">Add</button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <h4 class="card-title mb-4" style="color: #5b73e8">Pricing Calculation</h4>
+
+                                                    <div data-repeater-list="group-a">
+                                                        <div data-repeater-item class="row">
+                                                            <div class="inner-repeater mb-4">
+                                                                <div data-repeater-list="inner-group" class="inner form-group">
+                                                                    <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Total - Room Price <span
+                                                                                    style="color: red;">*</span> </label>
+                                                                        </div>
+                                                                        <div class="col-md-9 col-12">
+                                                                            <input type="text"
+                                                                                class="form-control total_calc_price"
+                                                                                style="background-color:#babcc5ad" readonly
+                                                                                name="total_calc_price" id="total_calc_price"
+                                                                                placeholder="Enter here " required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-4">
+                                                                        <label for="horizontal-firstname-input"
+                                                                            class="col-sm-3 col-form-label">
+                                                                            GST % <span style="color: red;">*</span> </label>
+                                                                        <div class="col-sm-4" >
+                                                                            <input type="text" class="form-control gst_amount"
+                                                                                name="gst_amount"
+                                                                                placeholder="GST Amount - Enter here " readonly>
+                                                                        </div>
+                                                                        <div class="col-sm-5">
+                                                                            <input type="text"
+                                                                                class="form-control gst_percentage"
+                                                                                name="gst_percentage"
+                                                                                placeholder="Gst % - Enter here " required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-4" hidden>
+                                                                        <label for="horizontal-firstname-input"
+                                                                            class="col-sm-3 col-form-label">
+                                                                            Discount Amount <span style="color: red;">*</span>
+                                                                        </label>
+                                                                        <div class="col-sm-4">
+                                                                            <input type="text"
+                                                                                class="form-control discount_amount"
+                                                                                name="discount_amount"
+                                                                                placeholder="Discount Amount - Enter here "
+                                                                                required>
+                                                                        </div>
+                                                                        <label for="horizontal-firstname-input"
+                                                                            class="col-sm-1 col-form-label">
+                                                                            Dis % <span style="color: red;">*</span> </label>
+                                                                        <div class="col-sm-4">
+                                                                            <input type="text" value="0"
+                                                                                class="form-control discount_percentage"
+                                                                                name="discount_percentage"
+                                                                                placeholder="Discount % - Enter here " required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-4" hidden>
+                                                                        <label for="horizontal-firstname-input"
+                                                                            class="col-sm-3 col-form-label">
+                                                                            Additional Charge <span style="color: red;">*</span>
+                                                                        </label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text"
+                                                                                class="form-control additional_charge"
+                                                                                name="additional_charge" value="0"
+                                                                                placeholder="Additional Amount - Enter here "
+                                                                                required>
+                                                                        </div>
+                                                                        <label for="horizontal-firstname-input"
+                                                                            class="col-sm-1 col-form-label">
+                                                                            Note <span style="color: red;">*</span> </label>
+                                                                        <div class="col-sm-4">
+                                                                            <input type="text"
+                                                                                class="form-control additional_charge_notes"
+                                                                                name="additional_charge_notes"
+                                                                                placeholder="Note - Enter here " required
+                                                                                value="CC">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Grand Total - To Pay <span
+                                                                                    style="color: red;">*</span> </label>
+                                                                        </div>
+                                                                        <div class="col-md-9 col-12">
+                                                                            <input type="text" class="form-control grand_total"
+                                                                                style="background-color:#babcc5ad" readonly
+                                                                                name="grand_total" placeholder="Enter here "
+                                                                                required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div data-repeater-item class="inner mb-3 row" hidden>
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Term <span style="color: red;">*</span> </label>
+                                                                        </div>
+                                                                        <div class="col-md-9 col-12">
+                                                                            <select class="form-control" name="payment_term"
+                                                                                required>
+                                                                                <option value="" class="text-muted">Select
+                                                                                </option>
+                                                                                <option value="Term I" class="text-muted"
+                                                                                    selected>Term I</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Advance Amount <span style="color: red;">*</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-md-9 col-12">
+                                                                            <input type="text"
+                                                                                class="form-control payable_amount"
+                                                                                name="payable_amount" placeholder="Enter here "
+                                                                                required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Payment Method <span style="color: red;">*</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                    <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Balance Amount <span style="color: red;">*</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-md-9 col-12">
+                                                                            <input type="text"
+                                                                                class="form-control balance_amount"
+                                                                                style="background-color:#c7c21dad" value="0" readonly
+                                                                                name="balance_amount" placeholder="Enter here "
+                                                                                required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row mb-4">
+                                                                        <label for="horizontal-firstname-input"
+                                                                            class="col-sm-3 col-form-label">
+                                                                            Check In Staff <span style="color: red;">*</span>
+                                                                        </label>
+                                                                        <div class="col-sm-9">
+                                                                            <select class="form-control" name="check_in_staff"
+                                                                                required>
+                                                                                <option value="" disabled selected hiddden>
+                                                                                    Select One</option>
+                                                                                @foreach ($staff as $staffs)
+                                                                                    <option value="{{ $staffs->id }}">
+                                                                                        {{ $staffs->name }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <div class="row mb-4">
+                                                        <div class="col-sm-3">
+                                                            <h4 class="card-title mb-4" style="color: #5b73e8">Proof</h4>
+                                                        </div>
+                                                        <div class="col-sm-2" hidden>
+                                                            <input id="default-radio-1" type="radio" checked value="1"
+                                                                name="proofs"
+                                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                            <label for="default-radio-1" class="ml-2"
+                                                                style="font-weight:900">Single Proof</label>
+                                                        </div>
+                                                        <div class="col-sm-2" hidden>
+                                                            <input id="default-radio-1" type="radio" value="2"
+                                                                name="proofs"
+                                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                            <label for="default-radio-1" class="ml-2"
+                                                                style="font-weight:900">Double Proof</label>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div id="singleproof">
+                                                        <div class="row mb-4">
+                                                            <label for="horizontal-firstname-input"
+                                                                class="col-sm-3 col-form-label">
+                                                                Proof <span style="color: red;">*</span> </label>
+                                                            <div class="col-sm-9">
+                                                                <select class="form-control prooftype_one" name="prooftype_one"
+                                                                    style="width: 100%;" required>
+                                                                    <option value="" disabled selected hidden
+                                                                        class="text-muted">Select Type</option>
+                                                                    <option value="Aadhaar Card" class="text-muted">Aadhaar Card
+                                                                    </option>
+                                                                    <option value="Pan Card" class="text-muted">Pan Card</option>
+                                                                    <option value="Voter ID" class="text-muted">Voter ID</option>
+                                                                    <option value="Driving Licence" class="text-muted">Driving
+                                                                        Licence</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="row mb-4" id="proof1" hidden>
+                                                        <label for="horizontal-firstname-input"
+                                                            class="col-sm-3 col-form-label">Proof Front<span
+                                                                style="color: red;">*</span> </label>
+                                                        <div class="col-sm-9">
+                                                        <input type="file" class="form-control"
+                                                                name="proofimage_one">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4" id="proof2" hidden>
+                                                        <label for="horizontal-firstname-input"
+                                                            class="col-sm-3 col-form-label">Proof Back<span
+                                                                style="color: red;">*</span> </label>
+                                                        <div class="col-sm-9">
+                                                        <input type="file" class="form-control"
+                                                                name="proofimage_two">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4" id="proof_photo" hidden>
+                                                        <label for="horizontal-firstname-input"
+                                                            class="col-sm-3 col-form-label">Photo<span
+                                                                style="color: red;">*</span> </label>
+                                                        <div class="col-sm-9">
+                                                        <input type="file" class="form-control"
+                                                                name="customer_photo">
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                    <div class="row mb-4" id="proof1" >
+                                                        <label for="horizontal-firstname-input"
+                                                            class="col-sm-3 col-form-label">Proof Front<span
+                                                                style="color: red;">*</span> </label>
+                                                        <div class="col-sm-7">
+                                                            <div style="display: flex">
+                                                                <div id="my_camera_front"></div>
+                                                                <div id="captured_image_front"></div>
+                                                            </div>
+                                                            <input type=button
+                                                                class=" btn btn-sm btn-soft-primary"value="Take a Snap - Front Proof"
+                                                                onClick="take_snapshot_front()">
+                                                            <input type="hidden" class="form-control image-tagfront"
+                                                                name="proofimage_one">
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                        <div id="prooffront"></div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row mb-4" id="proof2" >
+                                                        <label for="horizontal-firstname-input"
+                                                            class="col-sm-3 col-form-label">Proof Back<span
+                                                                style="color: red;">*</span> </label>
+                                                        <div class="col-sm-7">
+                                                            <div style="display: flex">
+                                                                <div id="my_camera_back"></div>
+                                                                <div id="captured_image_back"></div>
+                                                            </div>
+                                                            <input type=button
+                                                                class=" btn btn-sm btn-soft-primary"value="Take a Snap - Back Proof"
+                                                                onClick="take_snapshot_back()">
+                                                            <input type="hidden" class="form-control image-tagback"
+                                                                name="proofimage_two">
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                        <div id="proofback"></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-4" id="proof_photo" >
+                                                        <label for="horizontal-firstname-input"
+                                                            class="col-sm-3 col-form-label">Photo <span
+                                                                style="color: red;">*</span> </label>
+                                                        <div class="col-sm-7">
+                                                            <div style="display: flex">
+                                                                <div id="my_camera"></div>
+                                                                <div id="captured_cameraimage"></div>
+                                                            </div>
+                                                            <div id="my_camera"></div><br />
+                                                            <input type=button class=" btn btn-sm btn-soft-primary"value="Take a Snap - Photo"
+                                                                onClick="takesnapshot()">
+                                                            <input type="hidden" class="form-control image-tagcamera"
+                                                                name="customer_photo">
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                        <div id="proofcustomerphoto"></div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                            <input type="submit" class="btn btn-primary" name="checkin" value="checkin" 
+                                                                style="margin-right: 10%;" />
+                                                        </div>
+
+                                                </div>
+
+
+                                            </form>
 
 
                                         
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <input type="submit" class="btn btn-primary" name="checkin" value="checkin" onclick="bookingubmitForm(this);"
-                                            style="margin-right: 10%;" />
-                                    </div>
-                                </form>
+                                    
+                                
                             </div>
                         </div>
                     </div>
@@ -610,7 +804,7 @@
     <script language="JavaScript">
         ;
         (function($, window, document, undefined) {
-            $("#days").on("change", function() {
+            $("#days").on("keyup", function() {
                 var date = new Date($(".check_in_date").val()),
                     days = parseInt($("#days").val(), 10);
 
@@ -630,6 +824,36 @@
                 return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]); // padding
             };
         })(jQuery, this, document);
+
+
+
+
+        ;
+        (function($, window, document, undefined) {
+            $("#web_noofdays").on("keyup", function() {
+                var date = new Date($(".check_in_date").val()),
+                web_noofdays = parseInt($("#web_noofdays").val(), 10);
+
+                if (!isNaN(date.getTime())) {
+                    date.setDate(date.getDate() + web_noofdays);
+
+                    $(".webcheck_out_date").val(date.toInputFormat());
+                } else {
+                    alert("Invalid Date");
+                }
+            });
+            //From: http://stackoverflow.com/questions/3066586/get-string-in-yyyymmdd-format-from-js-date-object
+            Date.prototype.toInputFormat = function() {
+                var yyyy = this.getFullYear().toString();
+                var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
+                var dd = this.getDate().toString();
+                return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]); // padding
+            };
+        })(jQuery, this, document);
+
+
+
+
 
         // AJAX call for autocomplete
         $(document).ready(function() {
@@ -694,42 +918,7 @@
                 }
             });
 
-            $('#branch_id').on('change', function() {
-                var branch_id = this.value;
-                $.ajax({
-                    url: '/getBranchwiseRoom/' + branch_id,
-                    type: 'get',
-                    dataType: 'json',
-                    success: function(response) {
-                        //console.log(response['data']);
-                        var len = response['data'].length;
-                        $('.room_id').html('');
-                        $('.room_price').html('');
-                        $('.room_cal_price').html('');
-
-                        var $select = $(".room_id").append(
-                            $('<option>', {
-                                value: '0',
-                                text: 'Select'
-                            }));
-                        $(".room_id").append($select);
-
-                        for (var i = 0; i < len; i++) {
-
-                            if (response['data'][i].booking_status != 1) {
-
-                                $(".room_id").append($('<option>', {
-                                    value: response['data'][i].id,
-                                    text: 'Room No ' + response['data'][i]
-                                        .room_number + ' - ' + response['data'][i]
-                                        .room_floor + ' Floor',
-                                }));
-
-                            }
-                        }
-                    }
-                });
-            });
+          
 
             // Room onchange function
 
@@ -797,6 +986,31 @@
                 });
             });
 
+            $('.booking_type').on('change', function() {
+                var booking_type = $(this).val();
+                if (booking_type == 'Cash') {
+                    $(".gpaydiv").show();
+                    $(".websitediv").hide();
+                    $('.cash_booking_type').val('Cash');
+                }else if (booking_type == 'Google Pay') {
+                    $(".gpaydiv").show();
+                    $(".websitediv").hide();
+                    $('.cash_booking_type').val('Google Pay');
+                } else if (booking_type == 'Make My Trip') {
+                    $(".gpaydiv").hide();
+                    $(".websitediv").show();
+                } else if (booking_type == 'Goibibo') {
+                    $(".gpaydiv").hide();
+                    $(".websitediv").show();
+                } else if (booking_type == 'Agoda') {
+                    $(".gpaydiv").hide();
+                    $(".websitediv").show();
+                } else if (booking_type == 'Booking.com') {
+                    $(".gpaydiv").hide();
+                    $(".websitediv").show();
+                }
+            });
+
 
             // Radion button onchange Function
 
@@ -831,6 +1045,8 @@
         var j = 1;
         var l = 1;
         var h = 1;
+        var m = 1;
+        var n = 1;
         //var add_count = [];
         //console.log(add_count);
 
@@ -848,10 +1064,9 @@
                     '" name="room_cal_price[]" placeholder="Price" value="" required/></td><td class="col-12 col-md-1" style="margin-left: 4px;"><button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-tr" type="button" >Remove</button></td></tr>'
                 );
 
-                var branch_id = $('.branch_id').val();
                 //alert('branch_id');
                 $.ajax({
-                    url: '/getBranchwiseRoom/' + branch_id,
+                    url: '/getBranchwiseRoom/',
                     type: 'get',
                     dataType: 'json',
                     success: function(response) {
@@ -883,6 +1098,60 @@
 
 
             });
+        });
+
+
+        $(document).ready(function() {
+            $("#addwebroomfields").click(function() {
+                ++m;
+                $("#webroomfields").append(
+                    '<tr><td class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider"><input type="hidden" id="webroom_auto_id" name="webroom_auto_id[]" />'+
+                    '<select class="form-control webroom_id" name="webroom_id[]" id="webroom_id' + m + '" required><option value="" selected hidden class="text-muted"> Select Room</option></select></td>' +
+                    '<td class="col-12 col-md-3"><select class="form-control webroom_type" name="webroom_type[]" required>' +
+                    '<option value="" selected hidden class="text-muted">Select Room Type</option>' +
+                    '<option value="A/C" class="text-muted">A/C</option>' +
+                    '<option value="Non - A/C" class="text-muted">Non - A/C </option></select></td>' +
+                    '<td class="col-12 col-md-1" style="margin-left: 4px;"><button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-webtr" type="button" >Remove</button></td></tr>'
+                );
+
+                //alert('branch_id');
+                $.ajax({
+                    url: '/getBranchwiseRoom/',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response) {
+                        //console.log(response['data']);
+                        var len = response['data'].length;
+
+                        var selectedValues = new Array();
+
+                        if (len > 0) {
+                            for (var i = 0; i < len; i++) {
+                                if (response['data'][i].booking_status != 1) {
+
+                                    var id = response['data'][i].id;
+                                    var name = 'Room No ' + response['data'][i].room_number +
+                                        ' - ' + response['data'][i].room_floor + ' Floor';
+                                    var option = "<option value='" + id + "'>" + name +
+                                        "</option>";
+
+                                    var price = response['data'][i].price_per_day;
+                                    selectedValues.push(option);
+                                }
+                            }
+                        }
+                        ++n;
+                        $('#webroom_id' + n).append(selectedValues);
+                    }
+                });
+
+
+            });
+        });
+
+
+        $(document).on('click', '.remove-webtr', function() {
+            $(this).parents('tr').remove();
         });
 
 

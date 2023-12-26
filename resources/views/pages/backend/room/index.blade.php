@@ -91,7 +91,6 @@
                                 <thead>
                                     <tr>
                                         <th>{{ __('messages.sno_title') }}</th>
-                                        <th>{{ __('messages.branch_title') }}</th>
                                         <th>Floor</th>
                                         <th>{{ __('messages.room_title') }} Details</th>
                                         <th>Booking Status</th>
@@ -102,7 +101,6 @@
                                     @foreach ($data as $keydata => $datas)
                                     <tr>
                                         <td>{{ ++$keydata }}</td>
-                                        <td>{{ $datas->branch->name }}</td>
                                         <td>{{ $datas->room_floor }}</td>
                                         <td>No. {{ $datas->room_number }} - {{ $datas->room_category }}</td>
                                         @if ($datas->booking_status == 0)
@@ -129,7 +127,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p class="text-muted font-size-16 mb-4">Are you surely want to delete Room No. {{ $datas->room_number }} at {{ $datas->branch->name }} branch and all of its record?</p>
+                                                    <p class="text-muted font-size-16 mb-4">Are you surely want to delete Room No. {{ $datas->room_number }} and all of its record?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form autocomplete="off" method="POST" action="{{ route('room.delete', ['id' => $datas->id]) }}">

@@ -11,15 +11,14 @@ use Carbon\Carbon;
 
 class IncomeController extends Controller
 {
-    public function index($user_branch_id)
+    public function index()
     {
         $today = Carbon::now()->format('Y-m-d');
-        $data = Income::where('date', '=', $today)->where('branch_id', '=', $user_branch_id)->where('soft_delete', '!=', 1)->get();
+        $data = Income::where('date', '=', $today)->where('soft_delete', '!=', 1)->get();
         $namelist = Namelist::where('soft_delete', '!=', 1)->get();
-        $branch = Branch::where('soft_delete', '!=', 1)->get();
         $staff = Staff::where('soft_delete', '!=', 1)->get();
 
-        return view('pages.backend.income.index', compact('staff', 'data', 'namelist', 'branch', 'today', 'user_branch_id'));
+        return view('pages.backend.income.index', compact('staff', 'data', 'namelist', 'today'));
     }
 
     public function store(Request $request)
@@ -35,7 +34,7 @@ class IncomeController extends Controller
 
         $data->save();
 
-        return redirect()->route('income.index', ['user_branch_id' => $data->branch_id])->with('add', 'New income information has been added to your list.');
+        return redirect()->route('income.index')->with('add', 'New income information has been added to your list.');
     }
 
     public function edit($id)
@@ -61,7 +60,7 @@ class IncomeController extends Controller
 
         $data->update();
 
-        return redirect()->route('income.index', ['user_branch_id' => $data->branch_id])->with('update', 'Updated income information has been added to your list.');
+        return redirect()->route('income.index')->with('update', 'Updated income information has been added to your list.');
     }
 
     public function delete($id)
@@ -72,7 +71,7 @@ class IncomeController extends Controller
 
         $data->update();
 
-        return redirect()->route('income.index', ['user_branch_id' => $data->branch_id])->with('soft_destroy', 'Successful removal of the income record for the list.');
+        return redirect()->route('income.index')->with('soft_destroy', 'Successful removal of the income record for the list.');
     }
 
     public function destroy($id)
@@ -81,25 +80,23 @@ class IncomeController extends Controller
 
         $data->delete();
 
-        return redirect()->route('income.index', ['user_branch_id' => $data->branch_id])->with('destroy', 'Successfully erased the income record !');
+        return redirect()->route('income.index')->with('destroy', 'Successfully erased the income record !');
     }
 
-    public function datefilter(Request $request, $user_branch_id)
+    public function datefilter(Request $request)
     {
         $date = $request->get('date');
 
-        $income_data = Income::where('soft_delete', '!=', 1)->where('branch_id', '=', $user_branch_id)->where('date', '=', $date)->get();
+        $income_data = Income::where('soft_delete', '!=', 1)->where('date', '=', $date)->get();
 
         $income_arr = [];
         foreach ($income_data as $key => $income_datas) {
-
-            $branch = Branch::findOrFail($income_datas->branch_id);
             $namelist = Namelist::findOrFail($income_datas->namelist_id);
             $staff = Staff::findOrFail($income_datas->staff_id);
 
             $income_arr[] = array(
                 'date' => date('d M, Y', strtotime($income_datas->date)),
-                'branch' => $branch->name,
+                'branch' => '',
                 'namelist' => $namelist->name,
                 'staff' => $staff->name,
                 'amount' => $income_datas->amount,
@@ -110,7 +107,7 @@ class IncomeController extends Controller
 
         $today = Carbon::now()->format('Y-m-d');
 
-        return view('pages.backend.income.datefilter', compact('income_arr', 'date', 'user_branch_id'));
+        return view('pages.backend.income.datefilter', compact('income_arr', 'date'));
     }
 }
 

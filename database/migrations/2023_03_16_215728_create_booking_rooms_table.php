@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->string('room_type');
             $table->string('room_floor');
-            $table->integer('room_price');
-            $table->integer('room_cal_price');
+            $table->integer('room_price')->nullable();
+            $table->integer('room_cal_price')->nullable();
             $table->timestamps();
         });
     }

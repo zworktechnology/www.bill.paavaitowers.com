@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('room_type');
             $table->string('room_category');
             $table->string('room_floor');
-            $table->unsignedBigInteger('branch_id');
+            $table->unsignedBigInteger('branch_id')->nullable();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->boolean('booking_status')->default(0);
             $table->boolean('soft_delete')->default(0);

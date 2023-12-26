@@ -60,7 +60,6 @@
                                         <th>{{ __('messages.sno_title') }}</th>
                                         <th>{{ __('messages.date') }}</th>
                                         <th>Closer Name</th>
-                                        <th>{{ __('messages.branch_title') }}</th>
                                         <th>{{ __('messages.total_title') }}</th>
                                         <th>{{ __('messages.action_title') }}</th>
                                     </tr>
@@ -71,7 +70,6 @@
                                         <td>{{ ++$keydata }}</td>
                                         <td>{{ date('d M, Y', strtotime($datas->date)) }}</td>
                                         <td>{{  $datas->staff->name }}</td>
-                                        <td>{{ $datas->branch->name }}</td>
                                         <td>₹ {{  $datas->total }}</td>
                                         <td>
                                             <ul class="list-unstyled hstack gap-1 mb-0">

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('note')->nullable();
             $table->unsignedBigInteger('namelist_id');
             $table->foreign('namelist_id')->references('id')->on('namelists')->onDelete('cascade');
-            $table->unsignedBigInteger('branch_id');
+            $table->unsignedBigInteger('branch_id')->nullable();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
             $table->boolean('soft_delete')->default(0);
 

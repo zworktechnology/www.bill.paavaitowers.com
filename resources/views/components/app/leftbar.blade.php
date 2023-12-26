@@ -38,8 +38,8 @@
                         <span>{{ __('messages.dashboard_title') }}</span>
                     </a>
                 </li>
-                <li class="{{ Route::is('booking.index','booking.today','booking.upcoming','booking.missingout','booking.create', 'booking.datefilter') && request()->route('user_branch_id') == 1 ? 'mm-active' : '' }}">
-                    <a href="{{ route('booking.index', ['user_branch_id' => '1']) }}" class="waves-effect">
+                <li class="{{ Route::is('booking.index','booking.today','booking.upcoming','booking.missingout','booking.create', 'booking.datefilter') ? 'mm-active' : '' }}">
+                    <a href="{{ route('booking.index') }}" class="waves-effect">
                         <i class="uil-store"></i>
                         <span>{{ __('messages.booking_title') }}</span>
                     </a>
@@ -61,14 +61,14 @@
                         <span>I/E Master</span>
                     </a>
                 </li>
-                <li class="{{ Route::is('income.index', 'income.datefilter') && request()->route('user_branch_id') == 1 ? 'mm-active' : '' }}">
-                    <a href="{{ route('income.index', ['user_branch_id' => '1']) }}" class="waves-effect">
+                <li class="{{ Route::is('income.index', 'income.datefilter') ? 'mm-active' : '' }}">
+                    <a href="{{ route('income.index') }}" class="waves-effect">
                         <i class="uil-money-withdraw"></i>
                         <span>{{ __('messages.otherincome_title') }}</span>
                     </a>
                 </li>
-                <li class="{{ Route::is('expense.index', 'expense.datefilter') && request()->route('user_branch_id') == 1 ? 'mm-active' : '' }}">
-                    <a href="{{ route('expense.index', ['user_branch_id' => '1']) }}" class="waves-effect">
+                <li class="{{ Route::is('expense.index', 'expense.datefilter')  ? 'mm-active' : '' }}">
+                    <a href="{{ route('expense.index') }}" class="waves-effect">
                         <i class="uil-money-withdraw"></i>
                         <span>{{ __('messages.expense_title') }}</span>
                     </a>

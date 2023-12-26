@@ -20,8 +20,15 @@ return new class extends Migration
             $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
             $table->string('term')->nullable();
             $table->string('payable_amount')->nullable();
+
+            $table->unsignedBigInteger('check_in_staff')->nullable();
+
+            $table->unsignedBigInteger('check_out_staff')->nullable();
+
+
             $table->string('paid_date')->nullable();
             $table->string('payment_method')->nullable();
+            $table->string('webstatus')->nullable();
             $table->boolean('soft_delete')->default(0);
             $table->timestamps();
         });

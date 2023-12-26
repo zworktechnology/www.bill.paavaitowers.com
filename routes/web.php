@@ -104,17 +104,19 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // BOOKING CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX ALL
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/{user_branch_id}', [BookingController::class, 'index'])->name('booking.index');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking', [BookingController::class, 'index'])->name('booking.index');
         // INDEX TODAY
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/today/{user_branch_id}', [BookingController::class, 'today'])->name('booking.today');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/today', [BookingController::class, 'today'])->name('booking.today');
         // INDEX UPCOMING
         Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/upcoming/{user_branch_id}', [BookingController::class, 'upcoming'])->name('booking.upcoming');
         // INDEX MISSING OUT
         Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/missingout/{user_branch_id}', [BookingController::class, 'missingout'])->name('booking.missingout');
         // CREATE
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/create/{user_branch_id}', [BookingController::class, 'create'])->name('booking.create');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/create', [BookingController::class, 'create'])->name('booking.create');
         // STORE
-        Route::middleware(['auth:sanctum', 'verified'])->post('/zwork-admin/booking/store', [BookingController::class, 'store'])->name('booking.store');
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zwork-admin/booking/noncash_gpaystore', [BookingController::class, 'noncash_gpaystore'])->name('booking.noncash_gpaystore');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zwork-admin/booking/cash_gpaystore', [BookingController::class, 'cash_gpaystore'])->name('booking.cash_gpaystore');
         // EDIT
         Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/edit/{id}', [BookingController::class, 'edit'])->name('booking.edit');
         // UPDATE
@@ -132,7 +134,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // VIEW
         Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/view/{id}', [BookingController::class, 'view'])->name('booking.view');
         // DATE FILTER
-        Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/booking/datefilter/{user_branch_id}', [BookingController::class, 'datefilter'])->name('booking.datefilter');
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/booking/datefilter', [BookingController::class, 'datefilter'])->name('booking.datefilter');
         // AUTO COMPLETE
         Route::middleware(['auth:sanctum', 'verified'])->post('/zwork-admin/booking/autocomplete', [BookingController::class, 'autocomplete'])->name('booking.autocomplete');
         // EXTEND
@@ -189,7 +191,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // INCOME CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/income/{user_branch_id}', [IncomeController::class, 'index'])->name('income.index');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/income', [IncomeController::class, 'index'])->name('income.index');
         // CREATE
         Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/income/create', [IncomeController::class, 'create'])->name('income.create');
         // STORE
@@ -203,13 +205,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // DESTROY
         Route::middleware(['auth:sanctum', 'verified'])->delete('/zwork-admin/income/destroy/{id}', [IncomeController::class, 'destroy'])->name('income.destroy');
         // DATE FILTER
-        Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/income/datefilter/{user_branch_id}', [IncomeController::class, 'datefilter'])->name('income.datefilter');
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/income/datefilter', [IncomeController::class, 'datefilter'])->name('income.datefilter');
     });
 
     // EXPENSE CONTROLLER
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/expense/{user_branch_id}', [ExpenseController::class, 'index'])->name('expense.index');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/expense', [ExpenseController::class, 'index'])->name('expense.index');
         // CREATE
         Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/expense/create', [ExpenseController::class, 'create'])->name('expense.create');
         // STORE
@@ -223,7 +225,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // DESTROY
         Route::middleware(['auth:sanctum', 'verified'])->delete('/zwork-admin/expense/destroy/{id}', [ExpenseController::class, 'destroy'])->name('expense.destroy');
         // DATE FILTER
-        Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/expense/datefilter/{user_branch_id}', [ExpenseController::class, 'datefilter'])->name('expense.datefilter');
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/expense/datefilter', [ExpenseController::class, 'datefilter'])->name('expense.datefilter');
     });
 
     // OPEN ACCOUNT CONTROLLER
@@ -284,7 +286,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 
 
-Route::get('getBranchwiseRoom/{id}', [RoomController::class, 'getBranchwiseRoom']);
+Route::get('getBranchwiseRoom', [RoomController::class, 'getBranchwiseRoom']);
 Route::get('getPriceforRooms/{id}', [RoomController::class, 'getPriceforRooms']);
 Route::get('/getoldCustomers/{phone_no}', [BookingController::class, 'getoldCustomers']);
 

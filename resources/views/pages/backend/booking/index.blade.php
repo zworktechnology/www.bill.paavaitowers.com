@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <a href="{{ route('booking.create', ['user_branch_id' => $user_branch_id]) }}"><button
+                            <a href="{{ route('booking.create') }}"><button
                                     type="button" class="btn btn-primary waves-effect waves-light mb-3"><i
                                         class="mdi mdi-plus me-1"></i> {{ __('messages.newbooking_title') }}</button></a>
 
@@ -17,7 +17,7 @@
                                 <div class="page-title-box d-flex align-items-center justify-content-between">
                                     <ol class="breadcrumb m-0">
                                         <form autocomplete="off" method="POST"
-                                            action="{{ route('booking.datefilter', ['user_branch_id' => $user_branch_id]) }}"
+                                            action="{{ route('booking.datefilter') }}"
                                             style="display: flex;">
                                             @method('PUT')
                                             @csrf
@@ -41,9 +41,9 @@
                                                 style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(0px, -41.3167px);"
                                                 data-popper-placement="top-start">
                                                 <a class="dropdown-item {{ Route::is('booking.index') ? 'mm-active' : '' }}"
-                                                    href="{{ route('booking.index', ['user_branch_id' => $user_branch_id]) }}">{{ __('messages.openedbooking_title') }}</a>
+                                                    href="{{ route('booking.index') }}">{{ __('messages.openedbooking_title') }}</a>
                                                 <a class="dropdown-item {{ Route::is('booking.today') ? 'mm-active' : '' }}"
-                                                    href="{{ route('booking.today', ['user_branch_id' => $user_branch_id]) }}">{{ __('messages.closedbooking_title') }}</a>
+                                                    href="{{ route('booking.today') }}">{{ __('messages.closedbooking_title') }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -142,15 +142,15 @@
                                     @endif
                                     <div class="modal fade" id="room_view{{ $bookingData['latest_booking_id'] }}"
                                         data-bs-backdrop="static" aria-hidden="true"
-                                        aria-labelledby="myExtraLargeModalLabel" tabindex="-1">
-                                        <div class="modal-dialog modal-dialog-scrollable modal-xl ">
+                                        aria-labelledby="myExtraLargeModalLabel" tabindex="-1" >
+                                        <div class="modal-dialog modal-dialog-scrollable modal-xl " style="max-height: calc(100vh - 210px);overflow-y: auto;">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Room View</h5>
-                                                    <button type="button" class="btn-close room_viewclose"
+                                                    <button type="button" class="btn-close "
                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body" >
                                                     <div class="row mb-4">
                                                         <label for="horizontal-firstname-input"
                                                             class="col-sm-3 col-form-label">Customer Name </label>
@@ -162,7 +162,7 @@
                                                             class="col-sm-2 col-form-label">Contact Number </label>
                                                         <div class="col-sm-3">
                                                             <input type="text" class="form-control" readonly=""
-                                                                value="{{ $bookingData['whats_app_number'] }}">
+                                                                value="{{ $bookingData['phone_number'] }}">
                                                         </div>
                                                     </div>
 
@@ -280,6 +280,7 @@
                                                                 value="{{ $bookingData['checkin_staff'] }}">
                                                         </div>
                                                     </div>
+                                                   
 
                                                     <div class="row mb-4">
                                                         <label for="horizontal-firstname-input"
@@ -302,7 +303,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-
+                                                   
 
                                                 </div>
 
@@ -407,8 +408,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered dt-responsive nowrap" id="bookings_datatable"
-                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table class="table table-bordered dt-responsive nowrap" id="bookings_datatable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>{{ __('messages.billno') }}</th>

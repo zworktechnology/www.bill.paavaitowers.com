@@ -20,15 +20,15 @@ return new class extends Migration
 
             // Request columns
             $table->string('booking_invoiceno')->nullable();
-            $table->string('customer_name');
-            $table->string('phone_number');
-            $table->string('whats_app_number');
+            $table->string('customer_name')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('whats_app_number')->nullable();
             $table->string('email_id')->nullable();
             $table->longText('address')->nullable();
             $table->longText('gst_number')->nullable();
 
-            $table->string('male_count');
-            $table->string('female_count');
+            $table->string('male_count')->nullable();
+            $table->string('female_count')->nullable();
             $table->string('child_count')->nullable();
             $table->boolean('couple')->nullable()->default(0);
             $table->string('check_in_date')->nullable();
@@ -40,11 +40,11 @@ return new class extends Migration
             $table->string('extended_time')->nullable();
 
             $table->string('days')->nullable();
-            $table->unsignedBigInteger('branch_id');
+            $table->unsignedBigInteger('branch_id')->nullable();
             $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
 
 
-            $table->string('proofs');
+            $table->string('proofs')->nullable();
             $table->string('prooftype_one')->nullable();
             $table->longText('proofimage_one')->nullable();
             $table->string('prooftype_two')->nullable();
@@ -70,6 +70,8 @@ return new class extends Migration
             $table->string('check_out_staff')->nullable();
 
             $table->string('status');
+            $table->string('webstatus')->nullable();
+            $table->string('booking_type')->nullable();
             $table->boolean('soft_delete')->default(0);
 
             // CreatedAt & UpdatedAt columns

@@ -79,9 +79,9 @@ class RoomController extends Controller
 
 
 
-    public function getBranchwiseRoom($branch_id)
+    public function getBranchwiseRoom()
     {
-        $GetBranch = Room::where('branch_id', '=', $branch_id)->get();
+        $GetBranch = Room::where('soft_delete', '!=', 1)->get();
         $userData['data'] = $GetBranch;
         echo json_encode($userData);
     }
