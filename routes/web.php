@@ -12,6 +12,7 @@ use App\Http\Controllers\NamelistController;
 use App\Http\Controllers\OpenAccountController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\CouponController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -277,6 +278,29 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX
         Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
     });
+
+
+    // COUPON CONTROLLER
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        // INDEX
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/coupon', [CouponController::class, 'index'])->name('coupon.index');
+        // CREATE
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/coupon/create', [CouponController::class, 'create'])->name('coupon.create');
+        // STORE
+        Route::middleware(['auth:sanctum', 'verified'])->post('/zwork-admin/coupon/store', [CouponController::class, 'store'])->name('coupon.store');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/coupon/edit/{id}', [CouponController::class, 'edit'])->name('coupon.edit');
+        // UPDATE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/coupon/update/{id}', [CouponController::class, 'update'])->name('coupon.update');
+        // DELETE
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/coupon/delete/{id}', [CouponController::class, 'delete'])->name('coupon.delete');
+        // DESTROY
+        Route::middleware(['auth:sanctum', 'verified'])->delete('/zwork-admin/coupon/destroy/{id}', [CouponController::class, 'destroy'])->name('coupon.destroy');
+        // DATE FILTER
+        Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/coupon/datefilter', [CouponController::class, 'datefilter'])->name('coupon.datefilter');
+        // EDIT
+        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/coupon/usedcustomers/{id}', [CouponController::class, 'usedcustomers'])->name('coupon.usedcustomers');
+    });
 });
 
 
@@ -298,3 +322,4 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 Route::post('/feedback/store', [FeedbackController::class, 'store'])->name('feedback.store');
 // BOOKING // BILL VIEW TO MESSAGE
 Route::get('/booking/{id}/invoice/detail', [BookingController::class, 'bookingbillview'])->name('booking.bookingbillview');
+Route::get('/getCouponDiscount', [CouponController::class, 'getCouponDiscount']);

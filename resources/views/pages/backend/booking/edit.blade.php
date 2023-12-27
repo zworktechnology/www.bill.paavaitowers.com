@@ -429,7 +429,41 @@
                                                                             placeholder="Enter here " required>
                                                                     </div>
                                                                 </div>
+                                                                @if ($data->webstatus == '')
+                                                                <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Coupon Code<span
+                                                                                    style="color: red;">*</span> </label>
+                                                                        </div>
+                                                                        <div class="col-md-9 col-12">
+                                                                            <select class="form-control js-example-basic-single coupon_codeid" name="coupon_codeid"
+                                                                                required>
+                                                                                <option value="" disabled selected hiddden>
+                                                                                    Select One</option>
+                                                                                @foreach ($coupon as $coupons)
+                                                                                    <option value="{{ $coupons->id }}" @if ($coupons->id == $data->coupon_codeid) selected='selected' @endif>
+                                                                                        {{ $coupons->coupon_code }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
 
+                                                                <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Total After Discount <span
+                                                                                    style="color: red;">*</span> </label>
+                                                                        </div>
+                                                                        <div class="col-md-9 col-12">
+                                                                            <input type="text" class="form-control totalamount_afterdiscount"
+                                                                                name="totalamount_afterdiscount" value="{{ $data->totalamount_afterdiscount }}" readonly >
+                                                                        </div>
+                                                                    </div>
                                                                 <div data-repeater-item class="inner mb-3 row">
                                                                     <div class="col-md-3 col-12">
                                                                         <label for="horizontal-firstname-input"
@@ -438,7 +472,7 @@
                                                                     </div>
                                                                     <div class="col-md-9 col-12">
                                                                         <input type="text" class="form-control total_paid"
-                                                                            style="background-color:#1dc72ead" value=""
+                                                                            style="background-color:#1dc72ead" value="{{ $data->total_paid }}" readonly
                                                                             name="total_paid" placeholder="Enter here ">
                                                                     </div>
                                                                 </div>
@@ -644,7 +678,7 @@
                                                     <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Proof Front<span style="color: red;">*</span> </label>
                                                     <div class="col-sm-9">
                                                         <div style="display: flex">
-                                                            <div><img src="{{ asset($data->proofimage_one) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
+                                                            <div><img src="{{ asset('assets/customer_details/proofimage_one/' .$data->proofimage_one) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
                                                             <div id="my_camera_front"></div>
                                                             <div id="captured_image_front"></div>
                                                         </div>
@@ -662,7 +696,7 @@
                                                     <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Proof  Back<span style="color: red;">*</span> </label>
                                                     <div class="col-sm-9">
                                                         <div style="display: flex">
-                                                            <div><img src="{{ asset($data->proofimage_two) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
+                                                            <div><img src="{{ asset('assets/customer_details/proofimage_two/' .$data->proofimage_two) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
                                                             <div id="my_camera_back"></div>
                                                             <div id="captured_image_back"></div>
                                                         </div>
@@ -677,7 +711,7 @@
                                                     <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Photo <span style="color: red;">*</span> </label>
                                                     <div class="col-sm-9">
                                                         <div style="display: flex">
-                                                            <div><img src="{{ asset($data->customer_photo) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
+                                                            <div><img src="{{ asset('assets/customer_details/customer_photo/' .$data->customer_photo) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
                                                             <div id="my_camera"></div>
                                                             <div id="captured_cameraimage"></div>
                                                         </div>
@@ -844,6 +878,7 @@
                                     gst_in_amount) + Number(additional_charge)) -
                                 Number(discount_in_amount);
                             $('.grand_total').val(grand_total.toFixed(2));
+                            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
                             var payable_amount = $(".total_paid").val();
                             var balance = Number(grand_total) - Number(payable_amount);
                             $('.balance_amount').val(balance.toFixed(2));
@@ -858,6 +893,46 @@
 
 
 
+            });
+
+
+
+            $('.coupon_codeid').on('change', function() {
+                var coupon_codeid = $(this).val();
+
+                //$('.oldblance').val('');
+                $.ajax({
+                    url: '/getCouponDiscount/',
+                    type: 'get',
+                    data: {
+                            _token: "{{ csrf_token() }}",
+                            coupon_codeid: coupon_codeid
+                        },
+                    dataType: 'json',
+                    success: function(response) {
+                        $('.totalamount_afterdiscount').val('');
+                        console.log(response);
+                        var len = response.length;
+                        for (var i = 0; i < len; i++) {
+                            if(response[i].reduction_amount){
+                                var grand_total = $(".grand_total").val();
+                                var totalaount = Number(grand_total) - Number(response[i].reduction_amount);
+                                $('.totalamount_afterdiscount').val(totalaount);
+                                var payable_amount = $(".payable_amount").val();
+                                var balance = Number(totalaount) - Number(payable_amount);
+                                $('.balance_amount').val(balance);
+                            }else if(response[i].reduction_percentage){
+                                var grand_total = $(".grand_total").val();
+                                var reduction_amount = (response[i].reduction_percentage / 100) * grand_total;
+                                var totalaount = Number(grand_total) - Number(reduction_amount.toFixed(2));
+                                $('.totalamount_afterdiscount').val(totalaount);
+                                var payable_amount = $(".payable_amount").val();
+                                var balance = Number(totalaount) - Number(payable_amount);
+                                $('.balance_amount').val(totalaount);
+                            }
+                        }
+                    }
+                });
             });
 
 
@@ -1022,6 +1097,7 @@
                                         additional_charge)) - Number(
                                     discount_in_amount);
                                 $('.grand_total').val(grand_total.toFixed(2));
+                                $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
                                 var payable_amount = $(".payable_amount").val();
                                 var balance = Number(grand_total.toFixed(2)) -
                                     Number(payable_amount);
@@ -1059,6 +1135,7 @@
             var grand_total = (Number(total_calc_price) + Number(gst_in_amount) + Number(additional_charge)) -
                 Number(discount_in_amount);
             $('.grand_total').val(grand_total.toFixed(2));
+            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
             var payable_amount = $(".total_paid").val();
             var balance = Number(grand_total) - Number(payable_amount);
             $('.balance_amount').val(balance.toFixed(2));
@@ -1099,6 +1176,7 @@
             var grand_total = (Number(total_calc_price) + Number(gst_in_amount) + Number(additional_charge)) -
                 Number(discount_in_amount);
             $('.grand_total').val(grand_total.toFixed(2));
+            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
             var payable_amount = $(".total_paid").val();
             var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
             $('.balance_amount').val(balance.toFixed(2));
@@ -1121,6 +1199,7 @@
             var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(
                 discount_amount);
             $('.grand_total').val(grand_total.toFixed(2));
+            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
             var payable_amount = $(".total_paid").val();
             var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
             $('.balance_amount').val(balance.toFixed(2));
@@ -1140,6 +1219,7 @@
             var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(
                 discount_amount);
             $('.grand_total').val(grand_total.toFixed(2));
+            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
             var payable_amount = $(".total_paid").val();
             var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
             $('.balance_amount').val(balance.toFixed(2));
@@ -1217,15 +1297,25 @@
                 var discount_amount = $(".discount_amount").val();
                 var gst_amount = $(".gst_amount").val();
 
-                var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(
-                    additional_charge)) - Number(discount_amount);
+                var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(discount_amount);
                 $('.grand_total').val(grand_total.toFixed(2));
-                var balance = Number(grand_total) - Number(payable_amount);
+                var totalamount_afterdiscount = $(".totalamount_afterdiscount").val();
+                var balance = Number(totalamount_afterdiscount) - Number(payable_amount);
                 $('.balance_amount').val(balance.toFixed(2));
             });
 
 
 
+        });
+
+        $(document).on("keyup", 'input.payable_amount', function() {
+            var payable_amount = $(this).val();
+            var totalamount_afterdiscount = $(".totalamount_afterdiscount").val();
+
+            if (Number(payable_amount) > Number(totalamount_afterdiscount)) {
+                alert('You are entering Maximum Amount of Total');
+                $(".payable_amount").val('');
+            }
         });
 
 

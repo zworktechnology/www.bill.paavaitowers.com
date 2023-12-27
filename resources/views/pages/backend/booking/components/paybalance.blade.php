@@ -30,7 +30,7 @@
                             Total</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" style="background: #dfdc7d;" disabled
-                                name="grand_total" id="grand_total" value="{{ $bookingDatas['grand_total'] }}" />
+                                name="grand_total" id="grand_total" value="{{ $bookingDatas['totalamount_afterdiscount'] }}" />
                         </div>
                     </div>
                     <div class="row mb-4">

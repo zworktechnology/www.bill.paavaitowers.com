@@ -45,6 +45,7 @@ class Booking extends Model
         'additional_amount',
         'additional_notes',
         'grand_total',
+        'totalamount_afterdiscount',
         'total_paid',
         'balance_amount',
         'out_date',
@@ -52,6 +53,7 @@ class Booking extends Model
         'status',
         'webstatus',
         'booking_type',
+        'coupon_codeid',
         'soft_delete',
 
         'check_in_staff',

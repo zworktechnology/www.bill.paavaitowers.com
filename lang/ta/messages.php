@@ -33,6 +33,7 @@ return [
   'total_title' => 'மொத்த தொகை',
   'name_title' => 'பெயர்',
   'address_title' => 'முகவரி',
+  'coupon_title' => 'கூப்பன்',
 
 
 ];

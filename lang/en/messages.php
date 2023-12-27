@@ -33,6 +33,7 @@ return [
   'total_title' => 'Total',
   'name_title' => 'Name',
   'address_title' => 'Address',
+  'coupon_title' => 'Coupon',
   
 
 

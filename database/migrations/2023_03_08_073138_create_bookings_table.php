@@ -60,6 +60,7 @@ return new class extends Migration
             $table->string('additional_amount')->nullable();
             $table->string('additional_notes')->nullable();
             $table->string('grand_total')->nullable();
+            $table->string('totalamount_afterdiscount')->nullable();
             $table->string('total_paid')->nullable();
             $table->string('balance_amount')->nullable();
 
@@ -72,6 +73,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('webstatus')->nullable();
             $table->string('booking_type')->nullable();
+            $table->string('coupon_codeid')->nullable();
             $table->boolean('soft_delete')->default(0);
 
             // CreatedAt & UpdatedAt columns

@@ -10,6 +10,7 @@ use App\Models\Staff;
 use App\Models\Income;
 use App\Models\BookingPayment;
 use App\Models\Expense;
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -359,6 +360,7 @@ class BookingController extends Controller
                 'chick_out_time' => $datas->check_out_time,
                 'phone_number' => $datas->phone_number,
                 'grand_total' => $datas->grand_total,
+                'totalamount_afterdiscount' => $datas->totalamount_afterdiscount,
                 'branch_id' => $datas->branch_id,
                 'total_paid' => $datas->total_paid,
                 'balance_amount' => $datas->balance_amount,
@@ -453,6 +455,7 @@ class BookingController extends Controller
                 'chick_out_time' => $datas->check_out_time,
                 'phone_number' => $datas->phone_number,
                 'grand_total' => $datas->grand_total,
+                'totalamount_afterdiscount' => $datas->totalamount_afterdiscount,
                 'branch_id' => '',
                 'total_paid' => $datas->total_paid,
                 'balance_amount' => $datas->balance_amount,
@@ -1016,8 +1019,9 @@ class BookingController extends Controller
         $today = Carbon::now()->format('Y-m-d');
         $timenow = Carbon::now()->format('H:i');
         $staff = Staff::where('soft_delete', '!=', 1)->get();
+        $coupon = Coupon::where('soft_delete', '!=', 1)->get();
 
-        return view('pages.backend.booking.create', compact('staff', 'roomsarr', 'today', 'timenow'));
+        return view('pages.backend.booking.create', compact('staff', 'roomsarr', 'today', 'timenow', 'coupon'));
     }
 
     public function noncash_gpaystore(Request $request)
@@ -1087,7 +1091,7 @@ class BookingController extends Controller
             $whatsapp = $request->get('whats_app_number');
             $customer_name = $request->get('booking_customer_name');
             
-                $last_branchid = Booking::where('soft_delete', '!=', 1)->where('webstatus', '==', NULL)->latest('id')->first();
+                $last_branchid = Booking::where('soft_delete', '!=', 1)->where('webstatus', '=', NULL)->latest('id')->first();
 
                     if($last_branchid != '')
                     {
@@ -1121,6 +1125,7 @@ class BookingController extends Controller
             $data->prooftype_one = $request->get('prooftype_one');
             $data->proofimage_two = $request->get('prooftype_one');
             $data->booking_type = $request->get('cash_booking_type');
+            $data->coupon_codeid = $request->get('coupon_codeid');
 
          
 
@@ -1225,7 +1230,7 @@ class BookingController extends Controller
             $data->additional_amount = $request->get('additional_charge');
             $data->additional_notes = $request->get('additional_charge_notes');
             $data->grand_total = $request->get('grand_total');
-            $data->grand_total = $request->get('grand_total');
+            $data->totalamount_afterdiscount = $request->get('totalamount_afterdiscount');
             $data->total_paid = $request->get('payable_amount');
             $data->balance_amount = $request->get('balance_amount');
             $data->check_in_staff = $request->get('check_in_staff');
@@ -1287,8 +1292,9 @@ class BookingController extends Controller
         $BookingRooms = BookingRoom::where('booking_id', '=', $id)->get();
         $paymentdata = BookingPayment::where('booking_id', '=', $id)->get();
         $staff = Staff::where('soft_delete', '!=', 1)->get();
+        $coupon = Coupon::where('soft_delete', '!=', 1)->get();
 
-        return view('pages.backend.booking.edit', compact('staff', 'data', 'BookingRooms', 'room', 'paymentdata'));
+        return view('pages.backend.booking.edit', compact('staff', 'data', 'BookingRooms', 'room', 'paymentdata', 'coupon'));
     }
 
     public function update(Request $request, $id)
@@ -1315,6 +1321,8 @@ class BookingController extends Controller
         $BookingData->branch_id = $request->get('branch_id');
         $BookingData->booking_type = $request->get('booking_type');
         $BookingData->prooftype_one = $request->get('prooftype_one');
+        $BookingData->coupon_codeid = $request->get('coupon_codeid');
+        $BookingData->totalamount_afterdiscount = $request->get('totalamount_afterdiscount');
         
 
 
@@ -1373,21 +1381,21 @@ class BookingController extends Controller
             }
 
 
-
         // if ($request->file('proofimage_one') != "") {
         //    $proofimage_one = $request->proofimage_one;
-        //    $filename_one = $BookingData->customer_name . '_' . $random_no . '_' . 'Front Proof' . '_' . $BookingData->prooftype_one . '.' . $proofimage_one->getClientOriginalExtension();
-        //    $request->proofimage_one->move('assets/customer_details/proof/front', $filename_one);
+        //    $filename_one = $BookingData->customer_name . '_' . $random_no . '_' . 'proof front image' . '.' . $proofimage_one->getClientOriginalExtension();
+        //    $request->proofimage_one->move('assets/customer_details/proofimage_one', $filename_one);
         //    $BookingData->proofimage_one = $filename_one;
         // } else {
         //    $Insertedproof_image_one = $BookingData->proofimage_one;
         //    $BookingData->proofimage_one = $Insertedproof_image_one;
         // }
 
+
         // if ($request->file('proofimage_two') != "") {
         //    $proofimage_two = $request->proofimage_two;
-        //    $filename_two = $BookingData->customer_name . '_' . $random_no . '_' . 'Back Proof' . '_' . $BookingData->prooftype_one . '.' . $proofimage_two->getClientOriginalExtension();
-        //    $request->proofimage_two->move('assets/customer_details/proof/back', $filename_two);
+        //    $filename_two = $BookingData->customer_name . '_' . $random_no . '_' . 'proof back image' . '_' . '.' . $proofimage_two->getClientOriginalExtension();
+        //    $request->proofimage_two->move('assets/customer_details/proofimage_two', $filename_two);
         //    $BookingData->proofimage_two = $filename_two;
         // } else {
         //    $Insertedproof_image_two = $BookingData->proofimage_two;
@@ -1397,12 +1405,13 @@ class BookingController extends Controller
         // if ($request->file('customer_photo') != "") {
         //    $customer_photo = $request->customer_photo;
         //    $filename_customer_photo = $BookingData->customer_name . '_' . $random_no . '_' . 'Photo' . '.' . $customer_photo->getClientOriginalExtension();
-        //    $request->customer_photo->move('assets/customer_details/proof/photo', $filename_customer_photo);
+        //    $request->customer_photo->move('assets/customer_details/customer_photo', $filename_customer_photo);
         //    $BookingData->customer_photo = $filename_customer_photo;
         // } else {
         //    $Insertedproof_customer_photo = $BookingData->customer_photo;
         //    $BookingData->customer_photo = $Insertedproof_customer_photo;
         // }
+
 
         $BookingData->total = $request->get('total_calc_price');
         $BookingData->gst_per = $request->get('gst_percentage');
@@ -1469,7 +1478,7 @@ class BookingController extends Controller
         
         $Booking_Data = Booking::findOrFail($id);
 
-        $total_amount = $Booking_Data->grand_total;
+        $total_amount = $Booking_Data->totalamount_afterdiscount;
         $balanceamount = $total_amount - $total_paid;
 
         $Booking_Data->total_paid = $total_paid;
@@ -1634,7 +1643,7 @@ class BookingController extends Controller
         $payableAmount = $request->get('payable_amount');
         
         $total_paid_amount = $data->total_paid + $payableAmount;
-        $balance = $data->grand_total - $total_paid_amount;
+        $balance = $data->totalamount_afterdiscount - $total_paid_amount;
         $data->total_paid = $total_paid_amount;
         $data->balance_amount = $balance;
         $data->update();
