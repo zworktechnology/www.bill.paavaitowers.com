@@ -1059,9 +1059,14 @@
                             $('.email_id').val(response['data'].email_id);
                             $('.address').val(response['data'].address);
                             $('.prooftype_one').val(response['data'].prooftype_one);
-                            $("#prooffront").append("<img src='https://srimaruti.com/" + response['data'].proofimage_one +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
-                            $("#proofback").append("<img src='https://srimaruti.com/" + response['data'].proofimage_two +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
-                            $("#proofcustomerphoto").append("<img src='https://srimaruti.com/" + response['data'].customer_photo +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#prooffront").append("<img src='http://127.0.0.1:8000/assets/customer_details/proofimage_one/" + response['data'].proofimage_one +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#proofback").append("<img src='http://127.0.0.1:8000/assets/customer_details/proofimage_two/" + response['data'].proofimage_two +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#proofcustomerphoto").append("<img src='http://127.0.0.1:8000/assets/customer_details/customer_photo/" + response['data'].customer_photo +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+
+                            
+                            $("#webprooffront").append("<img src='http://127.0.0.1:8000/assets/customer_details/proofimage_one/" + response['data'].proofimage_one +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#webproofback").append("<img src='http://127.0.0.1:8000/assets/customer_details/proofimage_two/" + response['data'].proofimage_two +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#webproofcustomerphoto").append("<img src='http://127.0.0.1:8000/assets/customer_details/customer_photo/" + response['data'].customer_photo +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
                             
                         
                     }
