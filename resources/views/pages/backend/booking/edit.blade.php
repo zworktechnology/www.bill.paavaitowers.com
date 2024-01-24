@@ -30,7 +30,7 @@
                                                     <div class="col-md-5 col-12">
                                                         <label for="horizontal-firstname-input" class="col-sm-4 col-form-label">
                                                             Booking Type <span style="color: red;">*</span> </label>
-                                                        <select class="form-control booking_type" name="booking_type" required>
+                                                        <select class="form-control booking_type" name="booking_type" disabled required>
                                                             <option value="" selected hidden class="text-muted">Select Payment Via</option>
                                                             <option value="Cash"{{ $data->booking_type == 'Cash' ? 'selected' : '' }} class="text-muted">Cash</option>
                                                             <option value="Google Pay"{{ $data->booking_type == 'Google Pay' ? 'selected' : '' }} class="text-muted">Google Pay</option>
@@ -203,32 +203,36 @@
                                                                                                             $('#room_cal_price' + {{ $data->id }}{{ $index }}).val(Amount);
 
 
-                                                                                                            var totalAmount = 0;
-                                                                                                            var days = $(".days").val();
-
-                                                                                                            $("input[name='room_cal_price[]']").each(function() {
-                                                                                                                //alert($(this).val());
-                                                                                                                totalAmount = Number(totalAmount) + Number($(this).val());
-                                                                                                                $('.total_calc_price').val(totalAmount);
+                                                                                                            var sum = 0;
+                                                                                                            $(".room_cal_price").each(function(){
+                                                                                                                sum += +$(this).val();
                                                                                                             });
 
-                                                                                                            var additional_charge = $(".additional_charge").val();
+                                                                                                            $(".total_calc_price").val(sum.toFixed(2));
+                                                                                                            $('.totalamount_afterdiscount').val(sum.toFixed(2));
+                                                                                                            $('.grand_total').val(sum.toFixed(2));
+
+                                                                                                            var discountamount = $(".discountamount").val();
                                                                                                             var total_calc_price = $(".total_calc_price").val();
+                                                                                                            var totalamount_afterdiscount = Number(total_calc_price) - Number(discountamount);
+                                                                                                            $('.totalamount_afterdiscount').val(totalamount_afterdiscount);
 
-
-                                                                                                            var discount_percentage = $(".discount_percentage").val();
-                                                                                                            var discount_in_amount = (discount_percentage / 100) * total_calc_price;
-                                                                                                            $('.discount_amount').val(discount_in_amount.toFixed(2));
 
                                                                                                             var gst_percentage = $(".gst_percentage").val();
-                                                                                                            var gst_in_amount = (gst_percentage / 100) * total_calc_price;
+                                                                                                            var gst_in_amount = (gst_percentage / 100) * totalamount_afterdiscount;
                                                                                                             $('.gst_amount').val(gst_in_amount.toFixed(2));
-
-                                                                                                            var grand_total = (Number(total_calc_price) + Number(gst_in_amount) + Number(additional_charge)) -
-                                                                                                                Number(discount_in_amount);
+                                                                                                            var grand_total = (Number(totalamount_afterdiscount) + Number(gst_in_amount.toFixed(2)));
                                                                                                             $('.grand_total').val(grand_total.toFixed(2));
-                                                                                                            var payable_amount = $(".total_paid").val();
-                                                                                                            var balance = Number(grand_total) - Number(payable_amount);
+
+
+
+                                                                                                            var payable_amount = 0;
+                                                                                                                $(".payable_amount").each(function(){
+                                                                                                                    payable_amount += +$(this).val();
+                                                                                                                });
+                                                                                                                $(".total_payable").val(payable_amount.toFixed(2));
+
+                                                                                                            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount.toFixed(2));
                                                                                                             $('.balance_amount').val(balance.toFixed(2));
 
                                                                                                         });
@@ -239,29 +243,37 @@
                                                                                                             var total = room_price * days;
                                                                                                             $('#room_cal_price' + {{ $data->id }}{{ $index }}).val(total);
 
-                                                                                                            var totalAmount = 0;
-                                                                                                            $("input[name='room_cal_price[]']").each(function() {
-                                                                                                                //alert($(this).val());
-                                                                                                                totalAmount = Number(totalAmount) + Number($(this).val());
-                                                                                                                $('.total_calc_price').val(totalAmount);
+
+                                                                                                            var sum = 0;
+                                                                                                            $(".room_cal_price").each(function(){
+                                                                                                                sum += +$(this).val();
                                                                                                             });
 
-                                                                                                            var additional_charge = $(".additional_charge").val();
-                                                                                                            var total_calc_price = $(".total_calc_price").val();
+                                                                                                            $(".total_calc_price").val(sum.toFixed(2));
+                                                                                                            $('.totalamount_afterdiscount').val(sum.toFixed(2));
+                                                                                                            $('.grand_total').val(sum.toFixed(2));
 
-                                                                                                            var discount_percentage = $(".discount_percentage").val();
-                                                                                                            var discount_in_amount = (discount_percentage / 100) * total_calc_price;
-                                                                                                            $('.discount_amount').val(discount_in_amount.toFixed(2));
+                                                                                                            var discountamount = $(".discountamount").val();
+                                                                                                            var total_calc_price = $(".total_calc_price").val();
+                                                                                                            var totalamount_afterdiscount = Number(total_calc_price) - Number(discountamount);
+                                                                                                            $('.totalamount_afterdiscount').val(totalamount_afterdiscount);
+
 
                                                                                                             var gst_percentage = $(".gst_percentage").val();
-                                                                                                            var gst_in_amount = (gst_percentage / 100) * total_calc_price;
+                                                                                                            var gst_in_amount = (gst_percentage / 100) * totalamount_afterdiscount;
                                                                                                             $('.gst_amount').val(gst_in_amount.toFixed(2));
-
-                                                                                                            var grand_total = (Number(total_calc_price) + Number(gst_in_amount) + Number(additional_charge)) -
-                                                                                                                Number(discount_in_amount);
+                                                                                                            var grand_total = (Number(totalamount_afterdiscount) + Number(gst_in_amount.toFixed(2)));
                                                                                                             $('.grand_total').val(grand_total.toFixed(2));
-                                                                                                            var payable_amount = $(".payable_amount").val();
-                                                                                                            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
+
+
+
+                                                                                                            var payable_amount = 0;
+                                                                                                                $(".payable_amount").each(function(){
+                                                                                                                    payable_amount += +$(this).val();
+                                                                                                                });
+                                                                                                                $(".total_payable").val(payable_amount.toFixed(2));
+
+                                                                                                            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount.toFixed(2));
                                                                                                             $('.balance_amount').val(balance.toFixed(2));
                                                                                                         });
                                                                                                     </script>
@@ -288,12 +300,11 @@
                                                                                                 <option value="" selected
                                                                                                     hidden class="text-muted">
                                                                                                     Select Room Type</option>
-                                                                                                <option value="A/C"{{ $BookingRoomss->room_type == 'A/C' ? 'selected' : '' }}
-                                                                                                    class="text-muted">A/C
-                                                                                                </option>
-                                                                                                <option value="Non - A/C"{{ $BookingRoomss->room_type == 'Non - A/C' ? 'selected' : '' }}
-                                                                                                    class="text-muted">Non -
-                                                                                                    A/C</option>
+                                                                                                <option value="Standard A/C"{{ $BookingRoomss->room_type == 'Standard A/C' ? 'selected' : '' }} class="text-muted">Standard A/C</option>
+                                                                                                <option value="Deluxe A/C"{{ $BookingRoomss->room_type == 'Deluxe A/C' ? 'selected' : '' }} class="text-muted">Deluxe A/C</option>
+                                                                                                <option value="Standard Non A/C"{{ $BookingRoomss->room_type == 'Standard Non A/C' ? 'selected' : '' }} class="text-muted">Standard Non A/C</option>
+                                                                                                <option value="King Size A/C"{{ $BookingRoomss->room_type == 'King Size A/C' ? 'selected' : '' }} class="text-muted">King Size A/C</option>
+                                                                                                <option value="Group Room"{{ $BookingRoomss->room_type == 'Group Room' ? 'selected' : '' }} class="text-muted">Group Room</option>
                                                                                             </select>
                                                                                         </td>
                                                                                         <td class="col-12 col-md-2"><input
@@ -308,7 +319,7 @@
                                                                                                 type="text"
                                                                                                 class="form-control  room_cal_price"
                                                                                                 id="room_cal_price{{ $data->id }}{{ $index }}"
-                                                                                                name="room_cal_price[]"
+                                                                                                name="room_cal_price[]" readonly
                                                                                                 placeholder="Price"
                                                                                                 value="{{ $BookingRoomss->room_cal_price }}" />
                                                                                         </td>
@@ -350,12 +361,52 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-9 col-12">
-                                                                        <input type="text" class="form-control total_calc_price"
-                                                                            style="background-color:#babcc5ad" name="total_calc_price"
+                                                                        <input type="text" class="form-control total_calc_price" name="total_calc_price"
                                                                             id="total_calc_price" value="{{ $data->total }}" readonly
                                                                             placeholder="Enter here " required>
                                                                     </div>
                                                                 </div>
+                                                                @if ($data->webstatus == '')
+
+                                                                    <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Coupon Code<span
+                                                                                    style="color: red;">*</span> </label>
+                                                                        </div>
+                                                                        <div class="col-md-9 col-12">
+                                                                            <select class="form-control js-example-basic-single coupon_codeid" name="coupon_codeid"
+                                                                                >
+                                                                                <option value="" disabled selected hiddden>
+                                                                                    Select One</option>
+                                                                                @foreach ($coupon as $coupons)
+                                                                                    <option value="{{ $coupons->id }}"@if ($coupons->id == $data->coupon_codeid) selected='selected' @endif>
+                                                                                        {{ $coupons->coupon_code }}
+                                                                                    </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
+                                                                    <div data-repeater-item class="inner mb-3 row">
+                                                                        <div class="col-md-3 col-12">
+                                                                            <label for="horizontal-firstname-input"
+                                                                                class="col-form-label">
+                                                                                Total After Discount <span
+                                                                                    style="color: red;">*</span> </label>
+                                                                        </div>
+                                                                        <div class="col-md-5 col-12">
+                                                                            <input type="text" class="form-control totalamount_afterdiscount" value="{{ $data->totalamount_afterdiscount }}"
+                                                                                name="totalamount_afterdiscount" readonly >
+                                                                        </div>
+                                                                        <div class="col-md-4 col-12">
+                                                                            <input type="text" class="form-control discountamount" value="{{ $data->disc_amount }}"
+                                                                                name="discountamount" placeholder="Discount Amout" readonly >
+                                                                        </div>
+                                                                    </div>
+                                                                   
+
                                                                 <div class="row mb-4">
                                                                     <label for="horizontal-firstname-input"
                                                                         class="col-sm-3 col-form-label">
@@ -374,47 +425,7 @@
                                                                             value="{{ $data->gst_per }}" required>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row mb-4" hidden>
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-sm-3 col-form-label">
-                                                                        Discount Amount <span style="color: red;">*</span> </label>
-                                                                    <div class="col-sm-4">
-                                                                        <input type="text" class="form-control discount_amount"
-                                                                            name="discount_amount"
-                                                                            placeholder="Discount Amount - Enter here "
-                                                                            value="{{ $data->disc_amount }}" >
-                                                                    </div>
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-sm-1 col-form-label">
-                                                                        Dis % <span style="color: red;">*</span> </label>
-                                                                    <div class="col-sm-4">
-                                                                        <input type="text" class="form-control discount_percentage"
-                                                                            name="discount_percentage"
-                                                                            placeholder="Discount % - Enter here "
-                                                                            value="{{ $data->disc_per }}" >
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row mb-4" hidden>
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-sm-3 col-form-label">
-                                                                        Additional Charge <span style="color: red;">*</span> </label>
-                                                                    <div class="col-sm-9">
-                                                                        <input type="text" class="form-control additional_charge"
-                                                                            name="additional_charge"
-                                                                            placeholder="Additional Amount - Enter here "
-                                                                            value="{{ $data->additional_amount }}" >
-                                                                    </div>
-                                                                    <label for="horizontal-firstname-input"
-                                                                        class="col-sm-1 col-form-label">
-                                                                        Note <span style="color: red;">*</span> </label>
-                                                                    <div class="col-sm-4">
-                                                                        <input type="text"
-                                                                            class="form-control additional_charge_notes"
-                                                                            name="additional_charge_notes"
-                                                                            placeholder="Note - Enter here "
-                                                                            value="{{ $data->additional_notes }}" >
-                                                                    </div>
-                                                                </div>
+                                                              
                                                                 <div data-repeater-item class="inner mb-3 row">
                                                                     <div class="col-md-3 col-8">
                                                                         <label for="horizontal-firstname-input"
@@ -423,59 +434,13 @@
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-9 col-3">
-                                                                        <input type="text" class="form-control grand_total"
-                                                                            style="background-color:#babcc5ad" name="grand_total"
-                                                                            value="{{ $data->grand_total }}" readonly
+                                                                        <input type="text" class="form-control grand_total" name="grand_total"
+                                                                            value="{{ $data->grand_total }}" readonly style="background-color:#69d074ad"
                                                                             placeholder="Enter here " required>
                                                                     </div>
                                                                 </div>
-                                                                @if ($data->webstatus == '')
-                                                                <div data-repeater-item class="inner mb-3 row">
-                                                                        <div class="col-md-3 col-12">
-                                                                            <label for="horizontal-firstname-input"
-                                                                                class="col-form-label">
-                                                                                Coupon Code<span
-                                                                                    style="color: red;">*</span> </label>
-                                                                        </div>
-                                                                        <div class="col-md-9 col-12">
-                                                                            <select class="form-control js-example-basic-single coupon_codeid" name="coupon_codeid"
-                                                                                required>
-                                                                                <option value="" disabled selected hiddden>
-                                                                                    Select One</option>
-                                                                                @foreach ($coupon as $coupons)
-                                                                                    <option value="{{ $coupons->id }}" @if ($coupons->id == $data->coupon_codeid) selected='selected' @endif>
-                                                                                        {{ $coupons->coupon_code }}
-                                                                                    </option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                @endif
-
-                                                                <div data-repeater-item class="inner mb-3 row">
-                                                                        <div class="col-md-3 col-12">
-                                                                            <label for="horizontal-firstname-input"
-                                                                                class="col-form-label">
-                                                                                Total After Discount <span
-                                                                                    style="color: red;">*</span> </label>
-                                                                        </div>
-                                                                        <div class="col-md-9 col-12">
-                                                                            <input type="text" class="form-control totalamount_afterdiscount"
-                                                                                name="totalamount_afterdiscount" value="{{ $data->totalamount_afterdiscount }}" readonly >
-                                                                        </div>
-                                                                    </div>
-                                                                <div data-repeater-item class="inner mb-3 row">
-                                                                    <div class="col-md-3 col-12">
-                                                                        <label for="horizontal-firstname-input"
-                                                                            class="col-form-label">
-                                                                            Total Paid </label>
-                                                                    </div>
-                                                                    <div class="col-md-9 col-12">
-                                                                        <input type="text" class="form-control total_paid"
-                                                                            style="background-color:#1dc72ead" value="{{ $data->total_paid }}" readonly
-                                                                            name="total_paid" placeholder="Enter here ">
-                                                                    </div>
-                                                                </div>
+                                                               
+                                                                
 
 
                                                                 <div class="row mb-4">
@@ -497,7 +462,7 @@
                                                                                         $("input[name='payable_amount[]']").each(function() {
                                                                                             //alert($(this).val());
                                                                                             totalAmount = Number(totalAmount) + Number($(this).val());
-                                                                                            $('.total_paid').val(totalAmount);
+                                                                                            $('.total_payable').val(totalAmount);
                                                                                         });
                                                                                     });
                                                                                 </script>
@@ -536,15 +501,11 @@
                                                                                         <select class="form-control "
                                                                                             name="payment_method[]">
                                                                                             <option value="" selected hidden
-                                                                                                class="text-muted">Select Payment Via
+                                                                                                class="text-muted">Select 
                                                                                             </option>
-                                                                                            <option
-                                                                                                value="Cash" {{ $paymentdatas->payment_method == 'Cash' ? 'selected' : '' }}
-                                                                                                class="text-muted">Cash</option>
-                                                                                            <option
-                                                                                                value="Online Payment"{{ $paymentdatas->payment_method == 'Online Payment' ? 'selected' : '' }}
-                                                                                                class="text-muted">Online Payment
-                                                                                            </option>
+                                                                                            <option value="Cash" {{ $paymentdatas->payment_method == 'Cash' ? 'selected' : '' }}class="text-muted">Cash</option>
+                                                                                            <option value="Online Payment"{{ $paymentdatas->payment_method == 'Online Payment' ? 'selected' : '' }}class="text-muted">Online Payment</option>
+                                                                                            <option value="Advance Payment"{{ $paymentdatas->payment_method == 'Advance Payment' ? 'selected' : '' }} class="text-muted">Advance Payment</option>
                                                                                         </select>
                                                                                     </td>
                                                                                 </tr>
@@ -582,7 +543,7 @@
                                                                                         <select class="form-control "
                                                                                             name="payment_method[]">
                                                                                             <option value="" selected hidden
-                                                                                                class="text-muted">Select Payment Via
+                                                                                                class="text-muted">Select 
                                                                                             </option>
                                                                                             <option
                                                                                                 value="Cash"
@@ -591,6 +552,7 @@
                                                                                                 value="Online Payment"
                                                                                                 class="text-muted">Online Payment
                                                                                             </option>
+                                                                                            <option value="Advance Payment" class="text-muted">Advance Payment</option>
                                                                                         </select>
                                                                                     </td>
                                                                                 </tr>
@@ -606,11 +568,24 @@
                                                                     <div class="col-md-3 col-12">
                                                                         <label for="horizontal-firstname-input"
                                                                             class="col-form-label">
+                                                                            Total Paid </label>
+                                                                    </div>
+                                                                    <div class="col-md-9 col-12">
+                                                                        <input type="text" class="form-control total_payable" value="{{ $data->total_paid }}" readonly
+                                                                            name="total_payable" placeholder="Enter here ">
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div data-repeater-item class="inner mb-3 row">
+                                                                    <div class="col-md-3 col-12">
+                                                                        <label for="horizontal-firstname-input"
+                                                                            class="col-form-label">
                                                                             Balance Amount </label>
                                                                     </div>
                                                                     <div class="col-md-9 col-12">
                                                                         <input type="text" class="form-control balance_amount"
-                                                                            style="background-color:#e53737ad" readonly
+                                                                            style="color:red;" readonly
                                                                             value="{{ $data->balance_amount }}" name="balance_amount"
                                                                             placeholder="Enter here ">
                                                                     </div>
@@ -774,7 +749,7 @@
     <script>
         ;
         (function($, window, document, undefined) {
-            $("#days").on("change", function() {
+            $("#days").on("keyup", function() {
                 var date = new Date($(".check_in_date").val()),
                     days = parseInt($("#days").val(), 10);
 
@@ -819,81 +794,7 @@
 
 
 
-
-            // Room onchange function
-
-            var k = 1;
-            $('#room_id' + k).on('change', function() {
-                alert(this.value);
-                var room_id_s = this.value;
-
-                $.ajax({
-                    url: '/getPriceforRooms/' + room_id_s,
-                    type: 'get',
-                    dataType: 'json',
-                    success: function(response) {
-
-                        $("#room_price1").val('');
-                        var price = response['data'];
-
-                        //$("#room_price1").val(price);
-
-                        //var days = $(".days").val();
-                        //var Amount = days * price;
-                        //$("#room_cal_price1").val(Amount);
-
-                        $(document).on("keyup", '#room_price1', function() {
-
-                            var price = $(this).val();
-                            var days = $(".days").val();
-                            var Amount = days * price;
-                            $("#room_cal_price1").val(Amount);
-
-
-                            var totalAmount = 0;
-                            var days = $(".days").val();
-
-                            $("input[name='room_cal_price[]']").each(function() {
-                                //alert($(this).val());
-                                totalAmount = Number(totalAmount) + Number($(
-                                    this).val());
-                                $('.total_calc_price').val(totalAmount);
-                            });
-
-                            var additional_charge = $(".additional_charge").val();
-                            var total_calc_price = $(".total_calc_price").val();
-
-
-                            var discount_percentage = $(".discount_percentage").val();
-                            var discount_in_amount = (discount_percentage / 100) *
-                                total_calc_price;
-                            $('.discount_amount').val(discount_in_amount.toFixed(2));
-
-                            var gst_percentage = $(".gst_percentage").val();
-                            var gst_in_amount = (gst_percentage / 100) *
-                                total_calc_price;
-                            $('.gst_amount').val(gst_in_amount.toFixed(2));
-
-                            var grand_total = (Number(total_calc_price) + Number(
-                                    gst_in_amount) + Number(additional_charge)) -
-                                Number(discount_in_amount);
-                            $('.grand_total').val(grand_total.toFixed(2));
-                            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
-                            var payable_amount = $(".total_paid").val();
-                            var balance = Number(grand_total) - Number(payable_amount);
-                            $('.balance_amount').val(balance.toFixed(2));
-
-                        });
-
-
-
-                    }
-                });
-
-
-
-
-            });
+           
 
 
 
@@ -915,80 +816,58 @@
                         var len = response.length;
                         for (var i = 0; i < len; i++) {
                             if(response[i].reduction_amount){
-                                var grand_total = $(".grand_total").val();
-                                var totalaount = Number(grand_total) - Number(response[i].reduction_amount);
+
+                                var total_calc_price = $(".total_calc_price").val();
+                                var totalaount = Number(total_calc_price) - Number(response[i].reduction_amount);
                                 $('.totalamount_afterdiscount').val(totalaount);
-                                var payable_amount = $(".payable_amount").val();
-                                var balance = Number(totalaount) - Number(payable_amount);
-                                $('.balance_amount').val(balance);
+                                $('.discountamount').val(response[i].reduction_amount);
+
+                                var totalamount_afterdiscount = $(".totalamount_afterdiscount").val();
+                                
+                                var gst_percentage = $(".gst_percentage").val();
+                                var gst_in_amount = (gst_percentage / 100) * totalamount_afterdiscount;
+                                $('.gst_amount').val(gst_in_amount.toFixed(2));
+                                var grand_total = (Number(totalamount_afterdiscount) + Number(gst_in_amount.toFixed(2)));
+                                $('.grand_total').val(grand_total.toFixed(2));
+
+                                var payable_amount = 0;
+                                $(".payable_amount").each(function(){
+                                    payable_amount += +$(this).val();
+                                });
+                                $(".total_payable").val(payable_amount.toFixed(2));
+
+                                var balance = Number(grand_total.toFixed(2)) - Number(payable_amount.toFixed(2));
+                                $('.balance_amount').val(balance.toFixed(2));
+
                             }else if(response[i].reduction_percentage){
-                                var grand_total = $(".grand_total").val();
-                                var reduction_amount = (response[i].reduction_percentage / 100) * grand_total;
-                                var totalaount = Number(grand_total) - Number(reduction_amount.toFixed(2));
+
+                                var total_calc_price = $(".total_calc_price").val();
+                                var reduction_amount = (response[i].reduction_percentage / 100) * total_calc_price;
+                                var totalaount = Number(total_calc_price) - Number(reduction_amount.toFixed(2));
                                 $('.totalamount_afterdiscount').val(totalaount);
-                                var payable_amount = $(".payable_amount").val();
-                                var balance = Number(totalaount) - Number(payable_amount);
-                                $('.balance_amount').val(totalaount);
+                                $('.discountamount').val(reduction_amount);
+
+                                var totalamount_afterdiscount = $(".totalamount_afterdiscount").val();
+
+                                var gst_percentage = $(".gst_percentage").val();
+                                var gst_in_amount = (gst_percentage / 100) * totalamount_afterdiscount;
+                                $('.gst_amount').val(gst_in_amount.toFixed(2));
+                                var grand_total = (Number(totalamount_afterdiscount) + Number(gst_in_amount.toFixed(2)));
+                                $('.grand_total').val(grand_total.toFixed(2));
+
+                                var payable_amount = 0;
+                                $(".payable_amount").each(function(){
+                                    payable_amount += +$(this).val();
+                                });
+                                $(".total_payable").val(payable_amount.toFixed(2));
+
+                                var balance = Number(grand_total.toFixed(2)) - Number(payable_amount.toFixed(2));
+                                $('.balance_amount').val(balance.toFixed(2));
                             }
                         }
                     }
                 });
             });
-
-
-
-            // Radion button onchange Function
-
-            $("input[name$='proofs']").click(function() {
-                var proofs_value = $(this).val();
-                //alert(proofs_value);
-                if (proofs_value == '1') {
-                    $("#singleproof").show();
-                    $("#doubleproof").hide();
-                    $("#proof_photo").show();
-                } else if (proofs_value == '2') {
-                    $("#doubleproof").show();
-                    $("#singleproof").hide();
-                    $("#proof_photo").show();
-                }
-
-
-                var totalAmount = 0;
-                var days = $(".days").val();
-
-                $("input[name='room_cal_price[]']").each(function() {
-                alert($(this).val());
-                  totalAmount = Number(totalAmount) + Number($(this).val());
-                   $('.total_calc_price').val(totalAmount);
-                });
-
-                var additional_charge = $(".additional_charge").val();
-                var total_calc_price = $(".total_calc_price").val();
-                var discount_amount = $(".discount_amount").val();
-                var gst_amount = $(".gst_amount").val();
-
-                var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(discount_amount);
-                $('.grand_total').val(grand_total);
-                var payable_amount = $(".payable_amount").val();
-                var balance = Number(grand_total) - Number(payable_amount);
-                $('.balance_amount').val(balance);
-
-
-            });
-
-
-            var totalAmount = 0;
-
-
-            $("input[name='payable_amount[]']").each(function() {
-                //alert($(this).val());
-                totalAmount = Number(totalAmount) + Number($(this).val());
-                $('.total_paid').val(totalAmount);
-            });
-
-
-
-
 
 
 
@@ -1010,7 +889,16 @@
             $("#addroomfields").click(function() {
                 ++i;
                 $("#roomfields").append(
-                    '<tr class="outer"><td class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700 tracking-wider"><input type="hidden" id="room_auto_id" name="room_auto_id[]" /><select class="form-control js-example-basic-single room_id" name="room_id[]" id="room_id' + i + '" required><option value="" selected hidden class="text-muted">Select Room</option></select></td><td class="col-12 col-md-3" style="margin-left: 3px;"><select class="form-control room_type" name="room_type[]" required><option value="" selected hidden class="text-muted">Select Room Type</option><option value="A/C" class="text-muted">A/C</option><option value="Non - A/C" class="text-muted">Non - A/C</option></select></td><td class="col-12 col-md-2" style="margin-left: 3px;"><input type="text" class="form-control" id="room_price' + i + '" name="room_price[]" placeholder="Price Per Day" value="" required/></td><td class="col-12 col-md-2" style="margin-left: 3px;"><input type="text" class="form-control room_cal_price" id="room_cal_price' + i + '" name="room_cal_price[]" placeholder="Price" value="" required/></td><td class="col-12 col-md-1" style="margin-left: 4px;"><button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-tr" type="button" >Remove</button></td></tr>'
+                    '<tr class="outer"><td class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700 tracking-wider"><input type="hidden" id="room_auto_id" name="room_auto_id[]" /><select class="form-control js-example-basic-single room_id" name="room_id[]" id="room_id' + i + '" required><option value="" selected hidden class="text-muted">Select Room</option></select></td><td class="col-12 col-md-3" style="margin-left: 3px;"><select class="form-control room_type" name="room_type[]" required>' +
+                    '<option value="" selected hidden class="text-muted">Select Room Type</option>' +
+                    '<option value="Standard A/C" class="text-muted">Standard A/C</option>' +
+                    '<option value="Deluxe A/C" class="text-muted">Deluxe A/C</option>' +
+                    '<option value="Standard Non A/C" class="text-muted">Standard Non A/C</option>' +
+                    '<option value="King Size A/C" class="text-muted">King Size A/C</option>' +
+                    '<option value="Group Room" class="text-muted">Group Room</option>' +
+                    '</select></td><td class="col-12 col-md-2" style="margin-left: 3px;"><input type="text" class="form-control" id="room_price' + i + '" name="room_price[]" placeholder="Price Per Day" value="" required/></td>' +
+                    '<td class="col-12 col-md-2" style="margin-left: 3px;"><input type="text" class="form-control room_cal_price" id="room_cal_price' + i + '" name="room_cal_price[]" placeholder="Price" value="" required/></td>' +
+                    '<td class="col-12 col-md-1" style="margin-left: 4px;"><button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-tr" type="button" >Remove</button></td></tr>'
                 );
 
                 //alert('branch_id');
@@ -1065,43 +953,34 @@
             var subtotal = room_price * days;
             $(this).parents('tr').find('input.room_cal_price').val(subtotal);
 
-            var totalAmount = 0;
-            $("input[name='room_cal_price[]']").each(
-                                    function() {
-                                        //alert($(this).val());
-                                        totalAmount = Number(totalAmount) +
-                                            Number($(this).val());
-                                        $('.total_calc_price').val(
-                                            totalAmount);
-                                    });
+            var sum = 0;
+                            $(".room_cal_price").each(function(){
+                                sum += +$(this).val();
+                            });
 
-                                var additional_charge = $(".additional_charge")
-                                    .val();
-                                var total_calc_price = $(".total_calc_price")
-                                    .val();
+                            $(".total_calc_price").val(sum.toFixed(2));
+                            $('.totalamount_afterdiscount').val(sum.toFixed(2));
+                            $('.grand_total').val(sum.toFixed(2));
 
-                                var discount_percentage = $(
-                                    ".discount_percentage").val();
-                                var discount_in_amount = (discount_percentage /
-                                    100) * total_calc_price;
-                                $('.discount_amount').val(discount_in_amount
-                                    .toFixed(2));
+                            var discountamount = $(".discountamount").val();
+                            var total_calc_price = $(".total_calc_price").val();
+                            var totalamount_afterdiscount = Number(total_calc_price) - Number(discountamount);
+                            $('.totalamount_afterdiscount').val(totalamount_afterdiscount);
 
-                                var gst_percentage = $(".gst_percentage").val();
-                                var gst_in_amount = (gst_percentage / 100) *
-                                    total_calc_price;
-                                $('.gst_amount').val(gst_in_amount.toFixed(2));
+                            var gst_percentage = $(".gst_percentage").val();
+                            var gst_in_amount = (gst_percentage / 100) * totalamount_afterdiscount;
+                            $('.gst_amount').val(gst_in_amount.toFixed(2));
+                            var grand_total = (Number(totalamount_afterdiscount) + Number(gst_in_amount.toFixed(2)));
+                            $('.grand_total').val(grand_total.toFixed(2));
 
-                                var grand_total = (Number(total_calc_price) +
-                                    Number(gst_in_amount) + Number(
-                                        additional_charge)) - Number(
-                                    discount_in_amount);
-                                $('.grand_total').val(grand_total.toFixed(2));
-                                $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
-                                var payable_amount = $(".payable_amount").val();
-                                var balance = Number(grand_total.toFixed(2)) -
-                                    Number(payable_amount);
-                                $('.balance_amount').val(balance.toFixed(2));
+                            var payable_amount = 0;
+                                $(".payable_amount").each(function(){
+                                    payable_amount += +$(this).val();
+                                });
+                                $(".total_payable").val(payable_amount.toFixed(2));
+
+                            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount.toFixed(2));
+                            $('.balance_amount').val(balance.toFixed(2));
 
         });
 
@@ -1110,35 +989,34 @@
         $(document).on('click', '.remove-tr', function() {
             $(this).parents('tr').remove();
 
-            var totalAmount = 0;
-            var days = $(".days").val();
+            var sum = 0;
+                            $(".room_cal_price").each(function(){
+                                sum += +$(this).val();
+                            });
 
-            $("input[name='room_cal_price[]']").each(function() {
-                //alert($(this).val());
-                totalAmount = Number(totalAmount) + Number($(this).val());
-                $('.total_calc_price').val(totalAmount);
-            });
+                            $(".total_calc_price").val(sum.toFixed(2));
 
 
 
-            var additional_charge = $(".additional_charge").val();
-            var total_calc_price = $(".total_calc_price").val();
+                            var discountamount = $(".discountamount").val();
+                            var total_calc_price = $(".total_calc_price").val();
+                            var totalamount_afterdiscount = Number(total_calc_price) - Number(discountamount);
+                            $('.totalamount_afterdiscount').val(totalamount_afterdiscount);
 
-            var discount_percentage = $(".discount_percentage").val();
-            var discount_in_amount = (discount_percentage / 100) * total_calc_price;
-            $('.discount_amount').val(discount_in_amount.toFixed(2));
+                            var gst_percentage = $(".gst_percentage").val();
+                            var gst_in_amount = (gst_percentage / 100) * totalamount_afterdiscount;
+                            $('.gst_amount').val(gst_in_amount.toFixed(2));
+                            var grand_total = (Number(totalamount_afterdiscount) + Number(gst_in_amount.toFixed(2)));
+                            $('.grand_total').val(grand_total.toFixed(2));
 
-            var gst_percentage = $(".gst_percentage").val();
-            var gst_in_amount = (gst_percentage / 100) * total_calc_price;
-            $('.gst_amount').val(gst_in_amount.toFixed(2));
+                            var payable_amount = 0;
+                                $(".payable_amount").each(function(){
+                                    payable_amount += +$(this).val();
+                                });
+                                $(".total_payable").val(payable_amount.toFixed(2));
 
-            var grand_total = (Number(total_calc_price) + Number(gst_in_amount) + Number(additional_charge)) -
-                Number(discount_in_amount);
-            $('.grand_total').val(grand_total.toFixed(2));
-            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
-            var payable_amount = $(".total_paid").val();
-            var balance = Number(grand_total) - Number(payable_amount);
-            $('.balance_amount').val(balance.toFixed(2));
+                            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount.toFixed(2));
+                            $('.balance_amount').val(balance.toFixed(2));
         });
 
 
@@ -1155,166 +1033,97 @@
                 $('#room_cal_price' + i).val(total);
             }
 
-            var totalAmount = 0;
-            $("input[name='room_cal_price[]']").each(function() {
-                //alert($(this).val());
-                totalAmount = Number(totalAmount) + Number($(this).val());
-                $('.total_calc_price').val(totalAmount);
-            });
+            var sum = 0;
+                            $(".room_cal_price").each(function(){
+                                sum += +$(this).val();
+                            });
 
-            var additional_charge = $(".additional_charge").val();
-            var total_calc_price = $(".total_calc_price").val();
+                            $(".total_calc_price").val(sum.toFixed(2));
+                            $('.totalamount_afterdiscount').val(sum.toFixed(2));
+                            $('.grand_total').val(sum.toFixed(2));
 
-            var discount_percentage = $(".discount_percentage").val();
-            var discount_in_amount = (discount_percentage / 100) * total_calc_price;
-            $('.discount_amount').val(discount_in_amount.toFixed(2));
+                            var discountamount = $(".discountamount").val();
+                            var total_calc_price = $(".total_calc_price").val();
+                            var totalamount_afterdiscount = Number(total_calc_price) - Number(discountamount);
+                            $('.totalamount_afterdiscount').val(totalamount_afterdiscount);
 
-            var gst_percentage = $(".gst_percentage").val();
-            var gst_in_amount = (gst_percentage / 100) * total_calc_price;
-            $('.gst_amount').val(gst_in_amount.toFixed(2));
+                            var gst_percentage = $(".gst_percentage").val();
+                            var gst_in_amount = (gst_percentage / 100) * totalamount_afterdiscount;
+                            $('.gst_amount').val(gst_in_amount.toFixed(2));
+                            var grand_total = (Number(totalamount_afterdiscount) + Number(gst_in_amount.toFixed(2)));
+                            $('.grand_total').val(grand_total.toFixed(2));
 
-            var grand_total = (Number(total_calc_price) + Number(gst_in_amount) + Number(additional_charge)) -
-                Number(discount_in_amount);
-            $('.grand_total').val(grand_total.toFixed(2));
-            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
-            var payable_amount = $(".total_paid").val();
-            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
-            $('.balance_amount').val(balance.toFixed(2));
+                            var payable_amount = 0;
+                                $(".payable_amount").each(function(){
+                                    payable_amount += +$(this).val();
+                                });
+                                $(".total_payable").val(payable_amount.toFixed(2));
+
+                            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount.toFixed(2));
+                            $('.balance_amount').val(balance.toFixed(2));
         });
 
 
 
         // GST Calculation
-        $(document).on("keyup", 'input.gst_amount', function() {
-            var gstamount = $(this).val();
-            var total_calc_price = $(".total_calc_price").val();
-            var gst_in_percentage = (gstamount * 100) / total_calc_price;
-            $('.gst_percentage').val(gst_in_percentage.toFixed(2));
-
-            var additional_charge = $(".additional_charge").val();
-            var total_calc_price = $(".total_calc_price").val();
-            var discount_amount = $(".discount_amount").val();
-            var gst_amount = $(".gst_amount").val();
-
-            var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(
-                discount_amount);
-            $('.grand_total').val(grand_total.toFixed(2));
-            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
-            var payable_amount = $(".total_paid").val();
-            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
-            $('.balance_amount').val(balance.toFixed(2));
-        });
 
         $(document).on("keyup", 'input.gst_percentage', function() {
             var gst_percentage = $(this).val();
-            var total_calc_price = $(".total_calc_price").val();
-            var gst_in_amount = (gst_percentage / 100) * total_calc_price;
+            var totalamount_afterdiscount = $(".totalamount_afterdiscount").val();
+            var gst_in_amount = (gst_percentage / 100) * totalamount_afterdiscount;
             $('.gst_amount').val(gst_in_amount.toFixed(2));
 
-            var additional_charge = $(".additional_charge").val();
-            var total_calc_price = $(".total_calc_price").val();
-            var discount_amount = $(".discount_amount").val();
             var gst_amount = $(".gst_amount").val();
 
-            var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(
-                discount_amount);
+            var grand_total = (Number(totalamount_afterdiscount) + Number(gst_amount))
             $('.grand_total').val(grand_total.toFixed(2));
-            $('.totalamount_afterdiscount').val(grand_total.toFixed(2));
-            var payable_amount = $(".total_paid").val();
-            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
-            $('.balance_amount').val(balance.toFixed(2));
-        });
 
-        // Discount Calculation
-        $(document).on("keyup", 'input.discount_amount', function() {
-            var discount_amount = $(this).val();
-            var total_calc_price = $(".total_calc_price").val();
-            var discount_in_percentage = (discount_amount * 100) / total_calc_price;
-            $('.discount_percentage').val(discount_in_percentage.toFixed(2));
+            var payable_amount = 0;
+                                $(".payable_amount").each(function(){
+                                    payable_amount += +$(this).val();
+                                });
+                                $(".total_payable").val(payable_amount.toFixed(2));
 
-            var additional_charge = $(".additional_charge").val();
-            var total_calc_price = $(".total_calc_price").val();
-            var discount_amount = $(".discount_amount").val();
-            var gst_amount = $(".gst_amount").val();
-
-            var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(
-                discount_amount);
-            $('.grand_total').val(grand_total.toFixed(2));
-            var payable_amount = $(".total_paid").val();
-            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
-            $('.balance_amount').val(balance.toFixed(2));
-        });
-
-
-        $(document).on("keyup", 'input.discount_percentage', function() {
-            var discount_percentage = $(this).val();
-            var total_calc_price = $(".total_calc_price").val();
-            var discount_in_amount = (discount_percentage / 100) * total_calc_price;
-            $('.discount_amount').val(discount_in_amount.toFixed(2));
-
-            var additional_charge = $(".additional_charge").val();
-            var total_calc_price = $(".total_calc_price").val();
-            var discount_amount = $(".discount_amount").val();
-            var gst_amount = $(".gst_amount").val();
-
-            var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(
-                discount_amount);
-            $('.grand_total').val(grand_total.toFixed(2));
-            var payable_amount = $(".total_paid").val();
-            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
+                            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount.toFixed(2));
             $('.balance_amount').val(balance.toFixed(2));
         });
 
 
 
-        // Grand Total Calculation
-
-        $(document).on("keyup", 'input.additional_charge', function() {
-            var additional_charge = $(this).val();
-            var total_calc_price = $(".total_calc_price").val();
-            var discount_amount = $(".discount_amount").val();
-            var gst_amount = $(".gst_amount").val();
-
-            var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(
-                discount_amount);
-            $('.grand_total').val(grand_total.toFixed(2));
-            var payable_amount = $(".total_paid").val();
-            var balance = Number(grand_total.toFixed(2)) - Number(payable_amount);
-            $('.balance_amount').val(balance.toFixed(2));
-
-        });
 
 
         $(document).on("keyup", 'input.payable_amount', function() {
-            var totalAmount = 0;
-            $("input[name='payable_amount[]']").each(function() {
-                //alert($(this).val());
-                totalAmount = Number(totalAmount) + Number($(this).val());
-                var payable_amount = totalAmount;
 
-                var additional_charge = $(".additional_charge").val();
-                var total_calc_price = $(".total_calc_price").val();
-                var discount_amount = $(".discount_amount").val();
-                var gst_amount = $(".gst_amount").val();
-
-                var grand_total = (Number(total_calc_price) + Number(gst_amount) + Number(additional_charge)) - Number(discount_amount);
-                $('.grand_total').val(grand_total.toFixed(2));
-                var totalamount_afterdiscount = $(".totalamount_afterdiscount").val();
-                var balance = Number(totalamount_afterdiscount) - Number(payable_amount);
-                $('.balance_amount').val(balance.toFixed(2));
-            });
-
-
+            var total_paid = 0;
+                        $(".payable_amount").each(function(){
+                            total_paid += +$(this).val();
+                        });
+            $(".total_payable").val(total_paid.toFixed(2));
+            var grand_total = $(".grand_total").val();
+            var balance = Number(grand_total) - Number(total_paid.toFixed(2));
+            $('.balance_amount').val(balance.toFixed(2));
 
         });
+
 
         $(document).on("keyup", 'input.payable_amount', function() {
             var payable_amount = $(this).val();
-            var totalamount_afterdiscount = $(".totalamount_afterdiscount").val();
+            var grand_total = $(".grand_total").val();
 
-            if (Number(payable_amount) > Number(totalamount_afterdiscount)) {
+            if (Number(payable_amount) > Number(grand_total)) {
                 alert('You are entering Maximum Amount of Total');
                 $(".payable_amount").val('');
+            }
+        });
+
+
+        $(document).on("keyup", 'input.gst_percentage', function() {
+            var gst_percentage = $(this).val();
+            if ($.isNumeric(gst_percentage)) {
+                console.log($.isNumeric(gst_percentage));
+            } else {
+                alert('Add the data in numbers only');
+                $(".gst_percentage").val('');
             }
         });
 
@@ -1353,5 +1162,37 @@
                  document.getElementById('captured_cameraimage').innerHTML = '<img src="' + data_uri + '" style="width: 200px !important; height: 150px !important; margin-left: 40px !important; margin-top: 25px !important;"/>';
              });
          }
+
+
+         // web fields
+Webcam.attach('#web_camera_front');
+
+function take_snapshot_webfront() {
+    Webcam.snap(function(data_uri) {
+        $(".webimage-tagfront").val(data_uri);
+        document.getElementById('captured_webimage_front').innerHTML = '<img src="' + data_uri +
+            '" style="height: 220px !important;width: 300px !important;margin-top: 40px;margin-left: 40px;"/>';
+    });
+}
+
+Webcam.attach('#web_camera_back');
+
+function take_snapshot_webback() {
+    Webcam.snap(function(data_uri) {
+        $(".webimage-tagback").val(data_uri);
+        document.getElementById('captured_webimage_back').innerHTML = '<img src="' + data_uri +
+            '" style="height: 220px !important;width: 300px !important;margin-top: 40px;margin-left: 40px;"/>';
+    });
+}
+
+Webcam.attach('#web_camera');
+
+function takewebsnapshot() {
+    Webcam.snap(function(data_uri) {
+        $(".webimage-tagcamera").val(data_uri);
+        document.getElementById('captured_webcameraimage').innerHTML = '<img src="' + data_uri +
+            '" style="height: 220px !important;width: 300px !important;margin-top: 40px;margin-left: 40px;"/>';
+    });
+}
     </script>
 @endsection
