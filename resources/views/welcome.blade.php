@@ -1,1 +1,1 @@
-@include('pages.frontend.index')
+@include('auth.login')
