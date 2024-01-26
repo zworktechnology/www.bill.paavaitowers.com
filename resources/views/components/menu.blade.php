@@ -1,106 +1,56 @@
-<!-- Mobile Menu -->
-<div class="as-menu-wrapper">
-    <div class="as-menu-area text-center">
-        <button class="as-menu-toggle"><i class="fal fa-times"></i></button>
-        <div class="mobile-logo">
-            <a href="/"><img src="{{ asset('assets/frontend/image/logo.png') }}" alt="" style="height:110px; width:auto;"></a>
-        </div>
-        <div class="as-mobile-menu">
-            <ul>
-                <li>
-                    <a href="{{ route('index') }}">Home</a>
-                </li>
-                <li>
-                    <a href="{{ route('about') }}">About us</a>
-                </li>
-                <li class="menu-item-has-children">
-                    <a href="{{ route('room.srirangam') }}">Branch</a>
-                    <ul class="sub-menu">
-                        <li><a href="{{ route('room.srirangam') }}">Srirangam</a></li>
-                        <li><a href="{{ route('room.samyapuram') }}">Samayapuram</a></li>
-                        <li><a href="{{ route('room.gunaseelam') }}">Gunaseelam</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{{ route('masstrust') }}">Sri Mass Trust</a>
-                </li>
-                <li>
-                    <a href="{{ route('kosaalai') }}">Kaamadhenu Kosaalai</a>
-                </li>
-                <li>
-                    <a href="{{ route('contact') }}">Contact Us</a>
-                </li>
-                <li hidden>
-                    <a href="{{ route('feedback') }}">Feed Back</a>
-                </li>
+<header class="header d-flex align-items-center" data-page="home">
+    <div class="container position-relative d-flex justify-content-between align-items-center"><a
+            class="brand d-flex align-items-center" href="index.html"><span class="brand_logo theme-element"><svg
+                    id="brandHeader" width="22" height="23" viewbox="0 0 22 23" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M7.03198 3.80281V7.07652L3.86083 9.75137L0.689673 12.4263L0.667474 6.56503C0.655304 3.34138 0.663875 0.654206 0.686587 0.593579C0.71907 0.506918 1.4043 0.488223 3.87994 0.506219L7.03198 0.529106V3.80281ZM21.645 4.36419V5.88433L17.0383 9.76316C14.5046 11.8966 11.2263 14.6552 9.75318 15.8934L7.07484 18.145V20.3225V22.5H3.85988H0.64502L0.667303 18.768L0.689673 15.036L2.56785 13.4609C3.60088 12.5946 6.85989 9.85244 9.81009 7.36726L15.1741 2.84867L18.4096 2.8464L21.645 2.84413V4.36419ZM21.645 15.5549V22.5H18.431H15.217V18.2638V14.0274L15.4805 13.7882C15.8061 13.4924 21.5939 8.61606 21.6236 8.61248C21.6353 8.61099 21.645 11.7351 21.645 15.5549Z"
+                        fill="currentColor"></path>
+                </svg> </span><span class="brand_name">Hosteller</span></a>
+        <div class="header_offcanvas" id="menuOffcanvas">
+            <div class="header_offcanvas-header d-flex justify-content-between align-content-center"><a
+                    class="brand d-flex align-items-center" href="index.html"><span
+                        class="brand_logo theme-element"><svg id="brandOffset" width="22" height="23"
+                            viewbox="0 0 22 23" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M7.03198 3.80281V7.07652L3.86083 9.75137L0.689673 12.4263L0.667474 6.56503C0.655304 3.34138 0.663875 0.654206 0.686587 0.593579C0.71907 0.506918 1.4043 0.488223 3.87994 0.506219L7.03198 0.529106V3.80281ZM21.645 4.36419V5.88433L17.0383 9.76316C14.5046 11.8966 11.2263 14.6552 9.75318 15.8934L7.07484 18.145V20.3225V22.5H3.85988H0.64502L0.667303 18.768L0.689673 15.036L2.56785 13.4609C3.60088 12.5946 6.85989 9.85244 9.81009 7.36726L15.1741 2.84867L18.4096 2.8464L21.645 2.84413V4.36419ZM21.645 15.5549V22.5H18.431H15.217V18.2638V14.0274L15.4805 13.7882C15.8061 13.4924 21.5939 8.61606 21.6236 8.61248C21.6353 8.61099 21.645 11.7351 21.645 15.5549Z"
+                                fill="currentColor"></path>
+                        </svg> </span><span class="brand_name">Hosteller</span> </a><button class="close"
+                    type="button" data-bs-dismiss="offcanvas"><i class="icon-close--entypo"></i></button></div>
+            <nav class="header_nav">
+                <ul class="header_nav-list">
+                    <li class="header_nav-list_item">
+                        <a class="nav-item" href="index.html" data-page="home">Home</a>
+                    </li>
+                    <li class="header_nav-list_item">
+                        <a class="nav-item" href="about.html" data-page="about">About</a>
+                    </li>
+                    <li class="header_nav-list_item">
+                        <a class="nav-item" href="rooms.html" data-page="about">Rooms</a>
+                    </li>
+                    <li class="header_nav-list_item">
+                        <a class="nav-item" href="gallery.html" data-page="about">Gallery</a>
+                    </li>
+                    <li class="header_nav-list_item">
+                        <a class="nav-item" href="contacts2.html" data-page="about">Contact Us</a>
+                    </li>
+                    <li class="header_nav-list_item">
+                        <a class="nav-link nav-link--contacts dropdown-toggle  align-items-center"
+                            href="https://api.whatsapp.com/send/?phone=%2B919003828304&text&type=phone_number&app_absent=0"
+                            target="_blank">
+                            Chat on Whatsapp
+                        </a>
+                        <div class="dropdown-menu">
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <ul class="socials d-flex align-items-center">
+                <li class="list-item"><a class="link" href=""><i class="icon-facebook"></i></a></li>
+                <li class="list-item"><a class="link" href=""><i class="icon-instagram"></i></a></li>
+                <li class="list-item"><a class="link" href=""><i class="icon-twitter"></i></a></li>
+                <li class="list-item"><a class="link" href=""><i class="icon-whatsapp"></i></a></li>
             </ul>
-        </div>
-    </div>
-</div>
-
-<!-- Header -->
-<header class="as-header header-layout4 header-absolute">
-    <div class="header-top">
-        <div class="container-fluid text-lg-start text-center">
-            <div class="menu-top">
-                <div class="row justify-content-center justify-content-lg-between align-items-center">
-                    <div class="col-auto d-none d-xl-block">
-                        <div class="header-links">
-                            <ul>
-                                <li><i class="fa-solid fa-phone"></i><a href="tel:+919659464543">+91 96594 64543</a>
-                                </li>
-                                <li><i class="fa-solid fa-envelope"></i><a href="mailto:info@srimaruti.com">
-                                        info@srimaruti.com</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-auto d-none d-xl-block">
-                        <div class="header-right-wrapper">
-                            <div class="header-social">
-                                <span class="social-title">Follow Us: </span>
-                                <a href="https://www.facebook.com/srimarutiinn" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                                <a href="https://www.youtube.com/@srimarutiinn" target="_blank"><i class="fab fa-youtube"></i></a>
-                                <a href="https://twitter.com/sri_maruti_inn" target="_blank"><i class="fab fa-twitter"></i></a>
-                                <a href="https://www.instagram.com/sri_maruti_inn" target="_blank"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="sticky-wrapper">
-        <div class="menu-area">
-            <div class="container-fluid">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-auto">
-                        <div class="menu-left">
-                            <button type="button" class="as-menu-toggle"><i class="far fa-bars"></i></button>
-                            <div class="dropdown as-header-categories-btn">
-                                <span class="as-all-categories">Browse your destination place</span>
-                                <div class="header-categories-btn">
-                                    <i class="fa-regular fa-angle-down"></i>
-                                </div>
-                                <ul class="dropdown-menu d-none d-lg-block">
-                                    <li><a href="{{ route('room.srirangam') }}"><span>Srirangam, Tiruchirappalli</span></a></li>
-                                    <li><a href="{{ route('room.samyapuram') }}"><span>Samayapuram, Tiruchirappalli</span></a></li>
-                                    <li><a href="{{ route('room.gunaseelam') }}"><span>Gunaseelam, Tiruchirappalli</span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <div class="header-logo">
-                            <a href="javascript:void(0);"><img src="{{ asset('assets/frontend/image/logo.png') }}" alt="" style="height:110px; width:auto;"></a>
-                        </div>
-                    </div>
-                    <div class="col-auto" style="display: flex;">
-                        <div class="header-button" style="padding-right: 20px;">
-                            <a href="https://api.whatsapp.com/send/?phone=%2B919944737705" target="_blank" class="as-btn style4 shadow-none">CHAT WITH US</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </div><button class="header_trigger d-lg-none" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#menuOffcanvas"><i class="icon-stream"></i></button>
     </div>
 </header>
