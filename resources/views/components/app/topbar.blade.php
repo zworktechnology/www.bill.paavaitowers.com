@@ -63,18 +63,15 @@
 
             </div>
 
-            <div class="dropdown d-inline-block language-switch">
+            {{-- <div class="dropdown d-inline-block language-switch">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-language" style="font-size:21px;color: #4c50d9;"></i>
-                                {{--<span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">Change language</span>--}}
 
                                 {{ session()->get('lang_code') == 'ta' ? 'Tamil':'English' }}
                                 <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                             </button>
                             <select class="dropdown-menu dropdown-menu-end changeLang">
-
-                                <!-- item-->
 
                                 <option value="en" {{ session()->get('lang_code') == 'en' ? 'selected' : '' }}>English</option>
                                 <option value="ta" {{ session()->get('lang_code') == 'ta' ? 'selected' : '' }}>Tamil</option>
@@ -83,7 +80,7 @@
 
 
                              </select>
-                        </div>
+                        </div> --}}
 
 
         </div>
