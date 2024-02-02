@@ -55,6 +55,7 @@
                         <li class="{{ Route::is('booking.index','booking.today','booking.upcoming','booking.missingout','booking.create', 'booking.datefilter') && request()->route('user_branch_id') == 3 ? 'mm-active' : '' }}"><a href="{{ route('booking.index', ['user_branch_id' => '3']) }}">{{ __('messages.gunaseelam_title') }}</a></li>
                     </ul>
                 </li> --}}
+                @if (auth()->user()->role == 'Admin')
                 <li class="{{ Route::is('namelist.index','namelist.create','namelist.edit') ? 'mm-active' : '' }}">
                     <a href="{{ route('namelist.index') }}" class="waves-effect">
                         <i class="uil-users-alt"></i>
@@ -67,6 +68,7 @@
                         <span>{{ __('messages.otherincome_title') }}</span>
                     </a>
                 </li>
+                @endif
                 <li class="{{ Route::is('expense.index', 'expense.datefilter')  ? 'mm-active' : '' }}">
                     <a href="{{ route('expense.index') }}" class="waves-effect">
                         <i class="uil-money-withdraw"></i>
@@ -107,7 +109,7 @@
                         <span>{{ __('messages.closeaccount_title') }}</span>
                     </a>
                 </li>
-
+                @if (auth()->user()->role == 'Admin')
                 <li class="{{ Route::is('coupon.index') ? 'mm-active' : '' }}">
                     <a href="{{ route('coupon.index') }}" class="waves-effect">
                         <i class="uil-map-pin-alt"></i>
@@ -138,6 +140,7 @@
                         <span>Report</span>
                     </a>
                 </li>
+                @endif
                 <li class="{{ Route::is('contact.index') ? 'mm-active' : '' }}">
                     <a href="{{ route('contact.index') }}" class="waves-effect">
                         <i class="uil-mailbox"></i>
