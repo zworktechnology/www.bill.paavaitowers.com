@@ -28,7 +28,7 @@
                                         </form>
                                     </ol>
                                 </div>
-                                <div class="page-title-box d-flex align-items-center justify-content-between"
+                                <!-- <div class="page-title-box d-flex align-items-center justify-content-between"
                                     style="margin-left: 10px;">
                                     <div class="page-title-right">
                                         <div class="dropdown">
@@ -42,12 +42,12 @@
                                                 data-popper-placement="top-start">
                                                 <a class="dropdown-item {{ Route::is('booking.index') ? 'mm-active' : '' }}"
                                                     href="{{ route('booking.index') }}">{{ __('messages.openedbooking_title') }}</a>
-                                                <a class="dropdown-item {{ Route::is('booking.today') ? 'mm-active' : '' }}"
-                                                    href="{{ route('booking.today') }}">{{ __('messages.closedbooking_title') }}</a>
+                                                <a class="dropdown-item "
+                                                    href="">{{ __('messages.closedbooking_title') }}</a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -141,10 +141,12 @@
                                                 <tr>
                                                     <th>Sl.No</th>
                                                     <th>Bill.No</th>
-                                                    <th>Booking Type</th>
-                                                    <th>Room Deatails</th>
                                                     <th>Customer</th>
                                                     <th>Staff</th>
+                                                    <th>Refund</th>
+                                                    <th>Balance Amount</th>
+                                                    <th>Booking Type</th>
+                                                    <th>Room Deatails</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -152,8 +154,17 @@
                                                     <tr>
                                                         <td>{{ ++$keydata }}</td>
                                                         <td>{{ $dailyentryDatas['booking_invoiceno'] }}</td>
+                                                        <td>
+                                                            {{ $dailyentryDatas['customer_name'] }}
+                                                        </td>
                                                         
-                                                        <td>{{ $dailyentryDatas['booking_type'] }}</td>
+                                                        <td>
+                                                            {{ $dailyentryDatas['checkinstaff'] }}
+                                                        </td>
+                                                       
+                                                        <td style="color:red;">{{ $dailyentryDatas['refund'] }}</td>
+                                                        <td style="color:red;">{{ $dailyentryDatas['balancepayableamount'] }}</td>
+                                                         <td>{{ $dailyentryDatas['booking_type'] }}</td>
                                                         <td>
                                                             @foreach ($dailyentryDatas['room_lists'] as $index => $room_lists_arr)
                                                                 @if ($room_lists_arr['booking_id'] == $dailyentryDatas['id'])
@@ -161,12 +172,6 @@
                                                                         <span>{{ $room_lists_arr['room'] }}<br /></span>
                                                                 @endif
                                                             @endforeach
-                                                        </td>
-                                                        <td>
-                                                            {{ $dailyentryDatas['customer_name'] }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $dailyentryDatas['checkinstaff'] }}
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -183,17 +188,17 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered dt-responsive nowrap" id="bookings_datatable" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                    <thead>
+                            <table class="table table-centered table-nowrap mb-0" id="bookings_datatable">
+                                    <thead class="table-light">
                                         <tr>
-                                            <th>{{ __('messages.billno') }}</th>
-                                            <th>Room Details</th>>
-                                            <th>{{ __('messages.customer') }}</th>
-                                                    <th>Booking Type</th>
-                                            <th>Manager Name</th>
-                                            <th>Check In Date & Time</th>
-                                            <th>Check Out Date & Time</th>
-                                            <th>{{ __('messages.action_title') }}</th>
+                                            <th style="width:10%">{{ __('messages.billno') }}</th>
+                                            <th style="width:25%">Details</th>
+                                            <th style="width:9%">{{ __('messages.customer') }}</th>
+                                            <th style="width:7%">Refund</th>
+                                            <th style="width:9%">Balance</th>
+                                                    <th style="width:9%">Booking Type</th>
+                                            <th style="width:9%">Manager</th>
+                                            <th style="width:22%">{{ __('messages.action_title') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -201,40 +206,49 @@
                                             <tr>
                                                 <td>{{ $bookingDatas['booking_invoiceno'] }}</td>
                                                 <td>
+                                                        <span style="color:black;font-weight:600">Room </span>:
                                                         @foreach ($bookingDatas['room_list'] as $index => $room_lists)
                                                             @if ($room_lists['booking_id'] == $bookingDatas['id'])
                                                                     <span >{{ $room_lists['room'] }}<br /></span>
                                                             @endif
                                                         @endforeach
+
+                                                        <span style="color:black;font-weight:600">Checkin </span>:
+                                                        <span>{{ date('d M Y', strtotime($bookingDatas['chick_in_date'])) }}
+                                                        
+                                                        ({{ date('h:i A', strtotime($bookingDatas['chick_in_time'])) }})
+                                                        </span><br/>
+                                                        
+                                                        <span style="color:black;font-weight:600">Checkout </span>:
+                                                            @if ($bookingDatas['status'] == 2)
+                                                            <span>{{ date('d M Y', strtotime($bookingDatas['out_date'])) }}<br/>
+                                                                    
+                                                                    ({{ date('h:i A', strtotime($bookingDatas['out_time'])) }})
+                                                                </span>
+                                                            @elseif (($bookingDatas['chick_out_date'] < $today) & ($bookingDatas['status'] == 2))
+                                                                <span>{{ date('d M Y', strtotime($bookingDatas['chick_out_date'])) }}<br/>
+                                                                    
+                                                                    ({{ date('h:i A', strtotime($bookingDatas['chick_out_time'])) }})</span>
+                                                            @else
+                                                                <span>{{ date('d M Y', strtotime($bookingDatas['chick_out_date'])) }}<br/>
+                                                                    
+                                                                    ({{ date('h:i A', strtotime($bookingDatas['chick_out_time'])) }})</span>
+                                                            @endif
+
                                                 </td>
                                                 <td href="#basic{{ $bookingDatas['id'] }}" data-bs-toggle="modal"
                                                     data-bs-target="#basic{{ $bookingDatas['id'] }}" class="pointer" style="color:green">
                                                     {{ $bookingDatas['customer_name'] }}</td>
+                                                    <td style="color:red;"> {{ $bookingDatas['refund'] }}</td>
+                                                    <td style="color:red;"> {{ $bookingDatas['balancepayableamount'] }}</td>
                                                     <td>{{ $bookingDatas['booking_type'] }}</td>
+
                                                 <td>{{ $bookingDatas['check_in_staff'] }}</td>
-                                                <td><span>{{ date('d M Y', strtotime($bookingDatas['chick_in_date'])) }}
-                                                        -
-                                                        ({{ date('h:i A', strtotime($bookingDatas['chick_in_time'])) }})
-                                                    </span></td>
-                                                <td>
-                                                    @if ($bookingDatas['status'] == 2)
-                                                        <span>{{ date('d M Y', strtotime($bookingDatas['out_date'])) }}
-                                                            -
-                                                            ({{ date('h:i A', strtotime($bookingDatas['out_time'])) }})
-                                                        </span>
-                                                    @elseif (($bookingDatas['chick_out_date'] < $today) & ($bookingDatas['status'] == 2))
-                                                        <span>{{ date('d M Y', strtotime($bookingDatas['chick_out_date'])) }}
-                                                            -
-                                                            ({{ date('h:i A', strtotime($bookingDatas['chick_out_time'])) }})</span>
-                                                    @else
-                                                        <span>{{ date('d M Y', strtotime($bookingDatas['chick_out_date'])) }}
-                                                            -
-                                                            ({{ date('h:i A', strtotime($bookingDatas['chick_out_time'])) }})</span>
-                                                    @endif
-                                                </td>
+
+                                               
                                                 <td>
                                                     <ul class="list-unstyled hstack gap-1 mb-0">
-                                                        @if ($bookingDatas['balance_amount'] != 0)
+                                                        @if ($bookingDatas['balance_amount'] > 0)
                                                             <li>
                                                                 <a href="#paybalance{{ $bookingDatas['id'] }}"
                                                                     data-bs-toggle="modal"
@@ -246,16 +260,7 @@
                                                         @endif
 
 
-                                                        @if ($bookingDatas['balance_amount'] == 0)
-                                                            @if ($bookingDatas['webstatus'] == 1)
-
-                                                                <li>
-                                                                    <a class="btn btn-sm btn-soft-success">Pay</a>
-                                                                </li>
-                                                            @elseif ($bookingDatas['webstatus'] != 1)
-
-                                                                @if ($bookingDatas['status'] != 2)
-                                                                    @if ($bookingDatas['chick_out_date'] >= $today)
+                                                                    @if ($bookingDatas['chick_out_date'] == $today)
                                                                         <li>
                                                                             <a href="#checkout{{ $bookingDatas['id'] }}"
                                                                                 data-bs-toggle="modal"
@@ -263,24 +268,20 @@
                                                                                 class="btn btn-sm btn-soft-success checkout{{ $bookingDatas['id'] }}"
                                                                                 data-bs-target="#checkout{{ $bookingDatas['id'] }}">Checkout</a>
                                                                         </li>
-                                                                    @else
+                                                                    @elseif($bookingDatas['chick_out_date'] < $today)
+                                                                    <li><a href="#" class="btn btn-sm btn-soft-success">Over Date</a></li>
+                                                                    @elseif($bookingDatas['chick_out_date'] > $today)
                                                                         <li>
-                                                                            <a href="#" class="btn btn-sm btn-soft-success">Over Date</a>
+                                                                            
                                                                         </li>
                                                                     @endif
-                                                                @endif
-                                                            @endif
-                                                        @endif
+                                                       
 
                                                         <li>
                                                             <a href="{{ route('booking.view', ['id' => $bookingDatas['id']]) }}"
                                                                 class="btn btn-sm btn-soft-secondary">View</a>
                                                         </li>
 
-                                                        {{-- <li>
-                                                                <a href="#viewproof{{ $bookingDatas['id'] }}" data-bs-toggle="model"
-                                                                    data-bs-target="#viewproof{{ $bookingDatas['id'] }}" class="pointer btn btn-sm btn-soft-secondary">View Proof</a>
-                                                            </li> --}}
 
                                                         @if ($bookingDatas['status'] != 2)
                                                             <li>
@@ -301,7 +302,7 @@
                                                 </div>
                                             @endif
 
-                                            @if ($bookingDatas['balance_amount'] == 0)
+                                            @if ($bookingDatas['balance_amount'] <= 0)
                                                 @if ($bookingDatas['status'] != 2)
                                                     <div class="modal fade" id="checkout{{ $bookingDatas['id'] }}"
                                                         data-bs-backdrop="static" aria-hidden="true"

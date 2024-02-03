@@ -32,8 +32,7 @@
                                                             Booking Type <span style="color: red;">*</span> </label>
                                                         <select class="form-control booking_type" name="booking_type" disabled required>
                                                             <option value="" selected hidden class="text-muted">Select Payment Via</option>
-                                                            <option value="Cash"{{ $data->booking_type == 'Cash' ? 'selected' : '' }} class="text-muted">Cash</option>
-                                                            <option value="Google Pay"{{ $data->booking_type == 'Google Pay' ? 'selected' : '' }} class="text-muted">Google Pay</option>
+                                                            <option value="Spot Booking"{{ $data->booking_type == 'Spot Booking' ? 'selected' : '' }} class="text-muted">Spot Booking</option>
                                                             <option value="Make My Trip"{{ $data->booking_type == 'Make My Trip' ? 'selected' : '' }} class="text-muted"> Make My Trip</option>
                                                             <option value="Goibibo"{{ $data->booking_type == 'Goibibo' ? 'selected' : '' }} class="text-muted"> Goibibo</option>
                                                             <option value="Agoda"{{ $data->booking_type == 'Agoda' ? 'selected' : '' }} class="text-muted"> Agoda</option>
@@ -503,8 +502,8 @@
                                                                                             <option value="" selected hidden
                                                                                                 class="text-muted">Select 
                                                                                             </option>
-                                                                                            <option value="Cash" {{ $paymentdatas->payment_method == 'Cash' ? 'selected' : '' }}class="text-muted">Cash</option>
-                                                                                            <option value="Online Payment"{{ $paymentdatas->payment_method == 'Online Payment' ? 'selected' : '' }}class="text-muted">Online Payment</option>
+                                                                                            <option value="Cash" {{ $paymentdatas->payment_method == 'Cash' ? 'selected' : '' }} class="text-muted" >Cash</option>
+                                                                                            <option value="GPay"{{ $paymentdatas->payment_method == 'GPay' ? 'selected' : '' }} class="text-muted" >GPay</option>
                                                                                             <option value="Advance Payment"{{ $paymentdatas->payment_method == 'Advance Payment' ? 'selected' : '' }} class="text-muted">Advance Payment</option>
                                                                                         </select>
                                                                                     </td>
@@ -549,8 +548,8 @@
                                                                                                 value="Cash"
                                                                                                 class="text-muted">Cash</option>
                                                                                             <option
-                                                                                                value="Online Payment"
-                                                                                                class="text-muted">Online Payment
+                                                                                                value="GPay"
+                                                                                                class="text-muted">GPay
                                                                                             </option>
                                                                                             <option value="Advance Payment" class="text-muted">Advance Payment</option>
                                                                                         </select>
@@ -635,8 +634,8 @@
                                                                     value="Aadhaar Card"{{ $data->prooftype_one == 'Aadhaar Card' ? 'selected' : '' }}
                                                                     class="text-muted">Aadhaar Card</option>
                                                                 <option
-                                                                    value="Pan Card"{{ $data->prooftype_one == 'Pan Card' ? 'selected' : '' }}
-                                                                    class="text-muted">Pan Card</option>
+                                                                    value="Passport"{{ $data->prooftype_one == 'Passport' ? 'selected' : '' }}
+                                                                    class="text-muted">Passport</option>
                                                                 <option
                                                                     value="Voter ID"{{ $data->prooftype_one == 'Voter ID' ? 'selected' : '' }}
                                                                     class="text-muted">Voter ID</option>
@@ -653,15 +652,13 @@
                                                     <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Proof Front<span style="color: red;">*</span> </label>
                                                     <div class="col-sm-9">
                                                         <div style="display: flex">
-                                                            <div><img src="{{ asset('assets/customer_details/proofimage_one/' .$data->proofimage_one) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
+                                                            <div><img src="{{ asset($data->proofimage_one) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
                                                             <div id="my_camera_front"></div>
                                                             <div id="captured_image_front"></div>
                                                         </div>
                                                         <input type=button class=" btn btn-sm btn-soft-primary"value="Take a Snap - Front Proof" onClick="take_snapshot_front()">
                                                         <input type="hidden" class="form-control image-tagfront" name="proofimage_one">
-                                                            <div class="col-sm-4">
-                                                                <div id="captured_image_front"></div>
-                                                            </div>
+                                                          
 
                                                     </div>
                                                 </div>
@@ -671,7 +668,7 @@
                                                     <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Proof  Back<span style="color: red;">*</span> </label>
                                                     <div class="col-sm-9">
                                                         <div style="display: flex">
-                                                            <div><img src="{{ asset('assets/customer_details/proofimage_two/' .$data->proofimage_two) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
+                                                            <div><img src="{{ asset($data->proofimage_two) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
                                                             <div id="my_camera_back"></div>
                                                             <div id="captured_image_back"></div>
                                                         </div>
@@ -686,7 +683,7 @@
                                                     <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">Photo <span style="color: red;">*</span> </label>
                                                     <div class="col-sm-9">
                                                         <div style="display: flex">
-                                                            <div><img src="{{ asset('assets/customer_details/customer_photo/' .$data->customer_photo) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
+                                                            <div><img src="{{ asset($data->customer_photo) }}" alt="" style="width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;"></div>
                                                             <div id="my_camera"></div>
                                                             <div id="captured_cameraimage"></div>
                                                         </div>
@@ -1112,7 +1109,6 @@
 
             if (Number(payable_amount) > Number(grand_total)) {
                 alert('You are entering Maximum Amount of Total');
-                $(".payable_amount").val('');
             }
         });
 
@@ -1164,35 +1160,6 @@
          }
 
 
-         // web fields
-Webcam.attach('#web_camera_front');
-
-function take_snapshot_webfront() {
-    Webcam.snap(function(data_uri) {
-        $(".webimage-tagfront").val(data_uri);
-        document.getElementById('captured_webimage_front').innerHTML = '<img src="' + data_uri +
-            '" style="height: 220px !important;width: 300px !important;margin-top: 40px;margin-left: 40px;"/>';
-    });
-}
-
-Webcam.attach('#web_camera_back');
-
-function take_snapshot_webback() {
-    Webcam.snap(function(data_uri) {
-        $(".webimage-tagback").val(data_uri);
-        document.getElementById('captured_webimage_back').innerHTML = '<img src="' + data_uri +
-            '" style="height: 220px !important;width: 300px !important;margin-top: 40px;margin-left: 40px;"/>';
-    });
-}
-
-Webcam.attach('#web_camera');
-
-function takewebsnapshot() {
-    Webcam.snap(function(data_uri) {
-        $(".webimage-tagcamera").val(data_uri);
-        document.getElementById('captured_webcameraimage').innerHTML = '<img src="' + data_uri +
-            '" style="height: 220px !important;width: 300px !important;margin-top: 40px;margin-left: 40px;"/>';
-    });
-}
+     
     </script>
 @endsection

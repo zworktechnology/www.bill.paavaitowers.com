@@ -72,9 +72,11 @@
                                                 <li>
                                                     <a href="{{ route('staff.edit', ['id' => $datas->id]) }}" class="btn btn-sm btn-soft-info">Edit</a>
                                                 </li>
+                                                @if (auth()->user()->role == 'Admin')
                                                 <li>
                                                     <a href="#jobDelete{{ $datas->id }}" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" data-bs-target="#firstmodal{{ $datas->id }}">Delete</a>
                                                 </li>
+                                                @endif
                                             </ul>
                                         </td>
                                     </tr>

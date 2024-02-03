@@ -25,8 +25,7 @@
                                                             Booking Type <span style="color: red;">*</span> </label>
                                                         <select class="form-control booking_type" name="booking_type" required>
                                                             <option value="" selected hidden class="text-muted">Select Payment Via</option>
-                                                            <option value="Cash" class="text-muted">Cash</option>
-                                                            <option value="Google Pay" class="text-muted">Google Pay</option>
+                                                            <option value="Spot Booking" class="text-muted">Spot Booking</option>
                                                             <option value="Make My Trip" class="text-muted"> Make My Trip</option>
                                                             <option value="Goibibo" class="text-muted"> Goibibo</option>
                                                             <option value="Agoda" class="text-muted"> Agoda</option>
@@ -239,7 +238,7 @@
                                                                                         class="text-muted">Select Type</option>
                                                                                     <option value="Aadhaar Card" class="text-muted">Aadhaar Card
                                                                                     </option>
-                                                                                    <option value="Pan Card" class="text-muted">Pan Card</option>
+                                                                                    <option value="Passport" class="text-muted">Passport</option>
                                                                                     <option value="Voter ID" class="text-muted">Voter ID</option>
                                                                                     <option value="Driving Licence" class="text-muted">Driving
                                                                                         Licence</option>
@@ -249,7 +248,7 @@
                                                                     </div>
 
 
-                                                                    <div class="row mb-4" id="proof1" hidden>
+                                                                    <div class="row mb-4" id="proof1" >
                                                                         <label for="horizontal-firstname-input"
                                                                             class="col-sm-3 col-form-label">Proof Front<span
                                                                                 style="color: red;">*</span> </label>
@@ -258,7 +257,7 @@
                                                                                 name="proofimage_one">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row mb-4" id="proof2" hidden>
+                                                                    <div class="row mb-4" id="proof2" >
                                                                         <label for="horizontal-firstname-input"
                                                                             class="col-sm-3 col-form-label">Proof Back<span
                                                                                 style="color: red;">*</span> </label>
@@ -267,7 +266,7 @@
                                                                                 name="proofimage_two">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row mb-4" id="proof_photo" hidden>
+                                                                    <div class="row mb-4" id="proof_photo" >
                                                                         <label for="horizontal-firstname-input"
                                                                             class="col-sm-3 col-form-label">Photo<span
                                                                                 style="color: red;">*</span> </label>
@@ -279,7 +278,7 @@
 
 
 
-                                                                    <div class="row mb-4" id="proof1" >
+                                                                    <div class="row mb-4" id="proof1" hidden>
                                                                         <label for="horizontal-firstname-input"
                                                                             class="col-sm-3 col-form-label">Proof Front<span
                                                                                 style="color: red;">*</span> </label>
@@ -300,7 +299,7 @@
                                                                     </div>
 
 
-                                                                    <div class="row mb-4" id="proof2" >
+                                                                    <div class="row mb-4" id="proof2" hidden>
                                                                         <label for="horizontal-firstname-input"
                                                                             class="col-sm-3 col-form-label">Proof Back<span
                                                                                 style="color: red;">*</span> </label>
@@ -320,7 +319,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="row mb-4" id="proof_photo" >
+                                                                    <div class="row mb-4" id="proof_photo" hidden>
                                                                         <label for="horizontal-firstname-input"
                                                                             class="col-sm-3 col-form-label">Photo <span
                                                                                 style="color: red;">*</span> </label>
@@ -702,7 +701,7 @@
                                                                                             <select class="form-control" name="payment_method[]">
                                                                                                 <option value="" selected  class="text-muted">Select</option>
                                                                                                 <option value="Cash" class="text-muted">Cash</option>
-                                                                                                <option value="Online Payment" class="text-muted">Online Payment</option>
+                                                                                                <option value="GPay" class="text-muted">GPay</option>
                                                                                                 <option value="Advance Payment" class="text-muted">Advance Payment</option>
                                                                                             </select>
                                                                                         </td>
@@ -728,7 +727,7 @@
                                                                                             <select class="form-control " name="payment_method[]">
                                                                                                 <option value="" selected  class="text-muted">Select</option>
                                                                                                 <option value="Cash" class="text-muted">Cash</option>
-                                                                                                <option value="Online Payment" class="text-muted">Online Payment</option>
+                                                                                                <option value="GPay" class="text-muted">GPay</option>
                                                                                                 <option value="Advance Payment" class="text-muted">Advance Payment</option>
                                                                                             </select>
                                                                                         </td>
@@ -754,7 +753,7 @@
                                                                                             <select class="form-control " name="payment_method[]">
                                                                                                 <option value="" selected  class="text-muted">Select</option>
                                                                                                 <option value="Cash" class="text-muted">Cash</option>
-                                                                                                <option value="Online Payment" class="text-muted">Online Payment</option>
+                                                                                                <option value="GPay" class="text-muted">GPay</option>
                                                                                                 <option value="Advance Payment" class="text-muted">Advance Payment</option>
                                                                                             </select>
                                                                                         </td>
@@ -836,7 +835,7 @@
                                                                         class="text-muted">Select Type</option>
                                                                     <option value="Aadhaar Card" class="text-muted">Aadhaar Card
                                                                     </option>
-                                                                    <option value="Pan Card" class="text-muted">Pan Card</option>
+                                                                    <option value="Passport" class="text-muted">Passport</option>
                                                                     <option value="Voter ID" class="text-muted">Voter ID</option>
                                                                     <option value="Driving Licence" class="text-muted">Driving
                                                                         Licence</option>
@@ -1095,14 +1094,10 @@
 
             $('.booking_type').on('change', function() {
                 var booking_type = $(this).val();
-                if (booking_type == 'Cash') {
+                if (booking_type == 'Spot Booking') {
                     $(".gpaydiv").show();
                     $(".websitediv").hide();
-                    $('.cash_booking_type').val('Cash');
-                }else if (booking_type == 'Google Pay') {
-                    $(".gpaydiv").show();
-                    $(".websitediv").hide();
-                    $('.cash_booking_type').val('Google Pay');
+                    $('.cash_booking_type').val('Spot Booking');
                 } else if (booking_type == 'Make My Trip') {
                     $(".gpaydiv").hide();
                     $(".websitediv").show();
@@ -1486,7 +1481,6 @@
 
             if (Number(payable_amount) > Number(grand_total)) {
                 alert('You are entering Maximum Amount of Total');
-                $(".payable_amount").val('');
             }
         });
 

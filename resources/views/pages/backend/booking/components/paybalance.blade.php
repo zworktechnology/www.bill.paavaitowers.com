@@ -128,7 +128,7 @@
                                 <option value="" selected class="text-muted">Select Payment Via
                                 </option>
                                 <option value="Cash" class="text-muted">Cash</option>
-                                <option value="Online Payment" class="text-muted">Online Payment
+                                <option value="GPay" class="text-muted">GPay
                                 </option>
                             </select>
                         </div>

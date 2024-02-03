@@ -6,6 +6,9 @@ use App\Models\Branch;
 use App\Models\CloseAccount;
 use App\Models\Expense;
 use App\Models\Income;
+use App\Models\Room;
+use App\Models\Staff;
+use App\Models\BookingRoom;
 use App\Models\OpenAccount;
 use App\Models\Booking;
 use App\Models\BookingPayment;
@@ -33,295 +36,300 @@ class HomeController extends Controller
     public function index()
     {
         $today = Carbon::now()->format('Y-m-d');
+        $timenow = Carbon::now()->format('H:i');
 
-        $income = Income::where('soft_delete', '!=', 1)->where('date', '=', $today)->sum('amount');
-        $expense = Expense::where('soft_delete', '!=', 1)->where('date', '=', $today)->sum('amount');
-        $closeaccount = CloseAccount::where('soft_delete', '!=', 1)->where('date', '=', $today)->sum('total');
-        $openaccount = OpenAccount::where('soft_delete', '!=', 1)->where('date', '=', $today)->sum('amount');
-        $total_room_icome = BookingPayment::where('soft_delete', '!=', 1)->where('paid_date', '=', $today)->sum('payable_amount');
+        $checkins = Booking::where('check_in_date', '=', $today)->where('soft_delete', '!=', 1)->where('status', '=', 1)->count();
+        $checkouts = Booking::where('out_date', '=', $today)->where('soft_delete', '!=', 1)->where('status', '=', 2)->count();
+        $availablerooms = Room::where('soft_delete', '!=', 1)->where('booking_status', '!=', 1)->count();
+        $totalrooms = Room::where('soft_delete', '!=', 1)->count();
 
-        $branchwise_list = [];
-        $tot_gstamount = 0;
-        $balanceamount_from_tot_roomincome = 0;
-        $allbranches_total_expense = 0;
-        $total_online_payment = 0;
-        $branch = Branch::where('soft_delete', '!=', 1)->get();
-        foreach ($branch as $key => $branchs) {
+        $staff = Staff::where('soft_delete', '!=', 1)->get();
 
-            $Room_income = 0;
-            
-            $total_onlinepayment = 0;
-            $balanceamount_from_roomincome = 0;
-            $tot_gstamount = 0;
-            $gstamount = 0;
+        $room_details = Room::where('soft_delete', '!=', 1)->get();
+        $rooms_arr = [];
+        foreach ($room_details as $key => $room_details_arr) {
+            $last_inserted_room_id = BookingRoom::where('room_id', '=', $room_details_arr->id)->latest('id')->first();
 
-            $booking_id = Booking::where('soft_delete', '!=', 1)->where('branch_id', '=', $branchs->id)->get();
-            foreach ($booking_id as $key => $booking_ids) {
-
-                $BookingPayment = BookingPayment::where('booking_id', '=', $booking_ids->id)->where('paid_date', '=', $today)->get();
-                $gstamount = 0;
-                foreach ($BookingPayment as $key => $BookingPayments) {
-                    $Room_income += $BookingPayments->payable_amount;
-                    $booking_gst = Booking::findOrFail($BookingPayments->booking_id);
-                    $gstamount += $booking_gst->gst_amount;
-                }
-                $balanceamount_from_roomincome = $Room_income - $gstamount;
-
-                $BookingPayment_byonline = BookingPayment::where('booking_id', '=', $booking_ids->id)
-                                                ->where('paid_date', '=', $today)
-                                                ->where('payment_method', '=', 'Online Payment')
-                                                ->get();
-
-                foreach ($BookingPayment_byonline as $key => $BookingPayment_by_online) {
-                    $total_onlinepayment += $BookingPayment_by_online->payable_amount;
-                }
+            if($last_inserted_room_id != ""){
+                $latest_booking_id = $last_inserted_room_id->booking_id;
+            }else {
+                $latest_booking_id = '';
             }
 
-            $tot_gstamount = 0;
-            $total_online_payment = 0;
-            $bookingData = Booking::where('soft_delete', '!=', 1)->get();
-            foreach ($bookingData as $key => $bookingDatas) {
+            $booking_id = Booking::where('id', '=', $latest_booking_id)->where('soft_delete', '!=', 1)->first();
+            if($booking_id != ''){
 
-                $BookingPaymentarr = BookingPayment::where('booking_id', '=', $bookingDatas->id)->where('paid_date', '=', $today)->get();
-                foreach ($BookingPaymentarr as $key => $BookingPayment_array) {
-
-                    $total_booking_gst = Booking::findOrFail($BookingPayment_array->booking_id);
-                    $tot_gstamount += $total_booking_gst->gst_amount;
+                if($room_details_arr->booking_status == 1){
+                    $status = 'Booked Green';
+                }else {
+                    $status = 'Open';
                 }
 
-                $Booking_Payment_byonline = BookingPayment::where('booking_id', '=', $bookingDatas->id)
-                                                ->where('paid_date', '=', $today)
-                                                ->where('payment_method', '=', 'Online Payment')
-                                                ->get();
+                $customer_name = $booking_id->customer_name;
+                $checkindate = date('d M Y', strtotime($booking_id->check_in_date));
+                $checkoutdate = date('d M Y', strtotime($booking_id->check_out_date));
+                $whats_app_number = $booking_id->whats_app_number;
+                $phone_number = $booking_id->phone_number;
+                $days = $booking_id->days;
+                $count_head = $booking_id->male_count + $booking_id->female_count + $booking_id->child_count;
+                $total = $booking_id->total;
+                $gst_amount = $booking_id->gst_amount;
+                $grand_total = $booking_id->grand_total;
+                $balance_amount = $booking_id->balance_amount;
+                $webstatus = $booking_id->webstatus;
 
-                foreach ($Booking_Payment_byonline as $key => $Booking_Payments_by_online) {
-                    $total_online_payment += $Booking_Payments_by_online->payable_amount;
-                }
-            }
+                $payment_data = BookingPayment::where('booking_id', '=', $booking_id->id)->get();
+                $paymentterms = [];
+                if($payment_data != ""){
+                    foreach ($payment_data as $key => $payment_datas) {
 
-            $balanceamount_from_tot_roomincome = $total_room_icome - $tot_gstamount;
-            $total_branches_expense = Expense::where('soft_delete', '!=', 1)->where('date', '=', $today)->sum('amount');
-            $allbranches_total_expense = $total_branches_expense + $total_online_payment;
-
-            $branchwise_openaccount = OpenAccount::where('soft_delete', '!=', 1)->where('date', '=', $today)->where('branch_id', '=', $branchs->id)->sum('amount');
-            $branchwise_income = Income::where('soft_delete', '!=', 1)->where('date', '=', $today)->where('branch_id', '=', $branchs->id)->sum('amount');
-            $branchwise_expense = Expense::where('soft_delete', '!=', 1)->where('date', '=', $today)->where('branch_id', '=', $branchs->id)->sum('amount');
-            $branchwise_closeaccount = CloseAccount::where('soft_delete', '!=', 1)->where('date', '=', $today)->where('branch_id', '=', $branchs->id)->sum('total');
-
-            $total_expense = $branchwise_expense + $total_onlinepayment;
-            $balance = $Room_income + $branchwise_income - $total_expense;
-            $requred_balance = ($branchwise_income + $Room_income + $branchwise_openaccount) - $total_expense;
-            $difference = $branchwise_closeaccount - $requred_balance;
-
-            $branchwise_list[] = array(
-                'branch_id' => $branchs->id,
-                'branch_name' => $branchs->name,
-                'branchwise_openaccount' => $branchwise_openaccount,
-                'branchwise_income' => $branchwise_income,
-                'branchwise_expense' => $total_expense,
-                'branch_wise_expenses' => $branchwise_expense,
-                'total_onlinepayment' => $total_onlinepayment,
-                'branchwise_closeaccount' => $branchwise_closeaccount,
-                'Room_income' => $Room_income,
-                'gstamount' => $gstamount,
-                'balanceamount_from_roomincome' => $balanceamount_from_roomincome,
-                'requred_balance' => $requred_balance,
-                'difference' => $difference,
-                'balance' => $balance,
-            );
-        }
-
-
-        return view('home', compact('today', 'branchwise_list', 'income', 'expense', 'closeaccount', 'total_room_icome', 'tot_gstamount', 'balanceamount_from_tot_roomincome', 'allbranches_total_expense', 'total_online_payment', 'openaccount'));
-    }
-
-    public function dashboard_datefilter(Request $request)
-    {
-        $today = Carbon::now()->format('Y-m-d');
-        $from_date = $request->get('fromdate');
-        $to_date = $request->get('todate');
-
-        $income = Income::whereBetween('date', [$from_date, $to_date])
-            ->where('soft_delete', '!=', 1)->sum('amount');
-
-        $expense = Expense::whereBetween('date', [$from_date, $to_date])
-            ->where('soft_delete', '!=', 1)->sum('amount');
-
-        $openaccount = openaccount::whereBetween('date', [$from_date, $to_date])
-            ->where('soft_delete', '!=', 1)->sum('amount');
-
-        $closeaccount = CloseAccount::whereBetween('date', [$from_date, $to_date])
-            ->where('soft_delete', '!=', 1)->sum('total');
-
-        $total_room_icome = BookingPayment::whereBetween('paid_date', [$from_date, $to_date])
-            ->where('soft_delete', '!=', 1)->sum('payable_amount');
-
-        $branchwise_list = [];
-        $branch = Branch::where('soft_delete', '!=', 1)->get();
-        foreach ($branch as $key => $branchs) {
-
-            $Room_income = 0;
-            $gstamount = 0;
-            $total_onlinepayment = 0;
-            $balanceamount_from_roomincome = 0;
-
-            $booking_id = Booking::where('soft_delete', '!=', 1)->where('branch_id', '=', $branchs->id)->get();
-            foreach ($booking_id as $key => $booking_ids) {
-
-                $BookingPayment = BookingPayment::whereBetween('paid_date', [$from_date, $to_date])
-                    ->where('booking_id', '=', $booking_ids->id)->get();
-
-                    foreach ($BookingPayment as $key => $BookingPayments) {
-                        $Room_income += $BookingPayments->payable_amount;
-                        $booking_gst = Booking::findOrFail($BookingPayments->booking_id);
-                        $gstamount += $booking_gst->gst_amount;
+                        $paymentterms[] = array(
+                            'booking_id' => $booking_id->id,
+                            'term' => $payment_datas->term,
+                            'payable_amount' => $payment_datas->payable_amount,
+                            'id' => $payment_datas->id,
+                            'payment_method' => $payment_datas->payment_method,
+                        );
                     }
-                    $balanceamount_from_roomincome = $Room_income - $gstamount;
+                }else {
+                    $paymentterms[] = array(
+                        'booking_id' => '',
+                        'term' =>  '',
+                        'payable_amount' => '',
+                        'id' => '',
+                        'payment_method' => '',
+                    );
+                }
+                
 
-                    $BookingPayment_byonline = BookingPayment::whereBetween('paid_date', [$from_date, $to_date])
-                                                    ->where('booking_id', '=', $booking_ids->id)
-                                                    ->where('payment_method', '=', 'Online Payment')
-                                                    ->get();
-                    foreach ($BookingPayment_byonline as $key => $BookingPayment_by_online) {
-                        $total_onlinepayment += $BookingPayment_by_online->payable_amount;
+                $roomsbooked = BookingRoom::where('booking_id', '=', $booking_id->id)->get();
+                foreach ($roomsbooked as $key => $rooms_booked) {
+                    $Rooms = Room::findOrFail($rooms_booked->room_id);
+
+                    if($rooms_booked->room_price != ""){
+                        $room_price = $rooms_booked->room_price;
+                        $room_cal_price = $rooms_booked->room_cal_price;
+                    }else {
+                        $room_price = '';
+                        $room_cal_price = '';
                     }
+
+                    $room_list[] = array(
+                        'room' => 'No. '. $Rooms->room_number . ' - ' . $Rooms->room_floor . 'th'  .' Floor'. ' - ' . $rooms_booked->room_type ,
+                        'booking_id' => $booking_id->id,
+                        'booking_room_price' => $room_price,
+                        'room_cal_price' => $room_cal_price,
+                        'id' => $rooms_booked->id,
+                        'room_id' => $rooms_booked->room_id,
+                        'room_type' => $rooms_booked->room_type,
+                    );
+                }
+
+                $checkin_staffname = Staff::findOrFail($booking_id->check_in_staff);
+                $checkin_staff = $checkin_staffname->name;
+                $proofimage_one = $booking_id->proofimage_one;
+                $proofimage_two = $booking_id->proofimage_two;
+                $customer_photo = $booking_id->customer_photo;
+                $booking_status = $booking_id->status;
+                $total_paid = $booking_id->total_paid;
+                $check_out_time = $booking_id->check_out_time;
+                $gst_per = $booking_id->gst_per;
+                $bookingauto_id = $booking_id->id;
+            }else {
+                $customer_name = '';
+                $phone_number = '';
+                $checkindate = '';
+                $checkoutdate = '';
+                $whats_app_number = '';
+                $days = '';
+                $count_head = '';
+                $total = '';
+                $gst_amount = '';
+                $status = 'Open';
+                $grand_total = '';
+                $balance_amount = '';
+                $checkin_staff = '';
+                $proofimage_one = '';
+                $proofimage_two = '';
+                $customer_photo = '';
+                $bookingauto_id = '';
+                $booking_status = '';
+                $total_paid = '';
+                $check_out_time = '';
+                $gst_per = '';
+                $webstatus = '';
+
+                $paymentterms[] = array(
+                    'booking_id' => '',
+                    'term' =>  '',
+                    'payable_amount' => '',
+                    'id' => '',
+                    'payment_method' => '',
+                );
+
+                $room_list[] = array(
+                    'room' => '' ,
+                    'booking_id' => '',
+                    'booking_room_price' => '',
+                    'room_cal_price' => '',
+                    'id' => '',
+                    'room_id' => '',
+                    'room_type' => '',
+                );
             }
 
-
-            $tot_gstamount = 0;
-            $total_online_payment = 0;
-            $bookingData = Booking::where('soft_delete', '!=', 1)->get();
-            foreach ($bookingData as $key => $bookingDatas) {
-
-                $BookingPaymentarr = BookingPayment::whereBetween('paid_date', [$from_date, $to_date])
-                    ->where('booking_id', '=', $bookingDatas->id)->get();
-                foreach ($BookingPaymentarr as $key => $BookingPayment_array) {
-
-                    $total_booking_gst = Booking::findOrFail($BookingPayment_array->booking_id);
-                    $tot_gstamount += $total_booking_gst->gst_amount;
-                }
-
-                $Booking_Payment_byonline = BookingPayment::whereBetween('paid_date', [$from_date, $to_date])
-                                                ->where('booking_id', '=', $bookingDatas->id)
-                                                ->where('payment_method', '=', 'Online Payment')
-                                                ->get();
-
-                foreach ($Booking_Payment_byonline as $key => $Booking_Payments_by_online) {
-                    $total_online_payment += $Booking_Payments_by_online->payable_amount;
-                }
-            }
-
-
-
-            $balanceamount_from_tot_roomincome = $total_room_icome - $tot_gstamount;
-            $total_branches_expense = Expense::whereBetween('date', [$from_date, $to_date])
-                                ->where('soft_delete', '!=', 1)->sum('amount');
-            $allbranches_total_expense = $total_branches_expense + $total_online_payment;
-
-
-            $branchwise_openaccount = OpenAccount::whereBetween('date', [$from_date, $to_date])
-                    ->where('soft_delete', '!=', 1)
-                    ->where('branch_id', '=', $branchs->id)
-                    ->sum('amount');
-            $branchwise_income = Income::whereBetween('date', [$from_date, $to_date])
-                    ->where('soft_delete', '!=', 1)
-                    ->where('branch_id', '=', $branchs->id)
-                    ->sum('amount');
-            $branchwise_expense = Expense::whereBetween('date', [$from_date, $to_date])
-                    ->where('soft_delete', '!=', 1)
-                    ->where('branch_id', '=', $branchs->id)
-                    ->sum('amount');
-            $branchwise_closeaccount = CloseAccount::whereBetween('date', [$from_date, $to_date])
-                    ->where('soft_delete', '!=', 1)
-                    ->where('branch_id', '=', $branchs->id)
-                    ->sum('total');
-
-            $total_expense = $branchwise_expense + $total_onlinepayment;
-            $balance = $Room_income + $branchwise_income - $total_expense;
-            $requred_balance = ($branchwise_income + $Room_income) - $total_expense;
-            $difference = $branchwise_closeaccount - $requred_balance;
-
-
-
-            $branchwise_list[] = array(
-                'branch_id' => $branchs->id,
-                'branch_name' => $branchs->name,
-                'branchwise_openaccount' => $branchwise_openaccount,
-                'branchwise_income' => $branchwise_income,
-                'branchwise_expense' => $total_expense,
-                'branch_wise_expenses' => $branchwise_expense,
-                'total_onlinepayment' => $total_onlinepayment,
-                'branchwise_closeaccount' => $branchwise_closeaccount,
-                'Room_income' => $Room_income,
-                'gstamount' => $gstamount,
-                'balanceamount_from_roomincome' => $balanceamount_from_roomincome,
-                'requred_balance' => $requred_balance,
-                'difference' => $difference,
-                'balance' => $balance,
-            );
-
-
-        }
-
-
-        return view('dashboard_datefilter', compact('today', 'branchwise_list', 'income', 'expense', 'closeaccount', 'total_room_icome', 'tot_gstamount', 'balanceamount_from_tot_roomincome', 'allbranches_total_expense', 'total_online_payment', 'openaccount', 'from_date', 'to_date'));
-    }
-
-
-    public function getBranchwiseList($date)
-    {
-        $branch = Branch::where('soft_delete', '!=', 1)->get();
-        $branchwise_list = [];
-        foreach ($branch as $key => $branchs) {
-
-
-            $Room_income = 0;
-            $total_onlinepayment = 0;
-            $booking_id = Booking::where('soft_delete', '!=', 1)->where('branch_id', '=', $branchs->id)->get();
-            foreach ($booking_id as $key => $booking_ids) {
-                $BookingPayment = BookingPayment::where('booking_id', '=', $booking_ids->id)->where('paid_date', '=', $today)->get();
-
-                foreach ($BookingPayment as $key => $BookingPayments) {
-                    $Room_income += $BookingPayments->payable_amount;
-                }
-
-                $BookingPayment_byonline = BookingPayment::where('booking_id', '=', $booking_ids->id)
-                                                ->where('paid_date', '=', $today)
-                                                ->where('payment_method', '=', 'Online Payment')
-                                                ->get();
-
-                foreach ($BookingPayment_byonline as $key => $BookingPayment_by_online) {
-                    $total_onlinepayment += $BookingPayment_by_online->payable_amount;
-                }
-
-
-            }
-
-            $branchwise_openaccount = OpenAccount::where('soft_delete', '!=', 1)->where('date', '=', $date)->where('branch_id', '=', $branchs->id)->sum('amount');
-            $branchwise_income = Income::where('soft_delete', '!=', 1)->where('date', '=', $date)->where('branch_id', '=', $branchs->id)->sum('amount');
-            $branchwise_expense = Expense::where('soft_delete', '!=', 1)->where('date', '=', $date)->where('branch_id', '=', $branchs->id)->sum('amount');
-            $branchwise_closeaccount = CloseAccount::where('soft_delete', '!=', 1)->where('date', '=', $date)->where('branch_id', '=', $branchs->id)->sum('total');
-
-            $total_expense = $branchwise_expense + $total_onlinepayment;
-            $income = Income::where('soft_delete', '!=', 1)->where('date', '=', $date)->sum('amount');
-            $expense = Expense::where('soft_delete', '!=', 1)->where('date', '=', $date)->sum('amount');
-            $balance = $Room_income + $branchwise_income - $total_expense;
-
-            $branchwise_list[] = array(
-                'branch_name' => $branchs->name,
-                'branchwise_openaccount' => $branchwise_openaccount,
-                'branchwise_income' => $branchwise_income,
-                'branchwise_expense' => $total_expense,
-                'branchwise_closeaccount' => $branchwise_closeaccount,
-                'income' => $income,
-                'expense' => $expense,
-                'Room_income' => $Room_income,
-                'balance' => $balance,
+            $rooms_arr[] = array(
+                'room_no' => $room_details_arr->room_number,
+                'room_floor' => $room_details_arr->room_floor,
+                'latest_booking_id' => $latest_booking_id,
+                'id' => $room_details_arr->id,
+                'status' => $status,
+                'customer_name' => $customer_name,
+                'phone_number' => $phone_number,
+                'whats_app_number' => $whats_app_number,
+                'checkindate' => $checkindate,
+                'chick_out_date' => $checkoutdate,
+                'days' => $days,
+                'count_head' => $count_head,
+                'total' => $total,
+                'gst_amount' => $gst_amount,
+                'grand_total' => $grand_total,
+                'terms' => $paymentterms,
+                'balance_amount' => $balance_amount,
+                'checkin_staff' => $checkin_staff,
+                'proofimage_one' => $proofimage_one,
+                'proofimage_two' => $proofimage_two,
+                'customer_photo' => $customer_photo,
+                'id' => $bookingauto_id,
+                'booking_status' => $booking_status,
+                'total_paid' => $total_paid,
+                'chick_out_time' => $check_out_time,
+                'room_list' => $room_list,
+                'gst_per' => $gst_per,
+                'webstatus' => $webstatus,
             );
         }
 
-        echo json_encode($branchwise_list);
+
+
+        $data = Booking::where('soft_delete', '!=', 1)
+        ->where('status', '=', 1)
+        ->orderBy('created_at', 'desc')->get();
+
+        $bookingtable = [];
+        $room_list = [];
+        $terms = [];
+
+        foreach ($data as $key => $datas) {
+            $roomsbooked = BookingRoom::where('booking_id', '=', $datas->id)->get();
+            foreach ($roomsbooked as $key => $rooms_booked) {
+                $Rooms = Room::findOrFail($rooms_booked->room_id);
+
+             
+
+                if($rooms_booked->room_price != ""){
+                    $room_prices = $rooms_booked->room_price;
+                    $room_cal_prices = $rooms_booked->room_cal_price;
+                }else {
+                    $room_prices = '';
+                    $room_cal_prices = '';
+                }
+
+
+
+                $room_list[] = array(
+                    'room' => 'No. '. $Rooms->room_number . ' - ' . $Rooms->room_floor . 'th'  .' Floor'. ' - ' . $rooms_booked->room_type ,
+                    'booking_id' => $datas->id,
+                    'booking_room_price' => $room_prices,
+                    'room_cal_price' => $room_cal_prices,
+                    'id' => $rooms_booked->id,
+                    'room_id' => $rooms_booked->room_id,
+                    'room_type' => $rooms_booked->room_type,
+                    'roomcolor_status' => '',
+                );
+            }
+            $payment_data = BookingPayment::where('booking_id', '=', $datas->id)->get();
+            foreach ($payment_data as $key => $payment_datas) {
+
+                $terms[] = array(
+                    'booking_id' => $datas->id,
+                    'term' => $payment_datas->term,
+                    'payable_amount' => $payment_datas->payable_amount,
+                    'id' => $payment_datas->id,
+                    'payment_method' => $payment_datas->payment_method,
+                );
+            }
+            $checkin_staffname = Staff::findOrFail($datas->check_in_staff);
+
+            if($datas->check_out_staff != NULL){
+                $checkout_staffname = Staff::findOrFail($datas->check_out_staff);
+                $checkoutstaff = $checkout_staffname->name;
+            }else {
+                $checkoutstaff = '';
+            }
+
+            if($datas->balance_amount < 0){
+                $refund = $datas->balance_amount;
+              }else {
+                $refund = '';
+              }
+
+              if($datas->balance_amount > 0){
+                $balancepayableamount = $datas->balance_amount;
+              }else {
+                $balancepayableamount = '';
+              }
+
+            $bookingtable[] = array(
+                'customer_name' => $datas->customer_name,
+                'branch' => '',
+                'chick_in_date' => $datas->check_in_date,
+                'chick_in_time' => $datas->check_in_time,
+                'whats_app_number' => $datas->whats_app_number,
+                'id' => $datas->id,
+                'room_list' => $room_list,
+                'chick_out_date' => $datas->check_out_date,
+                'out_date' => $datas->out_date,
+                'chick_out_time' => $datas->check_out_time,
+                'phone_number' => $datas->phone_number,
+                'grand_total' => $datas->grand_total,
+                'totalamount_afterdiscount' => $datas->totalamount_afterdiscount,
+                'branch_id' => $datas->branch_id,
+                'total_paid' => $datas->total_paid,
+                'balance_amount' => $datas->balance_amount,
+                'days' => $datas->days,
+                'gst_per' => $datas->gst_per,
+                'gst_amount' => $datas->gst_amount,
+                'disc_per' => $datas->disc_per,
+                'disc_amount' => $datas->disc_amount,
+                'additional_amount' => $datas->additional_amount,
+                'additional_notes' => $datas->additional_notes,
+                'total' => $datas->total,
+                'terms' => $terms,
+                'status' => $datas->status,
+                'extended_date' => $datas->extended_date,
+                'extended_time' => $datas->extended_time,
+                'out_date' => $datas->out_date,
+                'out_time' => $datas->out_time,
+                'booking_invoiceno' => $datas->booking_invoiceno,
+                'couple' => $datas->couple,
+                'check_in_staff' => $checkin_staffname->name,
+                'checkoutstaff' => $checkoutstaff,
+                'proofimage_one' => $datas->proofimage_one,
+                'proofimage_two' => $datas->proofimage_two,
+                'customer_photo' => $datas->customer_photo,
+                'webstatus' => $datas->webstatus,
+                'booking_type' => $datas->booking_type,
+                'refund' => $refund,
+                'balancepayableamount' => $balancepayableamount,
+            );
+        }
+
+        return view('home', compact('today', 'rooms_arr', 'bookingtable', 'timenow', 'staff'));
     }
+
+   
+
 
 
     public function lang_change(Request $request)

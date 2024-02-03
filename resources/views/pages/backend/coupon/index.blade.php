@@ -89,9 +89,11 @@
                                                 <li>
                                                     <a href="{{ route('coupon.edit', ['id' => $datas['id']]) }}" class="btn btn-sm btn-soft-info">Edit</a>
                                                 </li>
+                                                @if (auth()->user()->role == 'Admin')
                                                 <li>
                                                     <a href="#couponDelete{{ $datas['id'] }}" data-bs-toggle="modal" class="btn btn-sm btn-soft-danger" data-bs-target="#couponDelete{{ $datas['id'] }}">Delete</a>
                                                 </li>
+                                                @endif
                                             </ul>
                                         </td>
                                     </tr>

@@ -18,17 +18,14 @@
                 <div class="row mb-4">
                     <label for="horizontal-firstname-input" class="col-sm-7 col-form-label" hidden>
                         Reduction Perentage </label>
-                    <div class="col-sm-11">
-                        <input type="text" class="form-control reduction_percentage" name="reduction_percentage" placeholder="Enter Reduction Perentage">
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control reduction_percentage" name="reduction_percentage" placeholder="% Percentage">
                     </div>
-                    <div class="col-sm-1">%</div>
-                </div>
-                <div class="row mb-4">
-                    <label for="horizontal-firstname-input" class="col-sm-7 col-form-label" hidden>
-                        Reduction Amount </label>
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control" name="reduction_amount" placeholder="Enter Reduction amount" >
+                    <div class="col-sm-2">OR</div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" name="reduction_amount" placeholder="Amount" >
                     </div>
+                    
                 </div>
                 <div class="row mb-4">
                     <label for="horizontal-firstname-input" class="col-sm-7 col-form-label" hidden>

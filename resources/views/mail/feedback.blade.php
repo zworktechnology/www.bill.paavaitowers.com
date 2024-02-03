@@ -6,7 +6,7 @@
     <meta name="x-apple-disable-message-reformatting">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="telephone=no" name="format-detection">
-    <title>Sri Maruti Inn - A/C & Non A/C Rooms - Samayapuram, Gunaseelam, Srirangam at Tiruchirappalli</title>
+    <title>Paavai Towers</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
     <!--<![endif]-->
     <style type="text/css">
@@ -314,7 +314,7 @@
                                                         <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
                                                                 <td align="right" class="es-m-txt-c" style="padding:0;Margin:0">
-                                                                    <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#111111;font-size:14px"><br><strong>Sri Maruti Inn, Tiruchirappalli</strong><br><strong>no-reply@srimaruti.com<br>+<a href="+919659464543" target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#494b49;font-size:14px">91 96594 64543</a></strong></p>
+                                                                    <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#111111;font-size:14px"><br><strong>Paavai Towers</strong><br><strong>no-reply@srimaruti.com<br>+<a href="+919659464543" target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#494b49;font-size:14px">91 96594 64543</a></strong></p>
                                                                 </td>
                                                             </tr>
                                                         </table>

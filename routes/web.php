@@ -49,6 +49,9 @@ Route::get('lang/change', [App\Http\Controllers\HomeController::class, 'lang_cha
 
 // Home - Prevent Back Browser Button - After Logout
 Route::middleware(['prevent-back-history'])->get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::middleware(['auth:sanctum', 'verified'])->put('/zwork-admin/home/datefilter', [App\Http\Controllers\HomeController::class, 'datefilter'])->name('home.datefilter');
+
+//Route::put('/dashboard_datefilter', [App\Http\Controllers\HomeController::class, 'dashboard_datefilter'])->name('homepage.data.filter');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -106,12 +109,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // INDEX ALL
         Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking', [BookingController::class, 'index'])->name('booking.index');
-        // INDEX TODAY
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/today', [BookingController::class, 'today'])->name('booking.today');
-        // INDEX UPCOMING
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/upcoming/{user_branch_id}', [BookingController::class, 'upcoming'])->name('booking.upcoming');
-        // INDEX MISSING OUT
-        Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/missingout/{user_branch_id}', [BookingController::class, 'missingout'])->name('booking.missingout');
         // CREATE
         Route::middleware(['auth:sanctum', 'verified'])->get('/zwork-admin/booking/create', [BookingController::class, 'create'])->name('booking.create');
         // STORE
@@ -314,7 +311,6 @@ Route::get('getBranchwiseRoom', [RoomController::class, 'getBranchwiseRoom']);
 Route::get('getPriceforRooms/{id}', [RoomController::class, 'getPriceforRooms']);
 Route::get('/getoldCustomers/{phone_no}', [BookingController::class, 'getoldCustomers']);
 
-Route::put('/dashboard_datefilter', [App\Http\Controllers\HomeController::class, 'dashboard_datefilter'])->name('homepage.data.filter');
 
 // CONTACT CONTROLLER // STORE
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');

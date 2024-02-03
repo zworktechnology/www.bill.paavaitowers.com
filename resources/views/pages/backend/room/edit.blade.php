@@ -35,30 +35,17 @@
                                                 <input type="text" class="form-control" name="room_number" placeholder="Enter room number " value="{{ $data->room_number }}" required>
                                             </div>
                                         </div>
-                                        <div class="row mb-4" hidden>
-                                            <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
-                                                Type <span style="color: red;">*</span> </label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control js-example-basic-single" name="room_type" required>
-                                                    <option value="" disabled selected hidden class="text-muted">Select Type</option>
-                                                    <option value="A/C" class="text-muted" {{ $data->room_type == "A/C" ? 'selected' : '' }}>A/C</option>
-                                                    <option value="Non A/C" class="text-muted" {{ $data->room_type == "Non A/C" ? 'selected' : '' }}>Non A/C</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                         <div class="row mb-4">
                                             <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
                                                 Category <span style="color: red;">*</span> </label>
                                             <div class="col-sm-9">
-                                                <select class="form-control js-example-basic-single" name="room_category" required>
+                                                <select class="form-control" name="room_category" required>
                                                     <option value="" disabled selected hidden class="text-muted">Select Category</option>
-                                                    <option value="Single" class="text-muted" {{ $data->room_category == "Single" ? 'selected' : '' }}>Single</option>
-                                                    <option value="Double" class="text-muted" {{ $data->room_category == "Double" ? 'selected' : '' }}>Double</option>
-                                                    <option value="Triple" class="text-muted" {{ $data->room_category == "Triple" ? 'selected' : '' }}>Triple</option>
-                                                    <option value="Quad" class="text-muted" {{ $data->room_category == "Quad" ? 'selected' : '' }}>Quad</option>
-                                                    <option value="Service Apartment" class="text-muted" {{ $data->room_category == "Service Apartment" ? 'selected' : '' }}>Service Apartment</option>
-                                                    <option value="Suite" class="text-muted" {{ $data->room_category == "Suite" ? 'selected' : '' }}>Suite</option>
-                                                    <option value="Family" class="text-muted" {{ $data->room_category == "Family" ? 'selected' : '' }}>Family</option>
+                                                    <option value="Standard A/C"{{ $data->room_category == 'Standard A/C' ? 'selected' : '' }} class="text-muted">Standard A/C</option>
+                                                    <option value="Deluxe A/C"{{ $data->room_category == 'Deluxe A/C' ? 'selected' : '' }} class="text-muted">Deluxe A/C</option>
+                                                    <option value="Standard Non A/C"{{ $data->room_category == 'Standard Non A/C' ? 'selected' : '' }} class="text-muted">Standard Non A/C</option>
+                                                    <option value="King Size A/C"{{ $data->room_category == 'King Size A/C' ? 'selected' : '' }} class="text-muted">King Size A/C</option>
+                                                    <option value="Group Room"{{ $data->room_category == 'Group Room' ? 'selected' : '' }} class="text-muted">Group Room</option>
                                                 </select>
                                             </div>
                                         </div>

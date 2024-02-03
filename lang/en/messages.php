@@ -12,7 +12,7 @@ return [
   'previousday_balance' => 'Previous Day Balance',
   'room_income' => 'Room Income',
   'online_payment' => 'Online Payment',
-  'expense_title' => 'Expence',
+  'expense_title' => 'Expense',
   'availableamount_title' => 'Available Amount',
   'accountclosure_title' => 'Account Closure',
   'difference_title' => 'Difference',

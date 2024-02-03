@@ -73,9 +73,9 @@
                                                     <tr>
                                                     <td>{{ ++$keydata }}</td>
                                                         <td>{{ $Reportdata_Arrays['customer_name'] }}</td>
-                                                        <td>{{ $Reportdata_Arrays['whats_app_number'] }}</td>
-                                                        <td><a href="{{ asset('assets/customer_details/proofimage_one/' .$Reportdata_Arrays['proofimage_one']) }}"target="_blank"><span style="color: black;">
-                                                               <img src="{{ asset('assets/customer_details/proofimage_one/' .$Reportdata_Arrays['proofimage_one']) }}" alt="image description" style="width:70px; height:50px;">
+                                                        <td>{{ $Reportdata_Arrays['phone_number'] }}</td>
+                                                        <td><a href="{{ asset($Reportdata_Arrays['proofimage_one']) }}"target="_blank"><span style="color: black;">
+                                                               <img src="{{ asset($Reportdata_Arrays['proofimage_one']) }}" alt="image description" style="width:70px; height:50px;">
                                                             </a>
                                                          </td>
                                                         <td>{{ date('d M,Y', strtotime($Reportdata_Arrays['check_in_date'])) }}
@@ -86,7 +86,8 @@
                                                         @else
                                                             <td></td>
                                                         @endif
-                                                        <td>{{ $Reportdata_Arrays['total_count'] }}</td>
+                                                        <td>
+                                                            (M-{{ $Reportdata_Arrays['male_count'] }}, F-{{ $Reportdata_Arrays['female_count'] }}, C-{{ $Reportdata_Arrays['child_count'] }})</td>
                                                         <td>
                                                             @foreach ($Reportdata_Arrays['room_list'] as $index => $room_lists)
                                                                 @if ($room_lists['booking_id'] == $Reportdata_Arrays['id'])

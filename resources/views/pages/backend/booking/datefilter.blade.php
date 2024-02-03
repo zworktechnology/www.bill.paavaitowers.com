@@ -7,15 +7,13 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="page-title-box d-flex align-items-center justify-content-between">
-                            <a href="{{ route('booking.create', ['user_branch_id' => $user_branch_id]) }}"><button
-                                    type="button" class="btn btn-primary waves-effect waves-light mb-3"><i
-                                        class="mdi mdi-plus me-1"></i> {{ __('messages.newbooking_title') }}</button></a>
+                           
 
-                            <div class="page-title-right" style="display:flex">
+                            <div class="page-title-right" style="display:flex;text-align:right">
                                 <div class="page-title-box d-flex align-items-center justify-content-between">
                                     <ol class="breadcrumb m-0">
                                         <form autocomplete="off" method="POST"
-                                            action="{{ route('booking.datefilter', ['user_branch_id' => $user_branch_id]) }}"
+                                            action="{{ route('booking.datefilter') }}"
                                             style="display: flex;">
                                             @method('PUT')
                                             @csrf
@@ -27,6 +25,8 @@
                                     </ol>
                                 </div>
                             </div>
+
+                            
                         </div>
                     </div>
                 </div>
@@ -138,7 +138,6 @@
                                                     <td>
                                                         @foreach ($bookingDatas['room_list'] as $index => $room_lists)
                                                             @if ($room_lists['booking_id'] == $bookingDatas['id'])
-                                                                {{ $bookingDatas['branch'] }} -
                                                                 {{ $room_lists['room'] }}<br />
                                                             @endif
                                                         @endforeach
@@ -228,7 +227,6 @@
                                                     <td>
                                                         @foreach ($bookingDatas['room_list'] as $index => $room_lists)
                                                             @if ($room_lists['booking_id'] == $bookingDatas['id'])
-                                                                {{ $bookingDatas['branch'] }} -
                                                                 {{ $room_lists['room'] }}<br />
                                                             @endif
                                                         @endforeach

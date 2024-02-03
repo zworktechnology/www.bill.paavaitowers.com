@@ -24,7 +24,6 @@ class RoomController extends Controller
         $data = new Room();
 
         $data->room_number = $request->get('room_number');
-        $data->room_type = $request->get('room_type');
         $data->room_category = $request->get('room_category');
         $data->room_floor = $request->get('room_floor');
         $data->branch_id = $request->get('branch_id');
@@ -47,7 +46,6 @@ class RoomController extends Controller
         $data = Room::findOrFail($id);
 
         $data->room_number = $request->get('room_number');
-        $data->room_type = $request->get('room_type');
         $data->room_category = $request->get('room_category');
         $data->room_floor = $request->get('room_floor');
         $data->branch_id = $request->get('branch_id');

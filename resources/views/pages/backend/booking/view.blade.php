@@ -66,12 +66,14 @@
                                                     : <span style="color: #acafb7; font-size: 0.9rem;">
                                                         {{ date('h:i A', strtotime($data->check_in_time)) }}</span></h5>
                                             </div>
+                                            @if($data->out_date != '')
                                             <div class="mt-4 mb-4">
-                                                <h5 class="font-size-16 mb-1">Check Out Date : <span
-                                                        style="color: #acafb7; font-size: 0.9rem;">{{ date('d M Y', strtotime($data->check_out_date)) }}</span>  Time
-                                                        : <span style="color: #acafb7; font-size: 0.9rem;">
-                                                            {{ date('h:i A', strtotime($data->check_out_time)) }}</span></h5>
+                                                <h5 class="font-size-16 mb-1">Check Out Date : 
+                                                    <span   style="color: #acafb7; font-size: 0.9rem;">{{ date('d M Y', strtotime($data->out_date)) }}</span> 
+                                                     Time : <span style="color: #acafb7; font-size: 0.9rem;">
+                                                            {{ date('h:i A', strtotime($data->out_time)) }}</span></h5>
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-4" style="text-align: end;">
