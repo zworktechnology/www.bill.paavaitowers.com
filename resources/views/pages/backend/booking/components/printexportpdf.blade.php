@@ -269,8 +269,8 @@
                                     <div class="col-sm-6 col-6" style="text-align: end;">
                                         <br><br><br>
                                         <h6 class="m-0">For <span
-                                                style="font-family: 'Cinzel Decorative', cursive; font-weight: bold;">Sri
-                                                Maruti Inn</span></h6>
+                                                style="font-family: 'Cinzel Decorative', cursive; font-weight: bold;">Paavai Towers
+                                                </span></h6>
                                     </div>
                                 </div>
                                 <hr>
