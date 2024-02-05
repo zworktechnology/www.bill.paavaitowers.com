@@ -1059,14 +1059,14 @@
                             $('.email_id').val(response['data'].email_id);
                             $('.address').val(response['data'].address);
                             $('.prooftype_one').val(response['data'].prooftype_one);
-                            $("#prooffront").append("<img src='https://bill-paavaitowers.zworktechnology.in/assets/" + response['data'].proofimage_one +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
-                            $("#proofback").append("<img src='https://bill-paavaitowers.zworktechnology.in/assets/" + response['data'].proofimage_two +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
-                            $("#proofcustomerphoto").append("<img src='https://bill-paavaitowers.zworktechnology.in/assets/" + response['data'].customer_photo +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#prooffront").append("<img src='https://bill-paavaitowers.zworktechnology.in/" + response['data'].proofimage_one +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#proofback").append("<img src='https://bill-paavaitowers.zworktechnology.in/" + response['data'].proofimage_two +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#proofcustomerphoto").append("<img src='https://bill-paavaitowers.zworktechnology.in/" + response['data'].customer_photo +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
 
                             
-                            $("#webprooffront").append("<img src='https://bill-paavaitowers.zworktechnology.in/assets/" + response['data'].proofimage_one +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
-                            $("#webproofback").append("<img src='https://bill-paavaitowers.zworktechnology.in/assets/" + response['data'].proofimage_two +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
-                            $("#webproofcustomerphoto").append("<img src='https://bill-paavaitowers.zworktechnology.in/assets/" + response['data'].customer_photo +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#webprooffront").append("<img src='https://bill-paavaitowers.zworktechnology.in/" + response['data'].proofimage_one +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#webproofback").append("<img src='https://bill-paavaitowers.zworktechnology.in/" + response['data'].proofimage_two +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#webproofcustomerphoto").append("<img src='https://bill-paavaitowers.zworktechnology.in/" + response['data'].customer_photo +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
                             
                         
                     }
