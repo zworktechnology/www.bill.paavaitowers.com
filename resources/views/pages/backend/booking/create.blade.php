@@ -17,7 +17,7 @@
                             <div class="card-body">
                                 
                                     <div class="modal-body">
-                                            <form autocomplete="off" method="POST" action="{{ route('booking.noncash_gpaystore') }}" enctype="multipart/form-data">
+                                            <form autocomplete="off" id="webform" method="POST" action="{{ route('booking.noncash_gpaystore') }}" enctype="multipart/form-data">
                                             @csrf
                                                 <div class="row mb-4">
                                                     <div class="col-md-5 col-12">
@@ -34,26 +34,43 @@
                                                     </div>
                                                 </div>
                                                 <div class="row mb-4 websitediv" style="display:none">
-                                                    <div class="col-md-4 col-12">
+                                                    <div class="col-md-6 col-12">
                                                         <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
                                                             Booking ID <span style="color: red;">*</span> </label>
                                                         <input type="text" class="form-control webbooking_id"
                                                                 name="webbooking_id" placeholder="Enter here " required>
                                                     </div>
-                                                    <div class="col-md-4 col-12">
+                                                    <div class="col-md-6 col-12">
                                                         <label for="horizontal-firstname-input" class="col-sm-4 col-form-label">
                                                             Customer Name <span style="color: red;">*</span> </label>
                                                         <input type="text" class="form-control webcustomername"
                                                                 name="webcustomername" placeholder="Enter here " required>
                                                     </div>
-                                                    <div class="col-md-4 col-12">
-                                                        <label for="horizontal-firstname-input" class="col-sm-4 col-form-label">
-                                                        Contact Number <span style="color: red;">*</span> </label>
-                                                        <input type="number" class="form-control contactnumber"
-                                                            name="contactnumber" id="contactnumber" placeholder="Enter here "
-                                                            required>
-                                                    </div>
                                                 </div>
+                                                <div class="row mb-4 websitediv"  style="display:none">
+                                                        <div class="col-sm-6">
+                                                            <label for="horizontal-firstname-input" class="col-sm-4 col-form-label">
+                                                            Contact Number <span style="color: red;">*</span> </label>
+                                                            <input type="number" class="form-control contactnumber"
+                                                                name="contactnumber" id="contactnumber" placeholder="Enter here "
+                                                                required>
+                                                            <div class="webphonenumber_list" style="display:none"></div>
+                                                            <div class="form-check mt-2">
+                                                                <input type="checkbox" class="form-check-input webwhatsapp_check"
+                                                                    id="webformrow-customCheck">
+                                                                <label class="form-check-label" for="webformrow-customCheck">Same as
+                                                                    Whatsapp number</label>
+                                                            </div>
+                                                        </div>
+                                                        {{ csrf_field() }}
+                                                        
+                                                        <div class="col-sm-6">
+                                                        <label for="horizontal-firstname-input" class="col-sm-4 col-form-label">
+                                                            Contact Number <span style="color: red;">*</span> </label>
+                                                            <input type="number" class="form-control webwhats_app_number"
+                                                                name="webwhats_app_number" placeholder="Enter here " required>
+                                                        </div>
+                                                    </div>
                                                 <hr>
                                                 <div class="websitediv" style="display:none">
                                                     <h4 class="card-title mb-4" style="color: #5b73e8">Head Rooms</h4>
@@ -133,8 +150,8 @@
                                                         <label for="horizontal-firstname-input" class="col-sm-1 col-form-label">
                                                             Time </label>
                                                         <div class="col-sm-4">
-                                                            <input type="time" class="form-control" name="webcheck_out_time"
-                                                                placeholder="Enter here " value="{{ $timenow }}">
+                                                            <input type="time" class="form-control webcheck_out_time" name="webcheck_out_time"
+                                                                placeholder="Enter here " value="">
                                                         </div>
                                                     </div>
 
@@ -155,30 +172,17 @@
                                                                                 <tbody id="webroomfields" class="responsive_cls">
                                                                                     <tr>
                                                                                         <td
-                                                                                            class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">
+                                                                                            class="col-12 col-md-5 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">
                                                                                             <input type="hidden" id="webroom_auto_id" name="webroom_auto_id[]" />
                                                                                             <select class="form-control webroom_id" name="webroom_id[]" id="webroom_id1" required>
                                                                                                 <option value="" selected hidden class="text-muted"> Select Room</option>
                                                                                                 @foreach ($roomsarr as $rooms_arr)
                                                                                                     @if ($rooms_arr->booking_status != 1)
                                                                                                         <option value="{{ $rooms_arr->id }}">
-                                                                                                            Room No{{ $rooms_arr->room_number }}-{{ $rooms_arr->room_floor }} Floor
+                                                                                                            Room No{{ $rooms_arr->room_number }}-{{ $rooms_arr->room_floor }} Floor - {{ $rooms_arr->room_category }}
                                                                                                         </option>
                                                                                                     @endif
                                                                                                 @endforeach
-                                                                                            </select>
-                                                                                        </td>
-                                                                                        <td class="col-12 col-md-3">
-                                                                                            <select class="form-control webroom_type"
-                                                                                                name="webroom_type[]" required>
-                                                                                                <option value="" selected
-                                                                                                    hidden class="text-muted">
-                                                                                                    Select Room Type</option>
-                                                                                                    <option value="Standard A/C" class="text-muted">Standard A/C</option>
-                                                                                                <option value="Deluxe A/C" class="text-muted">Deluxe A/C</option>
-                                                                                                <option value="Standard Non A/C" class="text-muted">Standard Non A/C</option>
-                                                                                                <option value="King Size A/C" class="text-muted">King Size A/C</option>
-                                                                                                <option value="Group Room" class="text-muted">Group Room</option>
                                                                                             </select>
                                                                                         </td>
                                                                                         <td class="col-12 col-md-1"><button
@@ -362,7 +366,7 @@
 
 
 
-                                            <form autocomplete="off" method="POST" action="{{ route('booking.cash_gpaystore') }}" enctype="multipart/form-data">
+                                            <form autocomplete="off" method="POST" id="nonwebform" action="{{ route('booking.cash_gpaystore') }}" enctype="multipart/form-data">
                                             @csrf
 
 
@@ -528,30 +532,17 @@
                                                                                 <tbody id="roomfields" class="responsive_cls">
                                                                                     <tr>
                                                                                         <td
-                                                                                            class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">
+                                                                                            class="col-12 col-md-5 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">
                                                                                             <input type="hidden" id="room_auto_id" name="room_auto_id[]" />
                                                                                             <select class="form-control room_id" name="room_id[]" id="room_id1" required>
                                                                                                 <option value="" selected hidden class="text-muted"> Select Room</option>
                                                                                                 @foreach ($roomsarr as $rooms_arr)
                                                                                                     @if ($rooms_arr->booking_status != 1)
                                                                                                         <option value="{{ $rooms_arr->id }}">
-                                                                                                            Room No{{ $rooms_arr->room_number }}-{{ $rooms_arr->room_floor }} Floor
+                                                                                                            Room No{{ $rooms_arr->room_number }}-{{ $rooms_arr->room_floor }} Floor - {{ $rooms_arr->room_category }}
                                                                                                         </option>
                                                                                                     @endif
                                                                                                 @endforeach
-                                                                                            </select>
-                                                                                        </td>
-                                                                                        <td class="col-12 col-md-3">
-                                                                                            <select class="form-control room_type"
-                                                                                                name="room_type[]" required>
-                                                                                                <option value="" selected
-                                                                                                    hidden class="text-muted">
-                                                                                                    Select Room Type</option>
-                                                                                                <option value="Standard A/C" class="text-muted">Standard A/C</option>
-                                                                                                <option value="Deluxe A/C" class="text-muted">Deluxe A/C</option>
-                                                                                                <option value="Standard Non A/C" class="text-muted">Standard Non A/C</option>
-                                                                                                <option value="King Size A/C" class="text-muted">King Size A/C</option>
-                                                                                                <option value="Group Room" class="text-muted">Group Room</option>
                                                                                             </select>
                                                                                         </td>
                                                                                         <td class="col-12 col-md-2"><input
@@ -1074,6 +1065,59 @@
             });
         });
 
+
+
+        $(document).ready(function() {
+            $(".contactnumber").keyup(function() {
+
+                var query = $(this).val();
+                if (query != '') {
+                    var _token = $('input[name="_token"]').val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('booking.autocomplete') }}",
+                        data: {
+                            query: query,
+                            _token: _token
+                        },
+
+                        success: function(data) {
+                            console.log(data);
+                            $('.webphonenumber_list').fadeIn();
+                            $('.webphonenumber_list').html(data);
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', 'li', function() {
+                $('#contactnumber').val($(this).text());
+                $('.webphonenumber_list').fadeOut();
+                $.ajax({
+                    url: '/getoldCustomers/' + $(this).text(),
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response['data']);
+                    
+                       
+                        
+                            //console.log(response[i].customer_name);
+                            $('.webcustomername').val(response['data'].customer_name);
+                            $('.webwhats_app_number').val(response['data'].whats_app_number);
+                            $('.prooftype_one').val(response['data'].prooftype_one);
+                            
+                            $("#webprooffront").append("<img src='https://bill-paavaitowers.zworktechnology.in/" + response['data'].proofimage_one +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#webproofback").append("<img src='https://bill-paavaitowers.zworktechnology.in/" + response['data'].proofimage_two +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            $("#webproofcustomerphoto").append("<img src='https://bill-paavaitowers.zworktechnology.in/" + response['data'].customer_photo +"' style='width: 200px !important; height: 150px !important; margin-right: 40px !important; margin-top: 25px !important;'>");
+                            
+                        
+                    }
+                });
+            });
+        });
+
         $(document).ready(function() {
 
             $('.whatsapp_check').click(function() {
@@ -1082,6 +1126,15 @@
                     $('.whats_app_number').val(phone_number);
                 } else {
                     $('.whats_app_number').val('');
+                }
+            });
+
+            $('.webwhatsapp_check').click(function() {
+                if ($(this).is(':checked')) {
+                    var contactnumber = $('#contactnumber').val();
+                    $('.webwhats_app_number').val(contactnumber);
+                } else {
+                    $('.webwhats_app_number').val('');
                 }
             });
 
@@ -1099,18 +1152,31 @@
                     $(".gpaydiv").show();
                     $(".websitediv").hide();
                     $('.cash_booking_type').val('Spot Booking');
+                    document.getElementById("webform").reset();
+
                 } else if (booking_type == 'Make My Trip') {
                     $(".gpaydiv").hide();
                     $(".websitediv").show();
+                    $('.webcheck_out_time').val('11:59');
+                    document.getElementById("nonwebform").reset();
+
                 } else if (booking_type == 'Goibibo') {
                     $(".gpaydiv").hide();
                     $(".websitediv").show();
+                    $('.webcheck_out_time').val('11:59');
+                    document.getElementById("nonwebform").reset();
+
                 } else if (booking_type == 'Agoda') {
                     $(".gpaydiv").hide();
                     $(".websitediv").show();
+                    $('.webcheck_out_time').val('11:59');
+                    document.getElementById("nonwebform").reset();
+
                 } else if (booking_type == 'Booking.com') {
                     $(".gpaydiv").hide();
                     $(".websitediv").show();
+                    $('.webcheck_out_time').val('11:59');
+                    document.getElementById("nonwebform").reset();
                 }
             });
 
@@ -1188,6 +1254,10 @@
 
 
 
+
+       
+
+
         });
 
         // Add Another Room Script
@@ -1204,22 +1274,20 @@
         $(document).ready(function() {
             $("#addroomfields").click(function() {
                 ++i;
+                ++l;
                 $("#roomfields").append(
-                    '<tr><td class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700 tracking-wider"><input type="hidden" id="room_auto_id" name="room_auto_id[]" /><select class="form-control js-example-basic-single room_id" name="room_id[]" id="room_id' +
-                    i +
-                    '" required><option value="" selected hidden class="text-muted">Select Room</option></select></td><td class="col-12 col-md-3" style="margin-left: 3px;">' +
-                    '<select class="form-control room_type" name="room_type[]" required>' +
-                    '<option value="" selected hidden class="text-muted">Select Room Type</option>' +
-                    '<option value="Standard A/C" class="text-muted">Standard A/C</option>' +
-                    '<option value="Deluxe A/C" class="text-muted">Deluxe A/C</option>' +
-                    '<option value="Standard Non A/C" class="text-muted">Standard Non A/C</option>' +
-                    '<option value="King Size A/C" class="text-muted">King Size A/C</option>' +
-                    '<option value="Group Room" class="text-muted">Group Room</option>' +
-                    '</select></td><td class="col-12 col-md-2" style="margin-left: 3px;"><input type="text" class="form-control" id="room_price' +
-                    i +
-                    '" name="room_price[]" placeholder="Price Per Day" value="" required/></td><td class="col-12 col-md-2" style="margin-left: 3px;"><input type="text" class="form-control room_cal_price" readonly id="room_cal_price' +
-                    i +
-                    '" name="room_cal_price[]" placeholder="Price" value="" required/></td><td class="col-12 col-md-1" style="margin-left: 4px;"><button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-tr" type="button" >Remove</button></td></tr>'
+                    '<tr>' +
+                    '<td class="col-12 col-md-5 pr-2 py-1 text-left text-xs font-medium text-black-700 tracking-wider">' +
+                    '<input type="hidden" id="room_auto_id" name="room_auto_id[]" />' +
+                    '<select class="form-control js-example-basic-single room_id" name="room_id[]" id="room_id' + i + '" required>' +
+                    '<option value="" selected hidden class="text-muted">Select Room</option></select></td>' +
+                    '<td class="col-12 col-md-2" style="margin-left: 3px;">' +
+                    '<input type="text" class="form-control" id="room_price' + i +'" name="room_price[]" placeholder="Price Per Day" value="" required/></td>' +
+                    '<td class="col-12 col-md-2" style="margin-left: 3px;">' +
+                    '<input type="text" class="form-control room_cal_price" readonly id="room_cal_price' + i + '" name="room_cal_price[]" placeholder="Price" value="" required/></td>' +
+                    '<td class="col-12 col-md-1" style="margin-left: 4px;">' +
+                    '<button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-tr" type="button" >Remove</button></td>' +
+                    '</tr>'
                 );
 
                 //alert('branch_id');
@@ -1239,7 +1307,7 @@
 
                                     var id = response['data'][i].id;
                                     var name = 'Room No ' + response['data'][i].room_number +
-                                        ' - ' + response['data'][i].room_floor + ' Floor';
+                                        ' - ' + response['data'][i].room_floor + ' Floor' + ' - ' + response['data'][i].room_category;
                                     var option = "<option value='" + id + "'>" + name +
                                         "</option>";
 
@@ -1255,6 +1323,9 @@
                 });
 
 
+
+
+
             });
         });
 
@@ -1263,17 +1334,13 @@
             $("#addwebroomfields").click(function() {
                 ++m;
                 $("#webroomfields").append(
-                    '<tr><td class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider"><input type="hidden" id="webroom_auto_id" name="webroom_auto_id[]" />'+
-                    '<select class="form-control webroom_id" name="webroom_id[]" id="webroom_id' + m + '" required><option value="" selected hidden class="text-muted"> Select Room</option></select></td>' +
-                    '<td class="col-12 col-md-3"><select class="form-control webroom_type" name="webroom_type[]" required>' +
-                    '<option value="" selected hidden class="text-muted">Select Room Type</option>' +
-                    '<option value="Standard A/C" class="text-muted">Standard A/C</option>' +
-                    '<option value="Deluxe A/C" class="text-muted">Deluxe A/C</option>' +
-                    '<option value="Standard Non A/C" class="text-muted">Standard Non A/C</option>' +
-                    '<option value="King Size A/C" class="text-muted">King Size A/C</option>' +
-                    '<option value="Group Room" class="text-muted">Group Room</option>' +
-                    '</select></td>' +
-                    '<td class="col-12 col-md-1" style="margin-left: 4px;"><button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-webtr" type="button" >Remove</button></td></tr>'
+                    '<tr><td class="col-12 col-md-5 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">' +
+                    '<input type="hidden" id="webroom_auto_id" name="webroom_auto_id[]" />'+
+                    '<select class="form-control webroom_id" name="webroom_id[]" id="webroom_id' + m + '" required>' +
+                    '<option value="" selected hidden class="text-muted"> Select Room</option></select></td>' +
+                    '<td class="col-12 col-md-1" style="margin-left: 4px;">' +
+                    '<button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-webtr" type="button" >Remove</button></td>' +
+                    '</tr>'
                 );
 
                 //alert('branch_id');
@@ -1293,7 +1360,7 @@
 
                                     var id = response['data'][i].id;
                                     var name = 'Room No ' + response['data'][i].room_number +
-                                        ' - ' + response['data'][i].room_floor + ' Floor';
+                                        ' - ' + response['data'][i].room_floor + ' Floor' + ' - ' + response['data'][i].room_category;
                                     var option = "<option value='" + id + "'>" + name +
                                         "</option>";
 

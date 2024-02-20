@@ -509,6 +509,7 @@ class BookingController extends Controller
             $OnlineBooking->booking_invoiceno = $request->get('webbooking_id');
             $OnlineBooking->customer_name = $request->get('webcustomername');
             $OnlineBooking->phone_number = $request->get('contactnumber');
+            $OnlineBooking->whats_app_number = $request->get('webwhats_app_number');
             $OnlineBooking->male_count = $request->get('web_male_count');
             $OnlineBooking->female_count = $request->get('web_female_count');
             $OnlineBooking->child_count = $request->get('web_child_count');
@@ -632,7 +633,7 @@ class BookingController extends Controller
                 $BookingWebRoom = new BookingRoom;
                 $BookingWebRoom->booking_id = $BookingID;
                 $BookingWebRoom->room_id = $webroom_id;
-                $BookingWebRoom->room_type = $request->webroom_type[$key];
+                $BookingWebRoom->room_type = $GetWroomDetails->room_category;
                 $BookingWebRoom->room_floor = $GetWroomDetails->room_floor;
                 $BookingWebRoom->save();
 
@@ -832,7 +833,7 @@ class BookingController extends Controller
                 $BookingRoom = new BookingRoom;
                 $BookingRoom->booking_id = $insertedId;
                 $BookingRoom->room_id = $room_id;
-                $BookingRoom->room_type = $request->room_type[$key];
+                $BookingRoom->room_type = $GetWroomDetails->room_category;
                 $BookingRoom->room_floor = $GetroomDetails->room_floor;
                 $BookingRoom->room_price = $request->room_price[$key];
                 $BookingRoom->room_cal_price = $request->room_cal_price[$key];
@@ -1087,12 +1088,17 @@ class BookingController extends Controller
 
         foreach ($request->get('room_auto_id') as $key => $room_auto_id) {
             if ($room_auto_id > 0) {
+
+
                 $ids = $room_auto_id;
                 $bookingID = $booking_id;
                 $room_id = $request->room_id[$key];
                 $room_price = $request->room_price[$key];
                 $room_cal_price = $request->room_cal_price[$key];
-                $room_type = $request->room_type[$key];
+
+                $GetroomDetails = Room::findOrFail($room_id);
+
+                $room_type = $GetroomDetails->room_category;
 
                 DB::table('booking_rooms')->where('id', $ids)->update([
                     'booking_id' => $bookingID,  'room_id' => $room_id,  'room_price' => $room_price,  'room_cal_price' => $room_cal_price, 'room_type' => $room_type
@@ -1105,12 +1111,11 @@ class BookingController extends Controller
                     $new_room_id =  $request->room_id[$key];
                     $room_price =  $request->room_price[$key];
                     $room_cal_price =  $request->room_cal_price[$key];
-                    $room_type = $request->room_type[$key];
 
                     $BookingRoom = new BookingRoom;
                     $BookingRoom->booking_id = $booking_id;
                     $BookingRoom->room_id = $new_room_id;
-                    $BookingRoom->room_type = $room_type;
+                    $BookingRoom->room_type = $GetroomDetails->room_category;
                     $BookingRoom->room_floor = $GetroomDetails->room_floor;
                     $BookingRoom->room_price = $room_price;
                     $BookingRoom->room_cal_price = $room_cal_price;

@@ -182,7 +182,7 @@
                                                                             <tbody id="roomfields" class="responsive_cls">
                                                                                 @foreach ($BookingRooms as $index => $BookingRoomss)
                                                                                     <tr class="outer">
-                                                                                        <td class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">
+                                                                                        <td class="col-12 col-md-5 pr-2 py-1 text-left text-xs font-medium text-black-700  tracking-wider">
                                                                                             <input type="hidden"
                                                                                                 id="room_auto_id"
                                                                                                 name="room_auto_id[]"
@@ -282,28 +282,13 @@
                                                                                                         disabled
                                                                                                         name="customer_booked_room[]"
                                                                                                         placeholder=""
-                                                                                                        value="Room No {{ $rooms->room_number }} - {{ $rooms->room_floor }} Floor">
+                                                                                                        value="Room No {{ $rooms->room_number }} - {{ $rooms->room_floor }} Floor -  {{ $rooms->room_category }}">
                                                                                                     <input type="hidden"
                                                                                                         id="room_id"
                                                                                                         name="room_id[]"
                                                                                                         value="{{ $rooms->id }}" />
                                                                                                 @endif
                                                                                             @endforeach
-                                                                                            </select>
-                                                                                        </td>
-                                                                                        <td class="col-12 col-md-3">
-                                                                                            <select
-                                                                                                class="form-control room_type"
-                                                                                                id="room_type{{ $data->id }}{{ $index }}"
-                                                                                                name="room_type[]" required>
-                                                                                                <option value="" selected
-                                                                                                    hidden class="text-muted">
-                                                                                                    Select Room Type</option>
-                                                                                                <option value="Standard A/C"{{ $BookingRoomss->room_type == 'Standard A/C' ? 'selected' : '' }} class="text-muted">Standard A/C</option>
-                                                                                                <option value="Deluxe A/C"{{ $BookingRoomss->room_type == 'Deluxe A/C' ? 'selected' : '' }} class="text-muted">Deluxe A/C</option>
-                                                                                                <option value="Standard Non A/C"{{ $BookingRoomss->room_type == 'Standard Non A/C' ? 'selected' : '' }} class="text-muted">Standard Non A/C</option>
-                                                                                                <option value="King Size A/C"{{ $BookingRoomss->room_type == 'King Size A/C' ? 'selected' : '' }} class="text-muted">King Size A/C</option>
-                                                                                                <option value="Group Room"{{ $BookingRoomss->room_type == 'Group Room' ? 'selected' : '' }} class="text-muted">Group Room</option>
                                                                                             </select>
                                                                                         </td>
                                                                                         <td class="col-12 col-md-2"><input
@@ -886,16 +871,16 @@
             $("#addroomfields").click(function() {
                 ++i;
                 $("#roomfields").append(
-                    '<tr class="outer"><td class="col-12 col-md-3 pr-2 py-1 text-left text-xs font-medium text-black-700 tracking-wider"><input type="hidden" id="room_auto_id" name="room_auto_id[]" /><select class="form-control js-example-basic-single room_id" name="room_id[]" id="room_id' + i + '" required><option value="" selected hidden class="text-muted">Select Room</option></select></td><td class="col-12 col-md-3" style="margin-left: 3px;"><select class="form-control room_type" name="room_type[]" required>' +
-                    '<option value="" selected hidden class="text-muted">Select Room Type</option>' +
-                    '<option value="Standard A/C" class="text-muted">Standard A/C</option>' +
-                    '<option value="Deluxe A/C" class="text-muted">Deluxe A/C</option>' +
-                    '<option value="Standard Non A/C" class="text-muted">Standard Non A/C</option>' +
-                    '<option value="King Size A/C" class="text-muted">King Size A/C</option>' +
-                    '<option value="Group Room" class="text-muted">Group Room</option>' +
-                    '</select></td><td class="col-12 col-md-2" style="margin-left: 3px;"><input type="text" class="form-control" id="room_price' + i + '" name="room_price[]" placeholder="Price Per Day" value="" required/></td>' +
-                    '<td class="col-12 col-md-2" style="margin-left: 3px;"><input type="text" class="form-control room_cal_price" id="room_cal_price' + i + '" name="room_cal_price[]" placeholder="Price" value="" required/></td>' +
-                    '<td class="col-12 col-md-1" style="margin-left: 4px;"><button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-tr" type="button" >Remove</button></td></tr>'
+                    '<tr class="outer"><td class="col-12 col-md-5 pr-2 py-1 text-left text-xs font-medium text-black-700 tracking-wider">' +
+                    '<input type="hidden" id="room_auto_id" name="room_auto_id[]" />' +
+                    '<select class="form-control js-example-basic-single room_id" name="room_id[]" id="room_id' + i + '" required>' +
+                    '<option value="" selected hidden class="text-muted">Select Room</option></select></td>' +
+                    '<td class="col-12 col-md-2" style="margin-left: 3px;">' +
+                    '<input type="text" class="form-control" id="room_price' + i + '" name="room_price[]" placeholder="Price Per Day" value="" required/></td>' +
+                    '<td class="col-12 col-md-2" style="margin-left: 3px;">' +
+                    '<input type="text" class="form-control room_cal_price" id="room_cal_price' + i + '" name="room_cal_price[]" placeholder="Price" value="" required/></td>' +
+                    '<td class="col-12 col-md-1" style="margin-left: 4px;">' +
+                    '<button style="width: 100px;" class="text-white font-medium rounded-lg text-sm  text-center btn btn-danger remove-tr" type="button" >Remove</button></td></tr>'
                 );
 
                 //alert('branch_id');
@@ -914,7 +899,7 @@
 
                                     var id = response['data'][i].id;
                                     var name = 'Room No ' + response['data'][i].room_number +
-                                        ' - ' + response['data'][i].room_floor + ' Floor';
+                                        ' - ' + response['data'][i].room_floor + ' Floor' + ' - ' + response['data'][i].room_category;
                                     var option = "<option value='" + id + "'>" + name +
                                         "</option>";
                                     selectedValues.push(option);

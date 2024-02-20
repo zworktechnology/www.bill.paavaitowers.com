@@ -88,7 +88,7 @@ class RoomController extends Controller
     {
         //$GetRoom = Room::where('id', '=', $room_id)->first();
         $GetRoom = Room::findOrFail($room_id);
-        $userData['data'] = $GetRoom->price_per_day;
+        $userData['data'] = $GetRoom->room_category;
         echo json_encode($userData);
     }
 }
