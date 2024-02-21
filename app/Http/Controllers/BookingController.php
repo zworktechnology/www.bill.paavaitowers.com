@@ -833,7 +833,7 @@ class BookingController extends Controller
                 $BookingRoom = new BookingRoom;
                 $BookingRoom->booking_id = $insertedId;
                 $BookingRoom->room_id = $room_id;
-                $BookingRoom->room_type = $GetWroomDetails->room_category;
+                $BookingRoom->room_type = $GetroomDetails->room_category;
                 $BookingRoom->room_floor = $GetroomDetails->room_floor;
                 $BookingRoom->room_price = $request->room_price[$key];
                 $BookingRoom->room_cal_price = $request->room_cal_price[$key];
