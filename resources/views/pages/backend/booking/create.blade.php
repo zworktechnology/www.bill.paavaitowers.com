@@ -20,7 +20,7 @@
                                     <form autocomplete="off" id="webform" method="POST"
                                         action="{{ route('booking.noncash_gpaystore') }}" enctype="multipart/form-data">
                                         @csrf
-                                        <div class="row mb-4">
+                                        <div class="row mb-4 nonspotbooking">
                                             <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
                                                 Booking Type <span style="color: red;">*</span> </label>
                                             <div class="col-sm-6">
@@ -347,13 +347,36 @@
                                     </form>
                                     {{-- Online Booking End --}}
 
+
+
+
+
+
+
+
                                     {{-- Ofline Booking Start --}}
                                     <form autocomplete="off" method="POST" id="nonwebform"
                                         action="{{ route('booking.cash_gpaystore') }}" enctype="multipart/form-data">
                                         @csrf
-                                        <input type="hidden" class="form-control cash_booking_type"
-                                            name="cash_booking_type" id="cash_booking_type" value="" required>
+
+                                        
                                         <div class="gpaydiv" style="display:none">
+
+                                        <div class="row mb-4 spotbooking">
+                                            <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
+                                                Booking Type <span style="color: red;">*</span> </label>
+                                            <div class="col-sm-6">
+                                                <select class="form-control cash_booking_type" name="cash_booking_type" id="cash_booking_type" required>
+                                                    <option value="" disabled selected hidden class="text-muted">Select Booking Type</option>
+                                                    <option value="Spot Booking" class="text-muted">Spot Booking</option>
+                                                    <option value="Make My Trip" class="text-muted"> Make My Trip</option>
+                                                    <option value="Goibibo" class="text-muted"> Goibibo</option>
+                                                    <option value="Agoda" class="text-muted"> Agoda</option>
+                                                    <option value="Booking.com" class="text-muted">Booking.com</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
                                             <h4 class="card-title mb-4" style="color: #5b73e8">Profile</h4>
                                             <div class="row mb-4">
                                                 <label for="horizontal-firstname-input" class="col-sm-3 col-form-label">
@@ -1178,31 +1201,63 @@
                     $(".gpaydiv").show();
                     $(".websitediv").hide();
                     $('.cash_booking_type').val('Spot Booking');
-                    document.getElementById("webform").reset();
+                    $(".nonspotbooking").hide();
+                    $(".spotbooking").show();
+                    
 
                 } else if (booking_type == 'Make My Trip') {
                     $(".gpaydiv").hide();
                     $(".websitediv").show();
                     $('.webcheck_out_time').val('11:59');
-                    document.getElementById("nonwebform").reset();
+                    $(".nonspotbooking").show();
 
                 } else if (booking_type == 'Goibibo') {
                     $(".gpaydiv").hide();
                     $(".websitediv").show();
                     $('.webcheck_out_time').val('11:59');
-                    document.getElementById("nonwebform").reset();
+                    $(".nonspotbooking").show();
 
                 } else if (booking_type == 'Agoda') {
                     $(".gpaydiv").hide();
                     $(".websitediv").show();
                     $('.webcheck_out_time').val('11:59');
-                    document.getElementById("nonwebform").reset();
+                    $(".nonspotbooking").show();
 
                 } else if (booking_type == 'Booking.com') {
                     $(".gpaydiv").hide();
                     $(".websitediv").show();
                     $('.webcheck_out_time').val('11:59');
-                    document.getElementById("nonwebform").reset();
+                    $(".nonspotbooking").show();
+                }
+            });
+
+
+            $('.cash_booking_type').on('change', function() {
+                var booking_type = $(this).val();
+
+                if (booking_type == 'Make My Trip') {
+                    $(".gpaydiv").hide();
+                    $(".websitediv").show();
+                    $('.webcheck_out_time').val('11:59');
+                    $(".nonspotbooking").show();
+
+                } else if (booking_type == 'Goibibo') {
+                    $(".gpaydiv").hide();
+                    $(".websitediv").show();
+                    $('.webcheck_out_time').val('11:59');
+                    $(".nonspotbooking").show();
+
+                } else if (booking_type == 'Agoda') {
+                    $(".gpaydiv").hide();
+                    $(".websitediv").show();
+                    $('.webcheck_out_time').val('11:59');
+                    $(".nonspotbooking").show();
+
+                } else if (booking_type == 'Booking.com') {
+                    $(".gpaydiv").hide();
+                    $(".websitediv").show();
+                    $('.webcheck_out_time').val('11:59');
+                    $(".nonspotbooking").show();
                 }
             });
 
