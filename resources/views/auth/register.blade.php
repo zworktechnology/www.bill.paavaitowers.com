@@ -70,10 +70,6 @@
                                 <div class="mt-3 text-end">
                                     <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Register</button>
                                 </div>
-
-                                <div class="mt-4 text-center">
-                                    <p class="text-muted mb-0">Already have an account ? <a href="{{ route('login') }}" class="fw-medium text-primary"> Login</a></p>
-                                </div>
                             </form>
                         </div>
 
