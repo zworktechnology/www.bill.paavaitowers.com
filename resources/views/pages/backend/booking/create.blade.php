@@ -25,7 +25,7 @@
                                                 Booking Type <span style="color: red;">*</span> </label>
                                             <div class="col-sm-6">
                                                 <select class="form-control booking_type" name="booking_type" required>
-                                                    <option value="" disabled selected hidden class="text-muted">Select Payment Via</option>
+                                                    <option value="" disabled selected hidden class="text-muted">Select Booking Type</option>
                                                     <option value="Spot Booking" class="text-muted">Spot Booking</option>
                                                     <option value="Make My Trip" class="text-muted"> Make My Trip</option>
                                                     <option value="Goibibo" class="text-muted"> Goibibo</option>
