@@ -1215,20 +1215,8 @@ class BookingController extends Controller
         }
 
 
-      //  return redirect()->back()->with('checkout', 'Checkout information has been updated to your list');
         return redirect()->route('booking.view', ['id' => $data->id])->with('add', 'Checkout information has been updated to your list.');
 
-        //$message_key = 'Dear%20'.$customer_name.'%0a%0aThank%20you%20for%20choosing%20Sri%20Maruthi%20Inn%20for%20your%20recent%20stay.%20We%20hope%20you%20had%20a%20great%20experience%20with%20us.%20We%20would%20love%20to%20hear%20your%20thoughts%20and%20feedback%20on%20your%20stay.%20Please%20take%20a%20moment%20to%20complete%20our%20short%20survey%20using%20the%20link%20below.%20Your%20feedback%20is%20valuable%20to%20us%20and%20will%20help%20us%20improve%20our%20services%20for%20future%20guests.%0a%0aThank%20you%20for%20your%20time,%20and%20we%20look%20forward%20to%20seeing%20you%20again%20soon!%0a%0aFeedback%20link%20:%20https://srimaruti.com/feedback';
-        //$access_token_key = env('WHATSAPP_ACCESS_TOKEN');
-        //$instance_id_key = env('WHATSAPP_INSTANCE_ID');
-
-        //$response = Http::post('https://smstool.in/api/send.php?number=91'.$whatsapp.'&type=text&message='.$message_key.'&instance_id='.$instance_id_key.'&access_token='.$access_token_key.'');
-
-        //if($response->successful()){
-        //    return redirect()->back()->with('checkout', 'Checkout information has been updated to your list, and notification send to customer.');
-        //} else {
-        //    return redirect()->back()->with('checkout', 'Checkout information has been updated to your list');
-        //}
     }
 
     public function pay_balance(Request $request, $id)

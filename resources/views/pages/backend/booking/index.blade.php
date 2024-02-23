@@ -260,7 +260,7 @@
                                                         @endif
 
 
-                                                                    @if ($bookingDatas['chick_out_date'] == $today)
+                                                                    <!-- @if ($bookingDatas['chick_out_date'] == $today) -->
                                                                         <li>
                                                                             <a href="#checkout{{ $bookingDatas['id'] }}"
                                                                                 data-bs-toggle="modal"
@@ -268,13 +268,13 @@
                                                                                 class="btn btn-sm btn-soft-success checkout{{ $bookingDatas['id'] }}"
                                                                                 data-bs-target="#checkout{{ $bookingDatas['id'] }}">Checkout</a>
                                                                         </li>
-                                                                    @elseif($bookingDatas['chick_out_date'] < $today)
+                                                                    <!-- @elseif($bookingDatas['chick_out_date'] < $today)
                                                                     <li><a href="#" class="btn btn-sm btn-soft-success">Over Date</a></li>
                                                                     @elseif($bookingDatas['chick_out_date'] > $today)
                                                                         <li>
                                                                             
                                                                         </li>
-                                                                    @endif
+                                                                    @endif -->
                                                        
 
                                                         <li>
